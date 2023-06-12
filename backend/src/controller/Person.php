@@ -43,7 +43,7 @@ class Person extends DBAccess {
         return $response -> withStatus($status);
     }//End delete
     
-    //No funciona
+    //Funciona
     public function get(Request $request, Response $response, $args){
         $res = $this -> getData(self::RESOURCE);
         $status = sizeof($res) > 0 ? 200 : 204;

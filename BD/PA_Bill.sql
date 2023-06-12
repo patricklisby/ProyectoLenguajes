@@ -40,14 +40,14 @@ _idPerson int(25)
 RETURNS INT(1) 
 BEGIN
  DECLARE _cant INT;
- select count(_idBill) into _cant from bills
- where _idBill = __idBill;
+ select count(idBill) into _cant from bills
+ where idBill = _idBill;
     if _cant > 0 then
     update bills set
     idBill = _idBill,
     idDetail = _idDetail,
 	idPerson = _idPerson
- where idBill = _idBill;
+	where idBill = _idBill;
  end if;
  return _cant;
  end$$

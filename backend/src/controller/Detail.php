@@ -16,7 +16,7 @@ class Detail extends DBAccess {
       $body = json_decode($request -> getbody());
 
       //self para llamar constantes
-      $res = $this -> createBD($body,self::RESOURCE);
+         $res = $this -> createBD($body,self::RESOURCE);
         $status = match($res[0]){
             '0',0 => 201,
             '1',1 => 409,

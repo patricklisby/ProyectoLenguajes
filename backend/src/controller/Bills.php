@@ -16,11 +16,11 @@ class Bills extends DBAccess {
       $body = json_decode($request -> getbody());
 
       //self para llamar constantes
-      $res = $this -> createBD($body,self::RESOURCE)[0];
-        $status = match($res){
-            '0' => 201,
-            '1' => 409,
-            '2' => 404
+      $res = $this -> createBD($body,self::RESOURCE);
+        $status = match($res[0]){
+            '0',0 => 201,
+            '1',1 => 409,
+            '2',2 => 404
         };
          return $response -> withStatus($status);
     }
@@ -29,10 +29,11 @@ class Bills extends DBAccess {
         $id = $args['id'];
         $body = json_decode($request -> getbody(),1);
         $res = $this ->editBD($body, self::RESOURCE, $id);
+        //var_dump($res);die();
         $status = match($res[0]){
-            '0' => 404,
-            '1' => 200,
-            '2' => 409
+            '0',0 => 404,
+            '1',1 => 200,
+            '2',2 => 409
         };
            return $response -> withStatus($status);
     }

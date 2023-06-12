@@ -42,8 +42,8 @@ class Classification extends DBAccess {
         $status = $res > 0?200:404;
         return $response -> withStatus($status);
     }//End delete
-
-    public function get2(Request $request, Response $response, $args){
+    
+    public function get(Request $request, Response $response, $args){
         $res = $this -> getData(self::RESOURCE);
         $status = sizeof($res) > 0 ? 200 : 204;
         if($res)
@@ -53,22 +53,23 @@ class Classification extends DBAccess {
             ->withHeader('Content-type', 'Application/json')
             ->withStatus($status);
     }
-    
+
     //No funciona
-    public function get(Request $request, Response $response, $args){
+    public function get2(Request $request, Response $response, $args){
         $res = $this -> getData(self::RESOURCE);
-        $i = 0;
+        $i = 1;
         $status = sizeof($res) > 0 ? 200 : 204;
         if($res){
             //var_dump($res);die(); //Si trae datos
             foreach ($res as $val){
-                //var_dump($val);die();
-                if($val != null){
+                
+                if(sizeof($res) > $i){
                     $i++;
                 }
             }
         $response->getBody()->write(json_encode($res[$i]));
         //$response->getBody()->write($res);
+        
         }
       return $response
             ->withHeader('Content-type', 'Application/json')
