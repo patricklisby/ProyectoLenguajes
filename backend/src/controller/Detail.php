@@ -12,18 +12,18 @@ class Detail extends DBAccess {
     //atributos
     const RESOURCE = "Detail";
 
-   public function create(Request $request, Response $response, $args){
-      $body = json_decode($request -> getbody());
-
-      //self para llamar constantes
-         $res = $this -> createBD($body,self::RESOURCE);
-        $status = match($res[0]){
-            '0',0 => 201,
-            '1',1 => 409,
-            '2',2 => 404
-        };
-         return $response -> withStatus($status);
-    }
+    public function create(Request $request, Response $response, $args){
+        $body = json_decode($request -> getbody());
+  
+        //self para llamar constantes
+        $res = $this -> createBD($body,self::RESOURCE);
+          $status = match($res[0]){
+              '0',0 => 201,
+              '1',1 => 409,
+              '2',2 => 404
+          };
+           return $response -> withStatus($status);
+      }
     //Funciona
     public function edit(Request $request, Response $response, $args){
         $id = $args['id'];
