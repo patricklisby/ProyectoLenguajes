@@ -16,7 +16,7 @@ end$$
 DROP FUNCTION IF EXISTS newDetail$$
 CREATE FUNCTION newDetail (
 _idDetail int (25),
-_idCostumer int(25),
+_idCustumer int(25),
 _idProduct int(25),
 _cantItem int (25)
 )
@@ -29,7 +29,7 @@ begin
     select cantItem into _cantMaxItem from warehouse where idProduct = _idProduct;
     if _cantMaxItem >= _cantItem then
         insert into detail
-            values (_idDetail, _idCostumer, _idProduct, _cantItem);
+            values (_idDetail, _idCustumer, _idProduct, _cantItem);
 
     end if;
     end if;

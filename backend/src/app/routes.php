@@ -4,7 +4,7 @@ namespace App\controller;
 use Slim\Routing\RouteCollectorProxy;
 
 $app->group('/person', function(RouteCollectorProxy $person){
-    $person->patch('/role/{id}', Person::class . ':changeRole');
+    $person->patch('/rol/{id}', Person::class . ':changeRole');
 
     $person->group('/passw', function(RouteCollectorProxy $passw){
         //No usar verbos en los endpoints
@@ -20,13 +20,13 @@ $app->group('/sesion', function(RouteCollectorProxy $sesion){
 });//Grupo sesion
 
 //listo
-$app->group('/role', function(RouteCollectorProxy $role){
-    $role->get('', Rol::class . ':get');//Listo
-    $role->get('/{id}', Rol::class . ':find');//Listo 
-    $role->post('', Rol::class . ':create');//Listo
+$app->group('/rol', function(RouteCollectorProxy $rol){
+    $rol->get('', Rol::class . ':get');//Listo
+    $rol->get('/{id}', Rol::class . ':find');//Listo 
+    $rol->post('', Rol::class . ':create');//Listo
     //modifica toda la estructura
-    $role->put('/{id}', Rol::class . ':edit');//ListogetDataget
-    $role->delete('/{id}', Rol::class . ':delete');//Listo
+    $rol->put('/{id}', Rol::class . ':edit');//ListogetDataget
+    $rol->delete('/{id}', Rol::class . ':delete');//Listo
 });
 
 $app->group('/bills', function(RouteCollectorProxy $bills){

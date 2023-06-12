@@ -33,7 +33,7 @@ protected $container;
         $res = $query->fetch(PDO::FETCH_NUM);
         $query = null;
         $con = null;
-        return $res[0];
+        return $res;
       }
 
       public function createUsrBD($datos,$RESOURCE,$role,$campoId){
@@ -93,7 +93,7 @@ protected $container;
         $res = $query->fetch(PDO::FETCH_NUM);
         $query = null;
         $con = null;
-        return $res[0];
+        return $res;
       }
 
       public function deleteBD($id, $RESOURCE){

@@ -16,11 +16,11 @@ class Classification extends DBAccess {
       $body = json_decode($request -> getbody());
 
       //self para llamar constantes
-      $res = $this -> createBD($body,self::RESOURCE)[0];
-        $status = match($res){
-            '0' => 201,
-            '1' => 409,
-            '2' => 404
+      $res = $this -> createBD($body,self::RESOURCE);
+        $status = match($res[0]){
+            '0',0 => 201,
+            '1',1 => 409,
+            '2',2 => 404
         };
          return $response -> withStatus($status);
     }
@@ -30,9 +30,9 @@ class Classification extends DBAccess {
         $body = json_decode($request -> getbody(),1);
         $res = $this ->editBD($body, self::RESOURCE, $id);
         $status = match($res[0]){
-            '0' => 404,
-            '1' => 200,
-            '2' => 409
+            '0',0 => 404,
+            '1',1 => 200,
+            '2',2 => 409
         };
            return $response -> withStatus($status);
     }
@@ -42,22 +42,33 @@ class Classification extends DBAccess {
         $status = $res > 0?200:404;
         return $response -> withStatus($status);
     }//End delete
+
+    public function get2(Request $request, Response $response, $args){
+        $res = $this -> getData(self::RESOURCE);
+        $status = sizeof($res) > 0 ? 200 : 204;
+        if($res)
+        $response->getBody()->write(json_encode($res));
+
+      return $response
+            ->withHeader('Content-type', 'Application/json')
+            ->withStatus($status);
+    }
     
     //No funciona
     public function get(Request $request, Response $response, $args){
         $res = $this -> getData(self::RESOURCE);
-        $i = 1;
+        $i = 0;
         $status = sizeof($res) > 0 ? 200 : 204;
         if($res){
             //var_dump($res);die(); //Si trae datos
             foreach ($res as $val){
-                if(sizeof($res) > $i){
+                //var_dump($val);die();
+                if($val != null){
                     $i++;
                 }
             }
         $response->getBody()->write(json_encode($res[$i]));
         //$response->getBody()->write($res);
-        
         }
       return $response
             ->withHeader('Content-type', 'Application/json')
