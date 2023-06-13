@@ -31,6 +31,31 @@ begin
     return _cant;
 end$$
 
+DROP PROCEDURE IF EXISTS filterSupplier$$
+CREATE PROCEDURE filterSupplier (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idSupplier&supplierDescription&') INTO @filtro;
+    SELECT concat("SELECT * from supplier where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsSupplier$$
+CREATE PROCEDURE numRegsSupplier (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros,  'idSupplier&supplierDescription&') INTO @filtro;
+    SELECT concat("SELECT count(idSupplier) from supplier where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP FUNCTION IF EXISTS editSupplier$$
 CREATE FUNCTION editSupplier(
 _idSupplier int (25),

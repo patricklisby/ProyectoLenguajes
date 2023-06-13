@@ -7,6 +7,31 @@ begin
 select * from customer where idCustomer = _idCustomer;
 end$$
 
+DROP PROCEDURE IF EXISTS filterCustomer$$
+CREATE PROCEDURE filterCustomer (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idCustomer&nameCustomer&firstLastNameCustomer&secondLastNameCustomer&') INTO @filtro;
+    SELECT concat("SELECT * from customer where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsCustomer$$
+CREATE PROCEDURE numRegsCustomer (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros, 'idCustomer&nameCustomer&firstLastNameCustomer') INTO @filtro;
+    SELECT concat("SELECT count(idCustomer) from customer where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP PROCEDURE IF EXISTS getCustomer$$
 CREATE PROCEDURE getCustomer()
 begin

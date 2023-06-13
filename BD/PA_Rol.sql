@@ -13,6 +13,32 @@ begin
 select * from rol;
 end$$
 
+
+DROP PROCEDURE IF EXISTS filterRol$$
+CREATE PROCEDURE filterRol (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idRol&rolDescription&') INTO @filtro;
+    SELECT concat("SELECT * from rol where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsRol$$
+CREATE PROCEDURE numRegsRol (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros, 'idRol&rolDescription&') INTO @filtro;
+    SELECT concat("SELECT count(idRol) from rol where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP FUNCTION IF EXISTS newRol$$
 CREATE FUNCTION newRol (
 _idRol int (25),

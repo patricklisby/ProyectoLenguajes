@@ -13,6 +13,31 @@ begin
 select * from person;
 end$$
 
+DROP PROCEDURE IF EXISTS filterPerson$$
+CREATE PROCEDURE filterPerson (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idPerson&idRol&namePerson&firstLastNamePerson&secondLastNamePerson&') INTO @filtro;
+    SELECT concat("SELECT * from person where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsPerson$$
+CREATE PROCEDURE numRegsPerson (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros,  'idPerson&idRol&namePerson&firstLastNamePerson&secondLastNamePerson&') INTO @filtro;
+    SELECT concat("SELECT count(idPerson) from person where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP FUNCTION IF EXISTS newPerson$$
 CREATE FUNCTION newPerson (
 _idPerson int (25),

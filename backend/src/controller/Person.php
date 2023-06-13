@@ -67,5 +67,25 @@ class Person extends DBAccess {
             ->withHeader('Content-type', 'Application/json')
             ->withStatus($status);
     }//End find
+    public function filter(Request $request, Response $response, $args){
+        $datos = $request->getQueryParams();
+        $res = $this -> filterBD($datos, $args, self::RESOURCE);
+        $response->getBody()->write(json_encode($res));
+        return $response
+            ->withHeader('Content-type', 'Application/json')
+            ->withStatus(200);
+    }//End filtrar
+
+    public function numRegs(Request $request, Response $response, $args){
+        //obteniendo los datos que pasan por el query params
+        $datos = $request->getQueryParams();
+      //  var_dump($datos);die();
+        $res['cant'] = $this -> numRegsBD($datos, self::RESOURCE);
+        
+        $response->getBody()->write(json_encode($res));
+        return $response
+            ->withHeader('Content-type', 'Application/json')
+            ->withStatus(200);
+    }//End numRegs
 
 }//End class

@@ -13,6 +13,31 @@ begin
 select * from warehouse;
 end$$
 
+DROP PROCEDURE IF EXISTS filterWarehouse$$
+CREATE PROCEDURE filterWarehouse (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idWareHouse&idProduct&') INTO @filtro;
+    SELECT concat("SELECT * from warehouse where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsWarehouse$$
+CREATE PROCEDURE numRegsWarehouse (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros,  'idWarehouse&idProduct&') INTO @filtro;
+    SELECT concat("SELECT count(idWarehouse) from Warehouse where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP FUNCTION IF EXISTS newWareHouse$$
 CREATE FUNCTION newWareHouse (
 _idWareHouse int (25),

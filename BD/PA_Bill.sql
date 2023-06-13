@@ -7,6 +7,31 @@ begin
 select * from bills where idBill = _idBill;
 end$$
 
+DROP PROCEDURE IF EXISTS filterBill$$
+CREATE PROCEDURE filterBill (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idBill&idDetail&idPerson&') INTO @filtro;
+    SELECT concat("SELECT * from bills where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsBill$$
+CREATE PROCEDURE numRegsBill (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros, 'idBill&idDetail&idPerson&') INTO @filtro;
+    SELECT concat("SELECT count(idBill) from bills where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP PROCEDURE IF EXISTS getBill$$
 CREATE PROCEDURE getBill()
 begin

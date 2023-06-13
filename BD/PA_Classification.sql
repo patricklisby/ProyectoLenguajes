@@ -7,6 +7,31 @@ begin
 select * from classification where idClassification = _idClassification;
 end$$
 
+DROP PROCEDURE IF EXISTS filterClassification$$
+CREATE PROCEDURE filterClassification (
+    _parametros varchar(250), -- %idbill%&%idDetail%&%idPerson%&%dateGeneration%&
+    _pagina SMALLINT UNSIGNED, 
+    _cantRegs SMALLINT UNSIGNED)
+begin
+    SELECT strFilter(_parametros, 'idClassification&classificationDescription&') INTO @filtro;
+    SELECT concat("SELECT * from classification where ", @filtro, " LIMIT ", 
+        _pagina, ", ", _cantRegs) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
+DROP PROCEDURE IF EXISTS numRegsClassification$$
+CREATE PROCEDURE numRegsClassification (
+    _parametros varchar(250))
+begin
+    SELECT strFilter(_parametros, 'idClassification&classificationDescription&') INTO @filtro;
+    SELECT concat("SELECT count(idClassification) from classification where ", @filtro) INTO @sql;
+    PREPARE stmt FROM @sql;
+    EXECUTE stmt;
+    DEALLOCATE PREPARE stmt;
+end$$
+
 DROP PROCEDURE IF EXISTS getClassification$$
 CREATE PROCEDURE getClassification()
 begin
