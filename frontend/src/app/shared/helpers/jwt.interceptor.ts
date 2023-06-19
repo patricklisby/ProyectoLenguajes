@@ -17,15 +17,13 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const srvAuth = inject(AuthService);
     const srvToken = inject(TokenService);
-
-    if (srvAuth.isLogged()) {
-      request = request.clone({
-          setHeaders : {
-            Authorization : `Bearer ${srvToken.token}`
-          }
-      })
+    if (srvAuth.isloged()) {
+      request=request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${srvToken.token}`,
+        },
+      });
     }
-    
     return next.handle(request);
   }
 }

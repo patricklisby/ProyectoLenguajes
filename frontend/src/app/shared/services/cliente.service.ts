@@ -1,54 +1,64 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClienteModel } from '../models/cliente.model';
-import { throwError, Observable, retry, catchError } from 'rxjs';
+import { Observable, throwError, retry, catchError } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
+//import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-  SRV : string = 'http://tallerBD'
-  httpOptions = {
-    headers : new HttpHeaders({
-      'Content-Type' : 'Aplication/json'
-    })
-  }
-  constructor(
-    private http : HttpClient
-  ) { }
-  buscar(id : any) : Observable<ClienteModel>{
-    return this.http.get<ClienteModel>(`${this.SRV}/cliente/${id}`)
-    .pipe(retry(1), catchError(this.handleError));
-  }
-  filtrar(parametros : any, pag : number, lim : number) : Observable<ClienteModel[]>{
+  SRV : string = environment.SRV;
+
+   httpOptions = {
+      headers : new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+   }
+
+  constructor(private http: HttpClient) { }
+  
+  buscar( id : any) : Observable<ClienteModel> {
+    return this.http.get<ClienteModel>(`${this.SRV}/cliente/${id}`).pipe(retry(1), 
+    catchError(this.handleError));
+    }
+
+  filtar (parametros : any,pag : number, lim : number): Observable<ClienteModel[]>{
     let params = new HttpParams;
-    for (const prop in parametros){
+    for(const prop in parametros){
       if(prop){
-        params = params.append(prop, parametros[prop]);
+        params = params.append(prop,parametros[prop]);
       }
     }
-   return this.http.get<ClienteModel[]>(`${this.SRV}/cliente/${pag}/${lim}`,{params:params})
-   .pipe(retry(1), catchError(this.handleError));
+    //this.http.get<ClienteModel>(this.SRV+'/cliente/'+pag+'/'+lim);
+   return this.http.get<ClienteModel[]>(`${this.SRV}/cliente/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
+   console.log("editando")
   }
-  guardar(datos : any, id : any) : Observable<any>{
-    if(id){
+
+  guardar(datos : any, id? : any): Observable<any>{
+    if (id) {//modificar
       return this.http.put(`${this.SRV}/cliente/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-    }else{
-      return this.http.post(`${this.SRV}/cliente`,datos, this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      console.log("editando")
+
+    } else {//crear
+      return this.http.post(`${this.SRV}/cliente`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+      console.log("crear nuevo")
     }
   }
-  //pipe( ) retorna rxjs
-  eliminar(id :any) : Observable<any>{
-    return this.http.delete(`${this.SRV}/cliente/${id}`)
-    .pipe(retry(1), catchError(this.handleError));
+
+  eliminar(id: any) : Observable<any>{
+    return this.http.delete(`${this.SRV}/cliente/${id}`).pipe(retry(1), catchError(this.handleError));
   }
-  private handleError(error : any){
+
+  //manejador de error
+  private handleError(error: any) {
     return throwError(
-      () =>{
-      return error.status;
+      ()=> {
+        return error.status;
       }
-    )
+    );
   }
-}//End ClienteService
+
+}

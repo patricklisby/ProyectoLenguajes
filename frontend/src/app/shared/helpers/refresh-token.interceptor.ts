@@ -14,14 +14,14 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const authSrv = inject(AuthService);
+  const authSrv = inject(AuthService);
     return next.handle(request)
     .pipe(
-        finalize(
-          () => {
-            AuthService: authSrv.verificarRefrescar();
-          }
-        )
+      finalize(
+        ()=>{
+          authSrv.verificarRefrescar();
+        }
+      )
     );
   }
 }

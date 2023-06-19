@@ -1,10 +1,22 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { ClienteService } from '../../shared/services/cliente.service';
 import { ClienteModel } from '../../shared/models/cliente.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  MaxLengthValidator,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { state, trigger, style, animate, transition } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
+import { PrintService } from 'src/app/shared/services/print.service';
 
 @Component({
   selector: 'app-cliente',
@@ -16,35 +28,37 @@ import { state, trigger, style, animate, transition } from '@angular/animations'
         'show',
         style({
           'max-height': '100%',
-          transform: 'translateX' //'max-height' : '100%', 'opacity' : '1', 'visibility' : 'visible'
+          opacity: '1',
+          visibility: 'visible',
         })
       ),
       state(
         'hide',
         style({
-          'max-height': '0',
-          'opacity' : '0',
-          transform: 'translate(-100%)' //'max-height' : '0%', 'opacity' : '0', 'visibility' : '0'
+          'max-height': '0%',
+          opacity: '0',
+          visibility: 'hide',
         })
       ),
-      transition('show => hide', animate('600ms ease-in-out')),
-      transition('hide => show', animate('1000ms ease-in-out'))
-    ])
-  ]
+      transition('show=>hide', animate('600ms ease-in-out')),
+      transition('hide=>show', animate('100ms ease-in-out')),
+    ]),
+  ],
 })
 export class ClienteComponent implements OnInit {
   filtro: any;
-  srvCliente = inject(ClienteService);
-  fb = inject(FormBuilder);
-  router = inject(Router);
+  srvCliente = inject(ClienteService); // Injectar Dependencia
+  fb = inject(FormBuilder); // Injectar
+  srvPrint = inject(PrintService);
+  router = inject(Router); // Injectar
   frmCliente: FormGroup;
   clientes = [new ClienteModel()];
   titulo: string = '';
   pagActual = 1;
   itemsPPag = 5;
   numRegs = 0;
-  paginas = [2,5,10,20,50];
-  filtroVisible : boolean = false;
+  paginas = [2, 5, 10, 20, 50];
+  filtroVisible: boolean = false;
 
   constructor() {
     this.frmCliente = this.fb.group({
@@ -57,56 +71,68 @@ export class ClienteComponent implements OnInit {
           Validators.maxLength(15),
           Validators.pattern('[0-9]*'),
         ],
-      ],
+      ], //requerido - numeros -tamMax(15) -tamMin(9)
+
       nombre: [
         '',
         [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(30),
-          Validators.pattern(
-            '([A-Za-ÑñáÁéÉíÍóÓúÚ]*)( ([A-Za-ÑñáÁéÉíÍóÓúÚ]*)){0,1}'
-          ),
+          Validators.pattern('([A-Za-záéíóúñÑ]*)( ([A-Za-záéíóúñÑ]*)){0,1}'),
         ],
-      ],
+      ], //requerido - -tamMin(9)-formato(letras un espacio)
+
       apellido1: [
         '',
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(15),
-          Validators.pattern(
-            '([A-Za-ÑñáÁéÉíÍóÓúÚ]*)( ([A-Za-ÑñáÁéÉíÍóÓúÚ]*)){0,2}'
-          ),
+          Validators.pattern('[A-Za-záéíóúñÑ]*'),
         ],
-      ],
+      ], //requerido - tamMin(9)-formato(letras)
+
       apellido2: [
         '',
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(15),
-          Validators.pattern(
-            '([A-Za-ÑñáÁéÉíÍóÓúÚ]*)( ([A-Za-ÑñáÁéÉíÍóÓúÚ]*)){0,2}'
-          ),
+          Validators.pattern('[A-Za-záéíóúñÑ]*'),
         ],
-      ],
+      ], //requerido -tamMin(9)-formato(letras)
+
       telefono: [
         '',
         [Validators.required, Validators.pattern('[0-9]{4}-[0-9]{4}')],
-      ],
-      celular: ['', Validators.pattern('[0-9]{4}-[0-9]{4}')],
-      direccion: ['', Validators.minLength(5)],
-      correo: ['', [Validators.required, Validators.email]],
+      ], //requerido - formato(####-####)
+
+      celular: ['', [Validators.pattern('[0-9]{4}-[0-9]{4}')]], //- formato(####-####)
+
+      direccion: ['', [Validators.minLength(5)]], //tamMin(9)
+
+      correo: ['', [Validators.required, , Validators.email]], //requerido - numeros -tamMax(15) -tamMin(9)
+
       fechaIngreso: [''],
     });
   }
-
-  get stateFiltro(){
-    return this.filtroVisible? 'show' : 'hide';
-  }
   get F() {
     return this.frmCliente.controls;
+  }
+
+  get stateFiltro() {
+    return this.filtroVisible ? 'show' : 'hide';
+  }
+
+  onCambioPag(e: any) {
+    this.pagActual = e;
+    this.filtrar();
+  }
+  onCambioTam(e: any) {
+    this.itemsPPag = e.target.value;
+    this.pagActual = 1;
+    this.filtrar();
   }
   onSubmit() {
     const cliente = {
@@ -120,191 +146,221 @@ export class ClienteComponent implements OnInit {
       correo: this.frmCliente.value.correo,
     };
     const texto = this.frmCliente.value.id
-      ? 'Cambios Guardados.'
-      : 'Creado con éxtio.';
+      ? 'Actualizado correctamente'
+      : 'Creado correctamente';
     this.srvCliente.guardar(cliente, this.frmCliente.value.id).subscribe({
       complete: () => {
+        this.filtrar();
         Swal.fire({
-          title: texto,
           icon: 'success',
+          title: texto,
           showConfirmButton: false,
           timer: 1500,
         });
-        this.filtrar();
       },
+
       error: (e) => {
         switch (e) {
           case 404:
             Swal.fire({
-              title: 'Cliente no existe.',
-              icon: 'info',
-              showCancelButton: true,
+              icon: 'error',
+              title: 'El cliente no existe',
               showConfirmButton: false,
               cancelButtonColor: '#d33',
+              showCancelButton: true,
               cancelButtonText: 'Cerrar',
             });
-            this.filtrar();
             break;
+
           case 409:
             Swal.fire({
-              title: 'Cliente ya existe',
-              icon: 'info',
-              showCancelButton: true,
+              icon: 'error',
+              title: 'id cliente ya existe',
               showConfirmButton: false,
               cancelButtonColor: '#d33',
+              showCancelButton: true,
               cancelButtonText: 'Cerrar',
             });
-            this.filtrar();
             break;
         }
+        this.filtrar();
       },
     });
   }
+
   onNuevo() {
     this.titulo = 'Nuevo Cliente';
-    //console.log('Creando nuevo');
+    console.log('Creando Nuevo');
     this.frmCliente.reset();
   }
-  onEditar(id: any) {
-    this.titulo = "Modificar Cliente";
-    this.srvCliente.buscar(id)
-    .subscribe({
-      next : (data) => {
-        this.frmCliente.setValue(data);
-      },
-      error : (e) => {
-        if(e === 404){
-          Swal.fire({
-            title : 'Cliente no existe',
-            icon : 'info',
-            showCancelButton : true,
-            showConfirmButton : false,
-            cancelButtonAriaLabel : '#d33',
-            cancelButtonText : 'Cerrar'
-          })
-        }
-        this.filtrar();
-      }
-    });
-    console.log('Editando ', id);
-  }
+
   onEliminar(id: any, nombre: string) {
     Swal.fire({
-      title: '¿Desea eliminar este cliente?',
+      title: 'Estas seguro de eliminar ?',
       text: nombre,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Eliminar',
-      cancelButtonText: 'Cancelar',
+      cancelButtonText: 'cancelar',
     }).then((result) => {
-      //.then es una promesa
       if (result.isConfirmed) {
         this.srvCliente.eliminar(id).subscribe({
-          complete : () => {
+          // este tipo de subscribe se usa cuando viene de un pipe
+          //next: () =>{},//proximo dato en strim
+          complete: () => {
             Swal.fire(
-              '¡Ha sido eliminado!',
-              'Cliente eliminado exitosamente',
+              'Eliminado',
+              'Cliente eliminado de forma correcta',
               'success'
             );
-            this.filtrar();
-          },
+            this.filtrar(); // este actualiza
+          }, //ejecutar el strim
           error: (e) => {
+            //console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
-                  title: 'Cliente no existe.',
-                  icon: 'error',
+                  title: 'Cliente no existe!',
+                  icon: 'info',
                   showCancelButton: true,
                   showConfirmButton: false,
                   cancelButtonColor: '#d33',
                   cancelButtonText: 'Cerrar',
                 });
-                this.filtrar();
                 break;
               case 412:
                 Swal.fire({
-                  title: 'No se puede eliminar Cliente.',
-                  text: 'El cliente está relacionado con artefacto',
-                  icon: 'error',
+                  title: 'No se puede eliminar Cliente',
+                  text: 'El cliente tiene artefacto relacionado',
+                  icon: 'info',
                   showCancelButton: true,
                   showConfirmButton: false,
                   cancelButtonColor: '#d33',
                   cancelButtonText: 'Cerrar',
                 });
-                this.filtrar();
                 break;
             }
-          },
+          }, //capturas los estados de error
         });
       }
     });
-  } //end onEditar
-  resetearFiltro(){
-    this.filtro = { idCliente: '', nombre: '', apellido1: '', apellido2: '' };
-    this.filtrar();
   }
+
   onInfo(id: any) {
-    this.srvCliente.buscar(id)
-    .subscribe(
-      data => {
-        //var! = acepta nulos
-        const fechaIng = new Date(data.fechaIngreso!).toLocaleDateString("es-Es");
-        Swal.fire({
-          title : '<strong>Información Cliente</strong>',
-          html : '<br>'+
-          '<table class = "table table-sm table-striped">'+
-          '<tbody class = "text-start">'+
-          '<tr><th>Id</th>'+`<td>${data.idCliente}</td></tr>`+
-          '<tr><th>Nombre</th>'+`<td>${data.nombre} ${data.apellido1} ${data.apellido2}</td></tr>`+
-          '<tr><th>Telefono</th>'+`<td>${data.telefono}</td></tr>`+
-          '<tr><th>Celular</th>'+`<td>${data.celular}</td></tr>`+
-          '<tr><th>Correo</th>'+`<td>${data.correo}</td></tr>`+
-          '<tr><th>Fecha Ingreso</th>'+`<td>${fechaIng}</td></tr>`+
-          '<tr><th>Direccion</th>'+`<td>${data.direccion}</td></tr>`+
-          '</tbody>'+
+    this.srvCliente.buscar(id).subscribe((data) => {
+      console.log(data);
+      const fechaIng = new Date(data.fechaIngreso!).toLocaleDateString('es-Es');
+      Swal.fire({
+        title: '<strong> Informacion Cliente</strong>',
+        html:
+          '<br>' +
+          '<table class="table table-sm table-striped">' +
+          '<tbody class="text-start">' +
+          '<tr><th>Id</th>' +
+          `<td>${data.idCliente}</td></tr>` +
+          '<tr><th>Nombre</th>' +
+          `<td>${data.nombre}${data.apellido1}${data.apellido2}</td></tr>` +
+          '<tr><th>Telefono</th>' +
+          `<td>${data.telefono}</td></tr>` +
+          '<tr><th>Celular</th>' +
+          `<td>${data.celular}</td></tr>` +
+          '<tr><th>Correo</th>' +
+          `<td>${data.correo}</td></tr>` +
+          '<tr><th>Fecha Ingreso</th>' +
+          `<td>${fechaIng}</td></tr>` +
+          '</tbody>' +
           '</table>',
-          showConfirmButton : false,
-          showCancelButton : true,
-          cancelButtonText : 'Cerrar'
-        })
+        showConfirmButton: false,
+        showCancelButton: true,
+        cancelButtonText: 'Cerrar',
+      });
+    });
+  }
+
+  onEditar(id: any) {
+    this.titulo = 'Editando Cliente';
+    this.srvCliente.buscar(id).subscribe(
+      /*data => {
+      console.log(data);
+      this.frmCliente.setValue(data)
+      }*/
+      {
+        next: (data) => {
+          this.frmCliente.setValue(data);
+        },
+        error: (e) => {
+          if (e == 404) {
+            Swal.fire({
+              title: 'Cliente no Existe',
+              icon: 'info',
+              showCancelButton: true,
+              showConfirmButton: false,
+              cancelButtonAriaLabel: '#d33',
+              cancelButtonText: 'Cerrar',
+            });
+          }
+          this.filtrar();
+        },
       }
-    )
+      //guardas
+      ///ng g guard shared/guards/auth --skip-tests=true
+    );
+    console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['']);
   }
-  onFiltrar(){
+
+  filtrar() {
+    this.srvCliente
+      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+        this.clientes = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.clientes);
+      });
+  }
+  onFiltrar() {
     this.filtroVisible = !this.filtroVisible;
-    if(!this.filtroVisible){
-      this.resetearFiltro;
+    if (!this.filtroVisible) {
+      this.resetearFiltro();
     }
   }
-  onFiltroChange(f : any){
+  onFiltrarChange(f: any) {
     this.filtro = f;
     this.filtrar();
   }
-
-  filtrar() {
-    this.srvCliente.filtrar(this.filtro, this.pagActual, this.itemsPPag)
-    .subscribe((data) => {
-      this.clientes = Object(data)['datos'];
-      this.numRegs = Object(data)['regs'];
-      console.log(this.clientes);
-    });
+  onImprimir(){
+    const encabezado = ["Id Cliente","Nombre","Telefono","Celular","Correo"];
+    this.srvCliente.filtar(this.filtro,1, this.numRegs)
+    .subscribe(
+      data => {
+        const cuerpo = Object(data)['datos']
+        .map(
+          (Obj : any) => {
+            const datos = [
+              Obj.idCliente,
+              Obj.nombre+ ' '+ Obj.apellido1 + ' '+Obj.apellido2,
+              Obj.telefono,
+              Obj.celular,
+              Obj.correo
+            ]
+            return datos;
+          }
+        )
+        this.srvPrint.print(encabezado, cuerpo, "Listado de Clientes",true);
+      }
+    );
   }
+  resetearFiltro() {
+    this.filtro = { idCliente: '', nombre: '', apellido1: '', apellido2: '' };
+    this.filtrar();
+  }
+
   ngOnInit() {
     this.resetearFiltro();
-  }
-  onCambioTama(e : any){
-    this.itemsPPag = e.target.value;
-    this.pagActual = 1;
-    this.filtrar();
-  }
-
-  onCambioPag(e : any){
-    this.pagActual = e;
-    this.filtrar();
   }
 }
