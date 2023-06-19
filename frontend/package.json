@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --o",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -22,10 +22,15 @@
     "@fortawesome/angular-fontawesome": "^0.13.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
+<<<<<<< HEAD
     "@sweetalert2/ngx-sweetalert2": "^12.0.0",
     "bootstrap": "^5.2.3",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.29",
+=======
+    "@sweetalert2/ngx-sweetalert2": "^12.1.0",
+    "bootstrap": "^5.2.3",
+>>>>>>> 676e0902507427ffa6f232ade601bd276ef517d4
     "ngx-pagination": "^6.0.3",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.7.12",

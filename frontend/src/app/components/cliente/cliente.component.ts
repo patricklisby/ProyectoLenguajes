@@ -45,7 +45,8 @@ import { PrintService } from 'src/app/shared/services/print.service';
     ]),
   ],
 })
-export class ClienteComponent implements OnInit {
+
+export class ClienteComponent implements OnInit{
   filtro: any;
   srvCliente = inject(ClienteService); // Injectar Dependencia
   fb = inject(FormBuilder); // Injectar
@@ -60,7 +61,7 @@ export class ClienteComponent implements OnInit {
   paginas = [2, 5, 10, 20, 50];
   filtroVisible: boolean = false;
 
-  constructor() {
+  constructor(){ 
     this.frmCliente = this.fb.group({
       id: [''],
       idCliente: [
@@ -279,37 +280,44 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  onEditar(id: any) {
-    this.titulo = 'Editando Cliente';
-    this.srvCliente.buscar(id).subscribe(
+
+
+  onEditar(id : any){
+    this.titulo = "Editando Cliente"
+    this.srvCliente.buscar(id)
+    .subscribe( 
       /*data => {
       console.log(data);
       this.frmCliente.setValue(data)
       }*/
       {
-        next: (data) => {
-          this.frmCliente.setValue(data);
+        next:(data)=>{
+          this.frmCliente.setValue(data)
         },
-        error: (e) => {
-          if (e == 404) {
-            Swal.fire({
-              title: 'Cliente no Existe',
-              icon: 'info',
-              showCancelButton: true,
-              showConfirmButton: false,
-              cancelButtonAriaLabel: '#d33',
-              cancelButtonText: 'Cerrar',
-            });
+        error:(e) =>{
+          if(e==404){
+            Swal.fire(
+              {
+                title: 'Cliente no Existe',
+                icon: 'info',
+                showCancelButton: true,
+                showConfirmButton: false,
+                cancelButtonAriaLabel: '#d33',
+                cancelButtonText : 'Cerrar'
+
+              }
+            )
           }
           this.filtrar();
-        },
+        }
       }
       //guardas
-      ///ng g guard shared/guards/auth --skip-tests=true
+///ng g guard shared/guards/auth --skip-tests=true
+
     );
-    console.log('Editando ', id);
+    console.log('Editando ',id);
   }
-  onCerrar() {
+  onCerrar(){
     this.router.navigate(['']);
   }
 
