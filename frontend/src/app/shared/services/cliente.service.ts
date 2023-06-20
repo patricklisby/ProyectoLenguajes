@@ -20,7 +20,8 @@ export class ClienteService {
   constructor(private http: HttpClient) { }
   
   buscar( id : any) : Observable<ClienteModel> {
-    return this.http.get<ClienteModel>(`${this.SRV}/cliente/${id}`).pipe(retry(1), 
+    return this.http.get<ClienteModel>(`${this.SRV}/cliente/${id}`)
+    .pipe(retry(1), 
     catchError(this.handleError));
     }
 

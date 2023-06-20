@@ -1,29 +1,36 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Taller</a>
+      <a class="navbar-brand" [routerLink]="['']">Aruaz&Lisby</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [routerLink]="['']">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/cliente']">Cliente</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" >Pricing</a>
+        <ul class="navbar-nav text-center">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Administración
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink] = "['/customer']" >Clientes</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/person']">Colaboradores</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/rol']" >Roles</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/classification']">Clasificación Productos</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/bills']">Facturas</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/supplier']">Proveedores</a></li>
+            </ul>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
+              Bodega
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" >Action</a></li>
-              <li><a class="dropdown-item" >Another action</a></li>
-              <li><a class="dropdown-item" >Something else here</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/product']">Productos</a></li>
+              <li><a class="dropdown-item" [routerLink] = "['/warehouse']">Inventario</a></li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink] = "['/details']">Venta</a>
           </li>
         </ul>
         <div class="btn-group dropstart" *ngIf="usuario">

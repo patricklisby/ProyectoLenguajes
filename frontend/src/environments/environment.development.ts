@@ -1,5 +1,5 @@
 export const environment = {
-    SRV : 'http://taller',
+    SRV : 'http://inventario',
     production: false,
 
 };

@@ -18,6 +18,15 @@ import { LoginComponent } from './components/login/login.component';
 import { Error403Component } from './components/error403/error403.component'; 
 import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
 import { RefreshTokenInterceptor } from './shared/helpers/refresh-token.interceptor';
+import { RolComponent } from './components/rol/rol.component';
+import { PersonComponent } from './components/person/person.component';
+import { ProductComponent } from './components/product/product.component';
+import { ClassificationComponent } from './components/classification/classification.component';
+import { BillsComponent } from './components/bills/bills.component';
+import { CustomerComponent } from './components/customer/customer.component';
+import { DetailsComponent } from './components/details/details.component';
+import { WarehouseComponent } from './components/warehouse/warehouse.component';
+import { SupplierComponent } from './components/supplier/supplier.component';
 
 
 @NgModule({
@@ -27,7 +36,16 @@ import { RefreshTokenInterceptor } from './shared/helpers/refresh-token.intercep
     NavBarComponent,
     HomeComponent,
     LoginComponent,
-    Error403Component
+    Error403Component,
+    RolComponent,
+    PersonComponent,
+    ProductComponent,
+    ClassificationComponent,
+    BillsComponent,
+    CustomerComponent,
+    DetailsComponent,
+    WarehouseComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,
