@@ -43,14 +43,14 @@ class Person extends DBAccess {
         return $response -> withStatus($status);
     }//End delete
     
-    //Funciona
-    public function get(Request $request, Response $response, $args){
-        $res = $this -> getData(self::RESOURCE);
+    public function get(Request $request, Response $response, $args)
+    {
+        $res = $this->getData(self::RESOURCE);
         $status = sizeof($res) > 0 ? 200 : 204;
-        if($res)
-        $response->getBody()->write(json_encode($res));
+        if ($res)
+            $response->getBody()->write(json_encode($res));
 
-      return $response
+        return $response
             ->withHeader('Content-type', 'Application/json')
             ->withStatus($status);
     }

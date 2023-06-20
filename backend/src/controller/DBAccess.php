@@ -87,9 +87,10 @@ class DBAccess
     {
         $params = $this->generarParam($datos);
         $params = substr($params, 0, 1) . ":id," . substr($params, 1);
+        
         $sql = "SELECT edit$RESOURCE$params";
         $d['id'] = $id;
-
+        //var_dump($d);die();
         foreach ($datos as $clave => $valor) {
             $d[$clave] = $valor;
         }
@@ -101,7 +102,7 @@ class DBAccess
         $res = $query->fetch(PDO::FETCH_NUM);
         $query = null;
         $con = null;
-        //var_dump($query);die();
+        
         return $res;
     }
 
