@@ -18,8 +18,10 @@ export class RolService {
 
   constructor(private http : HttpClient) { }
 
-  buscar( id : any) : Observable<RolModel>{
-    return this.http.get<RolModel>(`${this.SRV}/rol/${id}`)
+  buscar( idRol : any) : Observable<RolModel>{
+    console.log("No busque "+idRol);
+    
+    return this.http.get<RolModel>(`${this.SRV}/rol/${idRol}`)
     .pipe(retry(1), catchError(this.handleError));
     }
 
@@ -35,15 +37,17 @@ export class RolService {
      console.log("editando")
     }
 
-    guardar(datos : any, id? : any): Observable<any>{
-      if (id) {//modificar
-        return this.http.put(`${this.SRV}/rol/${id}`,datos, this.httpOptions)
+    guardar(datos : any, idRol? : any): Observable<any>{
+      if (idRol) {//modificar
+        console.log("Guardar en la parte de editar "+this.SRV + " / rol "+idRol);
+        return this.http.put(`${this.SRV}/rol/${idRol}`,datos, this.httpOptions)
         .pipe(retry(1), catchError(this.handleError));
-        console.log("editando")
+        
   
       } else {//crear
+        console.log("creando nuevo")
         return this.http.post(`${this.SRV}/rol`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-        console.log("crear nuevo")
+        
       }
     }
 

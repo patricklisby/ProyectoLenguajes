@@ -45,8 +45,7 @@ import { RolModel } from 'src/app/shared/models/roles.model';
     ]),
   ],
 })
-
-export class RolComponent implements OnInit{
+export class RolComponent implements OnInit {
   filtro: any;
   srvRol = inject(RolService); // Injectar Dependencia
   fb = inject(FormBuilder); // Injectar
@@ -61,18 +60,18 @@ export class RolComponent implements OnInit{
   paginas = [2, 5, 10, 20, 50];
   filtroVisible: boolean = false;
 
-  constructor(){ 
+  constructor() {
     this.frmRol = this.fb.group({
       idRol: [
         '',
         [
           Validators.required,
-          Validators.minLength(9),
-          Validators.maxLength(15),
+          Validators.minLength(1),
+          Validators.maxLength(10),
           Validators.pattern('[0-9]*'),
         ],
-      ], 
-      rolDescription: ['', [Validators.minLength(5)]],
+      ],
+      rolDescription: ['', [Validators.required,Validators.minLength(3)]],
     });
   }
   get F() {
@@ -92,22 +91,25 @@ export class RolComponent implements OnInit{
     this.pagActual = 1;
     this.filtrar();
   }
+
   onSubmit() {
-    const cliente = {
+    console.log("Si entro");
+    const rol = {
       idRol: this.frmRol.value.idRol,
       rolDescription: this.frmRol.value.rolDescription,
     };
-    const texto = this.frmRol.value.id
+    const texto = this.frmRol.value.idRol
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-    this.srvRol.guardar(this.roles, this.frmRol.value.id).subscribe({
+    this.srvRol.guardar(rol, this.frmRol.value.idRol)
+    .subscribe({
       complete: () => {
-        this.filtrar();
+        this.filtrar(); // este actualiza
         Swal.fire({
           icon: 'success',
           title: texto,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1000,
         });
       },
 
@@ -135,7 +137,7 @@ export class RolComponent implements OnInit{
             });
             break;
         }
-        this.filtrar();
+        this.filtrar(); // este actualiza
       },
     });
   }
@@ -203,7 +205,7 @@ export class RolComponent implements OnInit{
     this.srvRol.buscar(id).subscribe((data) => {
       console.log(data);
       Swal.fire({
-        title: '<strong> Informacion Cliente</strong>',
+        title: '<strong> Informacion Rol</strong>',
         html:
           '<br>' +
           '<table class="table table-sm table-striped">' +
@@ -221,39 +223,33 @@ export class RolComponent implements OnInit{
     });
   }
 
-
-
-  onEditar(id : any){
-    this.titulo = "Editando Rol"
-    this.srvRol.buscar(id)
-    .subscribe( 
+  onEditar(id: any) {
+    this.titulo = 'Editando Rol';
+    this.srvRol.buscar(id).subscribe(
       {
-        next:(data)=>{
-          this.frmRol.setValue(data)
+        next: (data) => {
+          this.frmRol.setValue(data);
         },
-        error:(e) =>{
-          if(e==404){
-            Swal.fire(
-              {
-                title: 'Rol no Existe',
-                icon: 'info',
-                showCancelButton: true,
-                showConfirmButton: false,
-                cancelButtonAriaLabel: '#d33',
-                cancelButtonText : 'Cerrar'
-              }
-            )
+        error: (e) => {
+          if (e == 404) {
+            Swal.fire({
+              title: 'Rol no Existe',
+              icon: 'info',
+              showCancelButton: true,
+              showConfirmButton: false,
+              cancelButtonAriaLabel: '#d33',
+              cancelButtonText: 'Cerrar',
+            });
           }
           this.filtrar();
-        }
+        },
       }
       //guardas
-///ng g guard shared/guards/auth --skip-tests=true
-
+      ///ng g guard shared/guards/auth --skip-tests=true
     );
-    console.log('Editando ',id);
+    console.log('Editando ', id);
   }
-  onCerrar(){
+  onCerrar() {
     this.router.navigate(['/roles']);
   }
 
@@ -277,27 +273,18 @@ export class RolComponent implements OnInit{
     this.filtro = f;
     this.filtrar();
   }
-  onImprimir(){
-    const encabezado = ["Id Rol","Descripcion Rol"];
-    this.srvRol.filtar(this.filtro,1, this.numRegs)
-    .subscribe(
-      data => {
-        const cuerpo = Object(data)['datos']
-        .map(
-          (Obj : any) => {
-            const datos = [
-              Obj.idRol,
-              Obj.rolDescription
-            ]
-            return datos;
-          }
-        )
-        this.srvPrint.print(encabezado, cuerpo, "Listado de Roles",true);
-      }
-    );
+  onImprimir() {
+    const encabezado = ['Id Rol', 'Descripción Rol'];
+    this.srvRol.filtar(this.filtro, 1, this.numRegs).subscribe((data) => {
+      const cuerpo = Object(data)['datos'].map((Obj: any) => {
+        const datos = [Obj.idRol, Obj.rolDescription];
+        return datos;
+      });
+      this.srvPrint.print(encabezado, cuerpo, 'Listado de Roles', true);
+    });
   }
   resetearFiltro() {
-    this.filtro = { idRol: '', rolDescription: ''};
+    this.filtro = { idRol: '', rolDescription: '' };
     this.filtrar();
   }
 
