@@ -1,13 +1,13 @@
 export class WarehouseModel {
   idWareHouse?: number;
   idProduct: string;
-  cantItem: number;
+  cantItem: string;
 
   constructor(r?: WarehouseModel) {
     if (this.idWareHouse !== undefined) {
       this.idWareHouse = r?.idWareHouse;
     }
     this.idProduct = r !== undefined ? r.idProduct : '';
-    this.cantItem = r !== undefined ? r.cantItem : 0;
+    this.cantItem = r !== undefined ? r.cantItem : '';
   }
 }
