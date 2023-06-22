@@ -39,13 +39,13 @@ export class RolService {
 
     guardar(datos : any, idRol? : any): Observable<any>{
       if (idRol) {//modificar
-        console.log("Guardar en la parte de editar "+this.SRV + " / rol "+idRol);
+        console.log("editar");
         return this.http.put(`${this.SRV}/rol/${idRol}`,datos, this.httpOptions)
         .pipe(retry(1), catchError(this.handleError));
         
   
       } else {//crear
-        console.log("creando nuevo")
+        //console.log("crear nuevo "+`${this.SRV}/rol`,datos, this.httpOptions);
         return this.http.post(`${this.SRV}/rol`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
         
       }
