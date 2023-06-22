@@ -136,7 +136,8 @@
   </div>
 </div>
 
-<!-- Formulario Rol Modal-->
+
+<!-- Formulario Cliente Modal-->
 
 <!-- Modal -->
 <div
@@ -191,25 +192,35 @@
               </div>
             </div>
           </div>
-         
-          <div class="form-floating">
-            <textarea
-              class="form-control"
-              placeholder="rolDescription"
-              id="rolDescription"
-              style="height: 100px"
-              formControlName="rolDescription"
-            ></textarea>
-            <label for="rolDescription">Descripción del Rol</label>
-            <div
-              class="alert alert-danger"
-              *ngIf="F['rolDescription'].invalid && F['rolDescription'].touched"
-            >
-              <div *ngIf="F['rolDescription'].errors!['minlength']">
-                Debe tener al menos 5 caracteres
+          <div class="row mb-2">
+            <label for="rolDescription" class="col-sm-3 col-form-label">Descripcion del rol</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="rolDescription"
+                formControlName="rolDescription"
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="F['rolDescription'].invalid && F['rolDescription'].touched"
+              >
+                <div *ngIf="F['rolDescription'].errors!['required']">
+                  Este campo es Obligatorio
+                </div>
+                <div *ngIf="F['rolDescription'].errors!['minlength']">
+                  Debe tener al menos 3 caracteres
+                </div>
+                <div *ngIf="F['rolDescription'].errors!['maxlength']">
+                  Debe tener maximo 30 caracteres
+                </div>
+                <div *ngIf="F['rolDescription'].errors!['pattern']">
+                  Caracter invalido
+                </div>
               </div>
             </div>
           </div>
+        
         </form>
       </div>
       <div class="modal-footer">
@@ -228,3 +239,4 @@
     </div>
   </div>
 </div>
+

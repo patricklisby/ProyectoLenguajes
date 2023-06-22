@@ -1,1 +1,246 @@
-<p>classification works!</p>
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-header">Clasificación</div>
+      <div class="container-fluid" [@estadoFiltro]="stateFiltro">
+        <form>
+          <div class="d-flex">
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="idClassificaction"
+              #fIdClassification
+              (keyup)="
+                onFiltrarChange({
+                    idClassificaction: fIdClassification.value,
+                  classificationDescription: fClassificationDescription.value,
+                })
+              "
+            />
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="Descripción"
+              #fClassificationDescription
+              (keyup)="
+                onFiltrarChange({
+                    idClassificaction: fIdClassification.value,
+                  classificationDescription: fClassificationDescription.value,
+                })
+              "
+            />
+            
+            <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descripción</th>
+                <th scope="col" colspan="3" class="text-center">
+                  <button
+                    class="btn btn-success btn-sm"
+                    (click)="onNuevo()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ventanaClassification"
+                  >
+                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr
+                *ngFor="
+                  let item of classifications
+                    | paginate
+                      : {
+                          itemsPerPage: itemsPPag,
+                          currentPage: pagActual,
+                          totalItems: numRegs
+                        }
+                "
+              >
+                <th scope="row">{{ item.idClassification }}</th>
+                <td>{{ item.classificationDescription }}</td>
+                <td class="text-center">
+                  <button
+                    class="btn btn-warning btn-sm"
+                    (click)="onEditar(item.idClassification)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ventanaClassification"
+                  >
+                    <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    (click)="
+                      onEliminar(
+                        item.idClassification
+                      )
+                    "
+                  >
+                    <fa-icon [icon]="['fas', 'trash-can']"></fa-icon>
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-info btn-sm" (click)="onInfo(item.idClassification)">
+                    <fa-icon [icon]="['fas', 'circle-info']"></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="alert alert-primary text-center"
+            *ngIf="classifications.length === 0"
+          >
+            No se encontraron datos
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between pt-4">
+        <div class="me-2">
+          <select
+            class="form-select form-select-sm"
+            (change)="onCambioTam($event)"
+          >
+            <option
+              *ngFor="let tama of paginas"
+              [ngValue]="tama"
+              [selected]="tama === itemsPPag"
+            >
+              {{ tama }}
+            </option>
+          </select>
+        </div>
+        <pagination-controls
+          (pageChange)="onCambioPag($event)"
+          previousLabel=""
+          nextLabel=""
+        >
+        </pagination-controls>
+        <div class="botones">
+          <button class="btn btn-warning btn-sm me-2" (click)="onFiltrar()">
+            <fa-icon [icon]="['fas', 'magnifying-glass']"></fa-icon>Filtrar
+          </button>
+          <button class="btn btn-info btn-sm me-2" (click)="onImprimir()">
+            <fa-icon [icon]="['fas', 'print']"> </fa-icon>Imprimir
+          </button>
+          <button class="btn btn-danger btn-sm me-2" (click)="onCerrar()">
+            <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon> Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Formulario Cliente Modal-->
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="ventanaClassification"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="ventanaClassificationLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ventanaClassificationLabel">{{ titulo }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="frmClassification" [formGroup]="frmClassification" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <label for="idClassification" class="col-sm-3 col-form-label"
+                >Id</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idClassification"
+                  formControlName="idClassification"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['idClassification'].invalid && F['idClassification'].touched"
+                >
+                  <div *ngIf="F['idClassification'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['idClassification'].errors!['minlength']">
+                    Debe ser al menos 1 digitos
+                  </div>
+                  <div *ngIf="F['idClassification'].errors!['maxlength']">
+                    Debe ser como maximo 15 digitos
+                  </div>
+                  <div *ngIf="F['idClassification'].errors!['pattern']">
+                    Este campo solo se admiten numeros
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="classificationDescription" class="col-sm-3 col-form-label">classificationDescription</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="classificationDescription"
+                  formControlName="classificationDescription"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['classificationDescription'].invalid && F['classificationDescription'].touched"
+                >
+                  <div *ngIf="F['classificationDescription'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['classificationDescription'].errors!['minlength']">
+                    Debe tener al menos 2 caracteres
+                  </div>
+                  <div *ngIf="F['classificationDescription'].errors!['maxlength']">
+                    Debe tener maximo 255 caracteres
+                  </div>
+                  <div *ngIf="F['classificationDescription'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!--<div>formulario Valid:{{frmClassification.valid}}</div>
+          <div>formulario No Valid:{{frmClassification.invalid}}</div>-->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="frmClassification"
+            [disabled]="frmClassification.invalid"
+          >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClienteComponent } from './components/cliente/cliente.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './shared/guards/auth.guard';
@@ -24,7 +23,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [loginGuard]},
   {path: 'home', component: HomeComponent},
   {path: 'error403', component: Error403Component},
-  {path: 'cliente', component: ClienteComponent},
   {path: 'rol', component: RolComponent},
   {path: 'person', component: PersonComponent},
   {path: 'product', component: ProductComponent},

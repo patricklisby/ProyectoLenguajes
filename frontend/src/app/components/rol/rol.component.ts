@@ -98,9 +98,20 @@ export class RolComponent implements OnInit {
       idRol: this.frmRol.value.idRol,
       rolDescription: this.frmRol.value.rolDescription,
     };
+     console.log("Soy rol");
+    console.log(rol);
+   
+    
     const texto = this.frmRol.value.idRol
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
+      console.log("Texto");
+      
+      console.log(texto);
+       console.log("Id rol");
+       
+      console.log(this.frmRol.value.idRol);
+      
     this.srvRol.guardar(rol, this.frmRol.value.idRol)
     .subscribe({
       complete: () => {
@@ -140,6 +151,8 @@ export class RolComponent implements OnInit {
         this.filtrar(); // este actualiza
       },
     });
+    console.log("Cumpli");
+    
   }
 
   onNuevo() {

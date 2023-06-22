@@ -1,1 +1,309 @@
-<p>supplier works!</p>
+<div class="container-fluid">
+    <div class="card">
+      <div class="card-header">Proveedores</div>
+      <div class="container-fluid" [@estadoFiltro]="stateFiltro">
+        <form>
+          <div class="d-flex">
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="idSupplier"
+              #fIdSupplier
+              (keyup)="
+                onFiltrarChange({
+                  idSupplier: fIdSupplier.value,
+                  supplierDescription: fSupplierDescription.value})"
+            />
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="supplierDescription"
+              #fSupplierDescription
+              (keyup)="
+                onFiltrarChange({
+                  idSupplier: fIdSupplier.value,
+                  supplierDescription: fSupplierDescription.value
+                })
+              "
+            />
+            <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
+          </div>
+        </form>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Dirección</th>
+                <th scope="col" colspan="3" class="text-center">
+                  <button
+                    class="btn btn-success btn-sm"
+                    (click)="onNuevo()"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ventanaSupplier"
+                  >
+                    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr
+                *ngFor="
+                  let item of suppliers
+                    | paginate
+                      : {
+                          itemsPerPage: itemsPPag,
+                          currentPage: pagActual,
+                          totalItems: numRegs
+                        }
+                "
+              >
+                <th scope="row">{{ item.idSupplier }}</th>
+                <td> {{ item.supplierDescription }} </td>
+                <td>{{ item.supplierPhone }}</td>
+                <td>{{ item.supplierEmail }}</td>
+                <td>{{ item.supplierAddress }}</td>
+                <td class="text-center">
+                  <button
+                    class="btn btn-warning btn-sm"
+                    (click)="onEditar(item.idSupplier)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ventanaSupplier"
+                  >
+                    <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button
+                    class="btn btn-danger btn-sm"
+                    (click)="
+                      onEliminar(item.idSupplier)" >
+                    <fa-icon [icon]="['fas', 'trash-can']"></fa-icon>
+                  </button>
+                </td>
+                <td class="text-center">
+                  <button class="btn btn-info btn-sm" (click)="onInfo(item.idSupplier)">
+                    <fa-icon [icon]="['fas', 'circle-info']"></fa-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div
+            class="alert alert-primary text-center"
+            *ngIf="suppliers.length === 0"
+          >
+            No se encontraron datos
+          </div>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between pt-4">
+        <div class="me-2">
+          <select
+            class="form-select form-select-sm"
+            (change)="onCambioTam($event)"
+          >
+            <option
+              *ngFor="let tama of paginas"
+              [ngValue]="tama"
+              [selected]="tama === itemsPPag"
+            >
+              {{ tama }}
+            </option>
+          </select>
+        </div>
+        <pagination-controls
+          (pageChange)="onCambioPag($event)"
+          previousLabel=""
+          nextLabel=""
+        >
+        </pagination-controls>
+       
+        <div class="botones">
+          <button class="btn btn-warning btn-sm me-2" (click)="onFiltrar()">
+            <fa-icon [icon]="['fas', 'magnifying-glass']"></fa-icon>Filtrar
+          </button>
+          <button class="btn btn-info btn-sm me-2" (click)="onImprimir()">
+            <fa-icon [icon]="['fas', 'print']"> </fa-icon>Imprimir
+          </button>
+          <button class="btn btn-danger btn-sm me-2" (click)="onCerrar()">
+            <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon> Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Formulario Cliente Modal-->
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="ventanaSupplier"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="ventanaSupplierLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ventanaSupplierLabel">{{ titulo }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="frmSupplier" [formGroup]="frmSupplier" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <label for="idSupplier" class="col-sm-3 col-form-label"
+                >Id</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idSupplier"
+                  formControlName="idSupplier"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['idSupplier'].invalid && F['idSupplier'].touched"
+                >
+                  <div *ngIf="F['idSupplier'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['idSupplier'].errors!['minlength']">
+                    Debe ser al menos 1 digitos
+                  </div>
+                  <div *ngIf="F['idSupplier'].errors!['maxlength']">
+                    Debe ser como maximo 15 digitos
+                  </div>
+                  <div *ngIf="F['idSupplier'].errors!['pattern']">
+                    Este campo solo se admiten numeros
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="supplierDescription" class="col-sm-3 col-form-label">Descripción</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="supplierDescription"
+                  formControlName="supplierDescription"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['supplierDescription'].invalid && F['supplierDescription'].touched"
+                >
+                  <div *ngIf="F['supplierDescription'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['supplierDescription'].errors!['minlength']">
+                    Debe tener al menos 3 caracteres
+                  </div>
+                  <div *ngIf="F['supplierDescription'].errors!['maxlength']">
+                    Debe tener maximo 30 caracteres
+                  </div>
+                  <div *ngIf="F['supplierDescription'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="supplierPhone" class="col-sm-3 col-form-label"
+                >Telefono</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="supplierPhone"
+                  formControlName="supplierPhone"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['supplierPhone'].invalid && F['supplierPhone'].touched"
+                >
+                  <div *ngIf="F['supplierPhone'].errors!['pattern']">
+                    Caracter inválido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+                <label for="supplierEmail" class="col-sm-3 col-form-label">Correo</label>
+                <div class="col-sm-9">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="supplierEmail"
+                    formControlName="supplierEmail"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['supplierEmail'].invalid && F['supplierEmail'].touched"
+                  >
+                    <div *ngIf="F['supplierEmail'].errors!['email']">Formato invalido</div>
+                    <div *ngIf="F['supplierEmail'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="row mb-2">
+              <label for="supplierAddress" class="col-sm-3 col-form-label"
+                >Dirección</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="supplierAddress"
+                  formControlName="supplierAddress"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['supplierAddress'].invalid && F['supplierAddress'].touched"
+                >
+                  <div *ngIf="F['supplierAddress'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['supplierAddress'].errors!['minlength']">
+                    Debe tener al menos 5 caracteres
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="frmSupplier"
+            [disabled]="frmSupplier.invalid"
+          >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
