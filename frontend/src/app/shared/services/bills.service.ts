@@ -39,13 +39,14 @@ export class BillService {
 
   guardar(datos : any, id? : any): Observable<any>{
     if (id) {//modificar
+      console.log("editando")
       return this.http.put(`${this.SRV}/bills/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-      console.log("editando")
 
     } else {//crear
+      console.log("crear nuevo "+`${this.SRV}/bills`,datos, this.httpOptions);
       return this.http.post(`${this.SRV}/bills`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-      console.log("crear nuevo")
+      
     }
   }
 

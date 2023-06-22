@@ -11,35 +11,7 @@
               #fIdBill
               (keyup)="
                 onFiltrarChange({
-                    idBill: fIdBill.value,
-                  idDetail: fIdDetail.value,
-                  idPerson: fIdPerson.value,
-                })
-              "
-            />
-            <input
-              type="text"
-              class="form-control me-2"
-              placeholder="ID Detalle"
-              #fIdDetail
-              (keyup)="
-                onFiltrarChange({
-                  idBill: fIdBill.value,
-                  idDetail: fIdDetail.value,
-                  idPerson: fIdPerson.value,
-                })
-              "
-            />
-            <input
-              type="text"
-              class="form-control me-2"
-              placeholder="ID Persona"
-              #fIdPerson
-              (keyup)="
-                onFiltrarChange({
-                  idBill: fIdBill.value,
-                  idDetail: fIdDetail.value,
-                  idPerson: fIdPerson.value,
+                    idBill: fIdBill.value
                 })
               "
             />
@@ -97,11 +69,7 @@
                     class="btn btn-danger btn-sm"
                     (click)="
                       onEliminar(
-                        item.idBill,
-                        item.idDetail,
-                        item.idPerson
-                      )
-                    "
+                        item.idBill)"
                   >
                     <fa-icon [icon]="['fas', 'trash-can']"></fa-icon>
                   </button>
@@ -185,10 +153,10 @@
         <div class="modal-body">
           <form id="frmBills" [formGroup]="frmBills" (ngSubmit)="onSubmit()">
             <div class="row mb-3">
-              <label for="idBill" class="col-sm-3 col-form-label"
+              <label for="idBill" class="col-sm-4 col-form-label"
                 >Id Factura</label
               >
-              <div class="col-sm-9">
+              <div class="col-sm-8">
                 <input
                   type="text"
                   class="form-control"
@@ -214,64 +182,65 @@
                 </div>
               </div>
             </div>
-            <div class="row mb-2">
-              <label for="idDetail" class="col-sm-3 col-form-label">ID Detalle</label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idDetail"
-                  formControlName="idDetail"
-                />
-                <div
-                  class="alert alert-danger"
-                  *ngIf="F['idDetail'].invalid && F['idDetail'].touched"
+
+            <div class="row mb-3">
+                <label for="idDetail" class="col-sm-4 col-form-label"
+                  >Id Detail</label
                 >
-                  <div *ngIf="F['idDetail'].errors!['required']">
-                    Este campo es Obligatorio
-                  </div>
-                  <div *ngIf="F['idDetail'].errors!['minlength']">
-                    Debe tener al menos 1 caracteres
-                  </div>
-                  <div *ngIf="F['idDetail'].errors!['maxlength']">
-                    Debe tener maximo 15 caracteres
-                  </div>
-                  <div *ngIf="F['idDetail'].errors!['pattern']">
-                    Formato inválido
-                  </div>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idDetail"
+                    formControlName="idDetail"
+                  />
                 </div>
               </div>
-            </div>
-            <div class="row mb-2">
-              <label for="idPerson" class="col-sm-3 col-form-label"
-                >ID Persona</label
-              >
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idPerson"
-                  formControlName="idPerson"
-                />
-                <div
-                  class="alert alert-danger"
-                  *ngIf="F['idPerson'].invalid && F['idPerson'].touched"
+              <div class="row mb-3">
+                <label for="idPerson" class="col-sm-4 col-form-label"
+                  >Id Person</label
                 >
-                  <div *ngIf="F['idPerson'].errors!['required']">
-                    Este campo es Obligatorio
-                  </div>
-                  <div *ngIf="F['idPerson'].errors!['minlength']">
-                    Debe tener al menos 1 caracteres
-                  </div>
-                  <div *ngIf="F['idPerson'].errors!['maxlength']">
-                    Debe tener maximo 15 caracteres
-                  </div>
-                  <div *ngIf="F['idPerson'].errors!['pattern']">
-                    Formato inválido
-                  </div>
+                <div class="col-sm-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idPerson"
+                    formControlName="idPerson"
+                  />
                 </div>
               </div>
-            </div>
+
+            
+            <!--
+            <div class="row mb-2">
+                <label for="idDetail" class="col-sm-4 col-form-label">ID Detalle</label>
+                <div class="col-sm-8">
+                  <select class="form-select form-select-sm"
+                  (click)="onExtractData()">
+                    <option *ngFor="let det of detail">
+                      {{ det.idDetail }}
+                    </option>
+                    <option value = "1">
+                        1
+                      </option>
+                  </select>
+                </div>
+              </div>
+            <div class="row mb-2">
+                <label for="idPerson" class="col-sm-4 col-form-label">ID Colaborador</label>
+                  <div class="col-sm-8">
+                      <select id = "idPerson"
+                             class="form-select form-select-sm">
+                          <option id = "idPerson"*ngFor="let persons of person">
+                           {{ persons.idPerson }}
+                          </option>
+                          <option id = "idPerson" value = "1">
+                            1
+                          </option>
+                       </select>
+                </div>
+              </div>
+            -->
             
             <input type="hidden" formControlName="dateGeneration" />
           </form>

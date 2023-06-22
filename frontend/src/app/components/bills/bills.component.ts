@@ -17,6 +17,8 @@ import {
 import { PrintService } from 'src/app/shared/services/print.service';
 import { BillsModel } from 'src/app/shared/models/bills.model';
 import { BillService } from 'src/app/shared/services/bills.service';
+import { DetailModel } from 'src/app/shared/models/detail.model';
+import { PersonModel } from 'src/app/shared/models/person.model';
 
 @Component({
   selector: 'app-Bills',
@@ -53,6 +55,8 @@ export class BillsComponent implements OnInit {
   router = inject(Router); // Injectar
   frmBills: FormGroup;
   bills = [new BillsModel()];
+  detail = [new DetailModel()];
+  person = [new PersonModel()];
   titulo: string = '';
   pagActual = 1;
   itemsPPag = 5;
@@ -71,24 +75,6 @@ export class BillsComponent implements OnInit {
           Validators.pattern('[0-9]*'),
         ],
       ],
-      idDetail: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(15),
-          Validators.pattern('[0-9]*'),
-        ],
-      ],
-      idPerson: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(10),
-          Validators.pattern('[0-9]*'),
-        ],
-      ],
       dateGeneration: [''],
     });
   }
@@ -98,6 +84,14 @@ export class BillsComponent implements OnInit {
 
   get stateFiltro() {
     return this.filtroVisible ? 'show' : 'hide';
+  }
+ 
+  onExtractData(){
+   for (let i = 0; i < this.detail.length; i++) {
+    console.log(this.detail[i]);
+    
+   }
+    this.filtrar();
   }
 
   onCambioPag(e: any) {
@@ -114,11 +108,13 @@ export class BillsComponent implements OnInit {
     console.log("Si entro");
     const Bills = {
       idBills: this.frmBills.value.idBills,
-      BillsDescription: this.frmBills.value.BillsDescription,
+      idDetail: this.frmBills.value.idDetail,
+      idPerson: this.frmBills.value.idPerson,
     };
     const texto = this.frmBills.value.idBills
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
+      
     this.srvBills.guardar(Bills, this.frmBills.value.idBills)
     .subscribe({
       complete: () => {
@@ -130,7 +126,6 @@ export class BillsComponent implements OnInit {
           timer: 1000,
         });
       },
-
       error: (e) => {
         switch (e) {
           case 404:
@@ -143,7 +138,6 @@ export class BillsComponent implements OnInit {
               cancelButtonText: 'Cerrar',
             });
             break;
-
           case 409:
             Swal.fire({
               icon: 'error',
@@ -158,6 +152,7 @@ export class BillsComponent implements OnInit {
         this.filtrar(); // este actualiza
       },
     });
+    this.filtrar(); // este actualiza
   }
 
   onNuevo() {
@@ -166,10 +161,9 @@ export class BillsComponent implements OnInit {
     this.frmBills.reset();
   }
 
-  onEliminar(id: any, nombre: string) {
+  onEliminar(id: any) {
     Swal.fire({
       title: 'Estas seguro de eliminar ?',
-      text: nombre,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -297,7 +291,7 @@ export class BillsComponent implements OnInit {
     const encabezado = ['ID Factura', 'ID detalle','ID Persona','Fecha Creación'];
     this.srvBills.filtar(this.filtro, 1, this.numRegs).subscribe((data) => {
       const cuerpo = Object(data)['datos'].map((Obj: any) => {
-        const datos = [Obj.idBills, Obj.BillsDescription];
+        const datos = [Obj.idBills, Obj.idPerson, Obj.idDetail];
         return datos;
       });
       this.srvPrint.print(encabezado, cuerpo, 'Listado de Facturas', true);
