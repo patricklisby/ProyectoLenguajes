@@ -17,6 +17,8 @@ import {
 import { PrintService } from 'src/app/shared/services/print.service';
 import { DetailService } from 'src/app/shared/services/detail.service';
 import { DetailModel } from 'src/app/shared/models/detail.model';
+import { CustomerService } from 'src/app/shared/services/customer.service';
+import { ProductService } from 'src/app/shared/services/product.service';
 
 @Component({
   selector: 'app-details',
@@ -48,6 +50,8 @@ import { DetailModel } from 'src/app/shared/models/detail.model';
 export class DetailsComponent implements OnInit {
   filtro: any;
   srvDetail = inject(DetailService); // Injectar Dependencia
+  srvCustomer = inject(CustomerService);
+  srvProduct = inject(ProductService);
   fb = inject(FormBuilder); // Injectar
   srvPrint = inject(PrintService);
   router = inject(Router); // Injectar
@@ -292,11 +296,13 @@ export class DetailsComponent implements OnInit {
     this.srvDetail
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
+
         this.details = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
         console.log(this.details);
-      });
+
+    });
   }
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;
