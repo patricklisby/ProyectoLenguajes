@@ -3,6 +3,7 @@
 
 namespace App\controller;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
@@ -91,10 +92,17 @@ class Warehouse extends DBAccess {
         $res = $this -> getData('AllProductDetails');
         $status = sizeof($res) > 0 ? 200 : 204;
         if($res){
-            foreach($res as $string){
-                var_dump(var_export($string));
-            }
-        $response->getBody()->write(json_encode($res));
+                try {
+                    // Generar el JSON
+                    $json = json_encode($res);
+                    if ($json === false) {
+                        throw new Exception('Error  al  generar el  JSON.');
+                    }
+                    $response->getBody()->write($json);
+                } catch (Exception $e) {
+                    // Manejar el error de generación de JSON
+                    echo 'Error: ' . $e->getMessage();
+                }  
         }
 
       return $response

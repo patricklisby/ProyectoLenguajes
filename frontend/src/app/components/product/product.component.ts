@@ -17,6 +17,8 @@ import {
 import { PrintService } from 'src/app/shared/services/print.service';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { ProductModel } from 'src/app/shared/models/product.model';
+import { WarehouseModel } from 'src/app/shared/models/warehouse.model';
+import { WarehouseService } from 'src/app/shared/services/warehouse.service';
 
 @Component({
   selector: 'app-product',
@@ -47,12 +49,14 @@ import { ProductModel } from 'src/app/shared/models/product.model';
 })
 export class ProductComponent implements OnInit {
   filtro: any;
+  srvWarehouse = inject(WarehouseService); // Injectar Dependencia
   srvProduct = inject(ProductService); // Injectar Dependencia
   fb = inject(FormBuilder); // Injectar
   srvPrint = inject(PrintService);
   router = inject(Router); // Injectar
   frmProduct: FormGroup;
   products = [new ProductModel()];
+  warehouse = [new WarehouseModel()];
   titulo: string = '';
   pagActual = 1;
   itemsPPag = 5;
@@ -100,7 +104,7 @@ export class ProductComponent implements OnInit {
           Validators.pattern('[A-Za-záéíóúñÑ]*'),
         ],
       ], //requerido -tamMin(9)-formato(letras)
-      priceProduct: ['', [Validators.required]], 
+      priceProduct: ['', [Validators.required]],
       expirationProduct: [''],
     });
   }
@@ -244,9 +248,9 @@ export class ProductComponent implements OnInit {
           '<tr><th>Id</th>' +
           `<td>${data.idProduct}</td></tr>` +
           '<tr><th>Nombre</th>' +
-          `<td>${data.idSupplier}</td></tr>` +
+          `<td>${data.supplierDescription}</td></tr>` +
           '<tr><th>Telefono</th>' +
-          `<td>${data.idClassification}</td></tr>` +
+          `<td>${data.classificationDescription}</td></tr>` +
           '<tr><th>Celular</th>' +
           `<td>${data.productDescription}</td></tr>` +
           '<tr><th>priceProduct</th>' +
@@ -298,11 +302,17 @@ export class ProductComponent implements OnInit {
 
   filtrar() {
     this.srvProduct
-      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .filtar()
       .subscribe((data) => {
-        this.products = Object(data)['datos'];
-        this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        this.products = data;
+        console.log(this.products);
+      });
+  }
+  almacen() {
+    this.srvWarehouse
+      .filtrar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+        this.warehouse = data;
         console.log(this.products);
       });
   }
@@ -318,7 +328,7 @@ export class ProductComponent implements OnInit {
   }
   onImprimir(){
     const encabezado = ["ID","Proveedor","Clasificación","Descripción","Precio", "Expiración Producto"];
-    this.srvProduct.filtar(this.filtro,1, this.numRegs)
+    this.srvProduct.filtar()
     .subscribe(
       data => {
         const cuerpo = Object(data)['datos']
@@ -326,8 +336,8 @@ export class ProductComponent implements OnInit {
           (Obj : any) => {
             const datos = [
               Obj.idProduct,
-              Obj.idSupplier,
-              Obj.idClassification,
+              Obj.supplierDescription,
+              Obj.classificationDescription,
               Obj.productDescription,
               Obj.priceProduct,
               Obj.expirationProduct

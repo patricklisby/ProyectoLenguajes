@@ -53,8 +53,8 @@
                 "
               >
                 <th scope="row">{{ item.idProduct }}</th>
-                <td>{{ item.idSupplier }}</td>
-                <td>{{ item.idClassification }}</td>
+                <td>{{ item.supplierDescription }}</td>
+                <td>{{ item.classificationDescription }}</td>
                 <td>{{ item.productDescription }}</td>
                 <td>{{ item.priceProduct }}</td>
                 <td>{{ item.expirationProduct }}</td>
@@ -114,7 +114,7 @@
           nextLabel=""
         >
         </pagination-controls>
-  
+
         <div class="botones">
           <button class="btn btn-warning btn-sm me-2" (click)="onFiltrar()">
             <fa-icon [icon]="['fas', 'magnifying-glass']"></fa-icon>Filtrar
@@ -129,9 +129,9 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Formulario Cliente Modal-->
-  
+
   <!-- Modal -->
   <div
     class="modal fade"
@@ -185,7 +185,7 @@
                 </div>
               </div>
             </div>
-           
+
           </form>
           <!--<div>formulario Valid:{{frmProduct.valid}}</div>
           <div>formulario No Valid:{{frmProduct.invalid}}</div>-->
@@ -206,4 +206,3 @@
       </div>
     </div>
   </div>
-  

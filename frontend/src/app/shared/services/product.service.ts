@@ -18,21 +18,15 @@ export class ProductService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<ProductModel> {
-    return this.http.get<ProductModel>(`${this.SRV}/product/${id}`).pipe(retry(1), 
+    return this.http.get<ProductModel>(`${this.SRV}/product/${id}`).pipe(retry(1),
     catchError(this.handleError));
     }
 
-  filtar (parametros : any,pag : number, lim : number): Observable<ProductModel[]>{
-    let params = new HttpParams;
-    for(const prop in parametros){
-      if(prop){
-        params = params.append(prop,parametros[prop]);
-      }
-    }
+  filtar (): Observable<ProductModel[]>{
     //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
-   return this.http.get<ProductModel[]>(`${this.SRV}/product/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
+   return this.http.get<ProductModel[]>(`${this.SRV}/warehouse/alldata`).pipe(retry(1), catchError(this.handleError));
    console.log("editando")
   }
 

@@ -277,7 +277,7 @@ export class WarehouseComponent implements OnInit {
 
   filtrar() {
     this.srvWarehouse
-      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .filtrar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
         this.warehouses = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
@@ -297,7 +297,7 @@ export class WarehouseComponent implements OnInit {
   }
   onImprimir(){
     const encabezado = ["ID","Producto","Cantidad"];
-    this.srvWarehouse.filtar(this.filtro,1, this.numRegs)
+    this.srvWarehouse.filtrar(this.filtro,1, this.numRegs)
     .subscribe(
       data => {
         const cuerpo = Object(data)['datos']

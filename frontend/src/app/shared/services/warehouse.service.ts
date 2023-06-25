@@ -18,13 +18,13 @@ export class WarehouseService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<WarehouseModel> {
-    return this.http.get<WarehouseModel>(`${this.SRV}/warehouse/${id}`).pipe(retry(1), 
+    return this.http.get<WarehouseModel>(`${this.SRV}/warehouse/${id}`).pipe(retry(1),
     catchError(this.handleError));
     }
 
-  filtar (parametros : any,pag : number, lim : number): Observable<WarehouseModel[]>{
+  filtrar (parametros : any,pag : number, lim : number): Observable<WarehouseModel[]>{
     let params = new HttpParams;
     for(const prop in parametros){
       if(prop){
