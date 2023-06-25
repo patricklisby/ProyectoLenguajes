@@ -87,5 +87,16 @@ class Warehouse extends DBAccess {
             ->withHeader('Content-type', 'Application/json')
             ->withStatus(200);
     }//End numRegs
+    public function getAll(Request $request, Response $response, $args){
+        $res = $this -> getData('AllProductDetails');
+        var_dump($res);
+        $status = sizeof($res) > 0 ? 200 : 204;
+        if($res)
+        $response->getBody()->write(json_encode($res));
+
+      return $response
+            ->withHeader('Content-type', 'Application/json')
+            ->withStatus($status);
+    }
 
 }//End class

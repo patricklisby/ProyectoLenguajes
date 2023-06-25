@@ -102,6 +102,7 @@ $app->group('/warehouse', function(RouteCollectorProxy $wareHouse){
     $wareHouse->get('/{page}/{limit}', Warehouse::class . ':filter' );//Listo
     $wareHouse->get('', Warehouse::class . ':numRegs');//Listo
     $wareHouse->get('/data', WareHouse::class . ':get');//Listo
+    $wareHouse->get('/alldata', WareHouse::class . ':getAll');//Listo
     $wareHouse->get('/{id}', WareHouse::class . ':find');//Listo 
     $wareHouse->post('', WareHouse::class . ':create');//Listo
     //modifica toda la estructura
