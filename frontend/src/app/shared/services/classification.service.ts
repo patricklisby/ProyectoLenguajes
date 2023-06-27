@@ -18,10 +18,10 @@ export class ClassificationService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<ClassificationModel> {
     return this.http.get<ClassificationModel>(`${this.SRV}/classification/${id}`)
-    .pipe(retry(1), 
+    .pipe(retry(1),
     catchError(this.handleError));
     }
 
@@ -35,19 +35,19 @@ export class ClassificationService {
     //this.http.get<ClassificationModel>(this.SRV+'/classification/'+pag+'/'+lim);
     console.log("filtrando")
    return this.http.get<ClassificationModel[]>(`${this.SRV}/classification/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
-  
+
   }
 
   guardar(datos : any, id? : any): Observable<any>{
-    if (id) {//modificar
-      console.log("editando")
+    if (this.buscar(id)) {//modificar
+      console.log("editando",datos)
       return this.http.put(`${this.SRV}/classification/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
 
     } else {//crear
       console.log("crear nuevo "+`${this.SRV}/classification`,datos, this.httpOptions);
       return this.http.post(`${this.SRV}/classification`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-      
+
     }
   }
 

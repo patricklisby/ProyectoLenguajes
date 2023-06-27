@@ -70,7 +70,7 @@ export class ClassificationComponent implements OnInit {
           Validators.maxLength(15),
           Validators.pattern('[0-9]*'),
         ],
-      ], 
+      ],
 
       classificationDescription: [
         '',
@@ -103,7 +103,7 @@ export class ClassificationComponent implements OnInit {
   onSubmit() {
     const classification = {
       idClassification: this.frmClassification.value.idClassification,
-      nombre: this.frmClassification.value.classificationDescription,
+      classificationDescription: this.frmClassification.value.classificationDescription
     };
     const texto = this.frmClassification.value.idClassification
       ? 'Actualizado correctamente'
@@ -210,12 +210,12 @@ export class ClassificationComponent implements OnInit {
     this.srvClassification.buscar(id).subscribe((data) => {
       console.log(data);
       Swal.fire({
-        title: '<strong> Informacion Classification</strong>',
+        title: '<strong> Informacion Clasificación</strong>',
         html:
           '<br>' +
           '<table class="table table-sm table-striped">' +
           '<tbody class="text-start">' +
-          '<tr><th>Id</th>' +
+          '<tr><th>ID</th>' +
           `<td>${data.idClassification}</td></tr>` +
           '<tr><th>Descripción</th>' +
           `<td>${data.classificationDescription}</td></tr>` +
@@ -229,7 +229,7 @@ export class ClassificationComponent implements OnInit {
   }
 
   onEditar(id: any) {
-    this.titulo = 'Editando classificación';
+    this.titulo = 'Editando Clasificación';
     this.srvClassification.buscar(id).subscribe(
       /*data => {
       console.log(data);
@@ -297,7 +297,7 @@ export class ClassificationComponent implements OnInit {
             return datos;
           }
         )
-        this.srvPrint.print(encabezado, cuerpo, "Listado de clasicicación",true);
+        this.srvPrint.print(encabezado, cuerpo, "Listado de clasificación",true);
       }
     );
   }

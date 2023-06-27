@@ -1,7 +1,7 @@
 export class ClassificationModel {
     idClassification?: number;
     classificationDescription : string;
-  
+
     constructor(r?: ClassificationModel) {
       if (this.idClassification !== undefined) {
         this.idClassification = r?.idClassification;
@@ -9,4 +9,3 @@ export class ClassificationModel {
       this.classificationDescription = r !== undefined ? r.classificationDescription : '';
     }
   }
-  
