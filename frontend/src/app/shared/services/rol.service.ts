@@ -18,6 +18,11 @@ export class RolService {
    }
 
   constructor(private http: HttpClient) { }
+
+  extraerRol() : Observable<RolModel> {
+    return this.http.get<RolModel>(`${this.SRV}/rol/data`).pipe(retry(1), 
+    catchError(this.handleError));
+    }
   
   buscar( id : any) : Observable<RolModel> {
     return this.http.get<RolModel>(`${this.SRV}/rol/${id}`).pipe(retry(1), 

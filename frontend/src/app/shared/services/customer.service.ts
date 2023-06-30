@@ -37,6 +37,10 @@ export class CustomerService {
   }
 
   guardar(datos : any, id? : any): Observable<any>{
+    console.log(id);
+    console.log(datos);
+    
+    
     if (id) {//modificar
       return this.http.put(`${this.SRV}/customer/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
@@ -48,6 +52,7 @@ export class CustomerService {
     }
   }
 
+  
   eliminar(id: any) : Observable<any>{
     return this.http.delete(`${this.SRV}/customer/${id}`).pipe(retry(1), catchError(this.handleError));
   }

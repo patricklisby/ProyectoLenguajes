@@ -91,7 +91,7 @@
               <th scope="col">ID</th>
               <th scope="col">Rol</th>
               <th scope="col">Nombre</th>
-              <th scope="col">personEmail</th>
+              <th scope="col">Correo electrónico	</th>
               <th scope="col">Telefono</th>
               <th scope="col">Dirección</th>
               <th scope="col" colspan="3" class="text-center">
@@ -102,6 +102,10 @@
                   data-bs-target="#ventanaPerson"
                 >
                   <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+                </button>
+
+                <button class="btn btn-danger btn-sm me-2" (click)="onSelectRoles();">
+                  <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon> Cerrar
                 </button>
               </th>
             </tr>
@@ -264,24 +268,11 @@
             >
               <div class="row mb-3">
                 <label for="idRol" class="col-sm-3 col-form-label"
-                  >Id Cliente</label
+                  >Rol</label
                 >
-                <div class="col-sm-9">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="idRol"
-                    formControlName="idRol"
-                  />
-                  <div
-                    class="alert alert-danger"
-                    *ngIf="F['idRol'].invalid && F['idRol'].touched"
-                  >
-                    <div *ngIf="F['idRol'].errors!['required']">
-                      Este campo es Obligatorio
-                    </div>
-                  </div>
-                </div>
+               <select>
+                <option *ngforOf = "let aux of roles" >{{ aux.idRol }}</option>
+               </select>
               </div>
               <div class="row mb-2">
                 <label for="namePerson" class="col-sm-3 col-form-label"

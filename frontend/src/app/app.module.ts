@@ -28,6 +28,7 @@ import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

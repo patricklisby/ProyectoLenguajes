@@ -17,6 +17,8 @@ import {
 import { PrintService } from 'src/app/shared/services/print.service';
 import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonModel } from 'src/app/shared/models/person.model';
+import { RolModel } from 'src/app/shared/models/roles.model';
+import { RolService } from 'src/app/shared/services/rol.service';
 
 @Component({
   selector: 'app-person',
@@ -48,11 +50,13 @@ import { PersonModel } from 'src/app/shared/models/person.model';
 export class PersonComponent implements OnInit {
   filtro: any;
   srvPerson = inject(PersonService); // Injectar Dependencia
+  srvRol = inject(RolService);
   fb = inject(FormBuilder); // Injectar
   srvPrint = inject(PrintService);
   router = inject(Router); // Injectar
   frmPerson: FormGroup;
   persons = [new PersonModel()];
+  rolData = [new RolModel()];
   titulo: string = '';
   pagActual = 1;
   itemsPPag = 5;
@@ -275,6 +279,37 @@ export class PersonComponent implements OnInit {
         cancelButtonText: 'Cerrar',
       });
     });
+  }
+ // console.log(onSelectRoles());
+  
+
+  onSelectRoles(){
+    this.srvRol.extraerRol().subscribe((rolD) => {
+    console.log(rolD);
+  
+    
+    Swal.fire({
+      title: '<strong> Informacion person</strong>',
+      html:
+        '<br>' +
+        '<table class="table table-sm table-striped">' +
+        '<tbody class="text-start">' +
+        '<tr><th>Rotal</th>' +
+        `<td>${rolD}</td></tr>` +
+        '<tr><th>Id</th>' +
+        `<td>${rolD.idRol}</td></tr>` +
+        '<tr><th>Rol Description</th>' +
+        `<td>${rolD.rolDescription}</td></tr>` +
+        '</tbody>' +
+        '</table>',
+      showConfirmButton: false,
+      showCancelButton: true,
+      cancelButtonText: 'Cerrar',
+    });
+    });
+    console.log();
+    
+    
   }
 
   onEditar(id: any) {
