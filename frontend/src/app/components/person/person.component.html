@@ -103,10 +103,6 @@
                 >
                   <fa-icon [icon]="['fas', 'plus']"></fa-icon>
                 </button>
-
-                <button class="btn btn-danger btn-sm me-2" (click)="onSelectRoles();">
-                  <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon> Cerrar
-                </button>
               </th>
             </tr>
           </thead>
@@ -267,11 +263,16 @@
               (ngSubmit)="onSubmit()"
             >
               <div class="row mb-3">
-                <label for="idRol" class="col-sm-3 col-form-label"
+                <label for="idRol" class="col-sm-4 col-form-label"
                   >Rol</label
                 >
-               <select>
+               <select class="col-sm-4">
                 <option *ngforOf = "let aux of roles" >{{ aux.idRol }}</option>
+                <option value = "1">Administrador</option>
+                <option value = "2">Vendedor(a)</option>
+                <option value = "3">Oficinista</option>
+                <option value = "4">Bodeguero(a)</option>
+
                </select>
               </div>
               <div class="row mb-2">
@@ -429,7 +430,7 @@
                   style="height: 100px"
                   formControlName="personAddress"
                 ></textarea>
-                <label for="personAddress">personAddress</label>
+                <label for="personAddress">Direccion</label>
                 <div
                   class="alert alert-danger"
                   *ngIf="

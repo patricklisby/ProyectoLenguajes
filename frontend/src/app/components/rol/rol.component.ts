@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Output, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -152,6 +152,26 @@ export class RolComponent implements OnInit {
       },
     });
     console.log("Cumpli");
+    
+  }
+  //@Output()
+  getRoles (){
+    let id : any, description : string;
+    const params : any =[];
+   this.roles.forEach(item => {
+     id = item.idRol,
+    description = item.rolDescription
+    //console.log(item.idRol)
+    //console.log(id);
+    //console.log(description);
+    params.push(id)
+    params.push(description)
+    
+    //console.log(item.rolDescription)
+    
+   });
+    console.log(params);
+    return params;
     
   }
 

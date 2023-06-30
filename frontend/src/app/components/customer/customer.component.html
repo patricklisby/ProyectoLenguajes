@@ -71,7 +71,7 @@
               <tr>
                 <th scope="col">ID Cliente</th>
                 <th scope="col">Nombre</th>
-                <th scope="col">Corre electrónico</th>
+                <th scope="col">Correo electrónico</th>
                 <th scope="col">Celular</th>
                 <th scope="col">Dirección</th>
                 <th scope="col" colspan="3" class="text-center">
@@ -192,7 +192,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="ventanaCustomerLabel">{{ titulo }}</h1>
+          <h1 class="modal-title fs-3" id="ventanaCustomerLabel">{{ titulo }}</h1>
           <button
             type="button"
             class="btn-close"
@@ -202,8 +202,8 @@
         </div>
         <div class="modal-body">
           <form id="frmCustomer" [formGroup]="frmCustomer" (ngSubmit)="onSubmit()">
-            <div class="row mb-3">
-              <label for="idCustomer" class="col-sm-3 col-form-label"
+            <div class="row mb-2">
+              <label for="idCustomer" class="col-sm-4 col-form-label"
                 >ID</label
               >
               <div class="col-sm-9">
@@ -233,7 +233,7 @@
               </div>
             </div>
             <div class="row mb-2">
-              <label for="nameCustomer" class="col-sm-3 col-form-label">Nombre</label>
+              <label for="nameCustomer" class="col-sm-4 col-form-label">Nombre</label>
               <div class="col-sm-9">
                 <input
                   type="text"
@@ -261,7 +261,7 @@
               </div>
             </div>
             <div class="row mb-2">
-              <label for="firstLastNameCustomer" class="col-sm-3 col-form-label"
+              <label for="firstLastNameCustomer" class="col-sm-4 col-form-label"
                 >Primer Apellido</label
               >
               <div class="col-sm-9">
@@ -291,8 +291,8 @@
               </div>
             </div>
             <div class="row mb-2">
-              <label for="secondLastNameCustomer" class="col-sm-3 col-form-label"
-                >Apellido 2</label
+              <label for="secondLastNameCustomer" class="col-sm-4 col-form-label"
+                >Segundo Apellido</label
               >
               <div class="col-sm-9">
                 <input
@@ -321,8 +321,8 @@
               </div>
             </div>
             <div class="row mb-2">
-              <label for="customerPhone" class="col-sm-3 col-form-label"
-                >customerPhone</label
+              <label for="customerPhone" class="col-sm-4 col-form-label"
+                >Telefono</label
               >
               <div class="col-sm-9">
                 <input
@@ -345,7 +345,7 @@
               </div>
             </div>
             <div class="row mb-2">
-              <label for="customerEmail" class="col-sm-3 col-form-label">Correo</label>
+              <label for="customerEmail" class="col-sm-4 col-form-label">Correo electrónico</label>
               <div class="col-sm-9">
                 <input
                   type="email"
