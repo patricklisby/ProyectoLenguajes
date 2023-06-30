@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, Inject, Input, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -19,6 +19,8 @@ import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonModel } from 'src/app/shared/models/person.model';
 import { RolModel } from 'src/app/shared/models/roles.model';
 import { RolService } from 'src/app/shared/services/rol.service';
+
+import { RolComponent } from '../rol/rol.component';
 
 @Component({
   selector: 'app-person',
@@ -48,6 +50,7 @@ import { RolService } from 'src/app/shared/services/rol.service';
   ],
 })
 export class PersonComponent implements OnInit {
+ // params
   filtro: any;
   srvPerson = inject(PersonService); // Injectar Dependencia
   srvRol = inject(RolService);
@@ -127,6 +130,11 @@ export class PersonComponent implements OnInit {
 
   get stateFiltro() {
     return this.filtroVisible ? 'show' : 'hide';
+  }
+  @Input() params : any = [];
+  onGetRol(){
+    console.log(this.params);
+    
   }
 
   onCambioPag(e: any) {

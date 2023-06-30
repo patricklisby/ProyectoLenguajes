@@ -46,6 +46,9 @@ import { RolModel } from 'src/app/shared/models/roles.model';
   ],
 })
 export class RolComponent implements OnInit {
+  id :any;
+  descripcion : any;
+  params : any = [];
   filtro: any;
   srvRol = inject(RolService); // Injectar Dependencia
   fb = inject(FormBuilder); // Injectar
@@ -71,7 +74,7 @@ export class RolComponent implements OnInit {
           Validators.pattern('[0-9]*'),
         ],
       ],
-      rolDescription: ['', [Validators.required,Validators.minLength(3)]],
+      rolDescription: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
   get F() {
@@ -93,27 +96,25 @@ export class RolComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Si entro");
+    console.log('Si entro');
     const rol = {
       idRol: this.frmRol.value.idRol,
       rolDescription: this.frmRol.value.rolDescription,
     };
-     console.log("Soy rol");
+    console.log('Soy rol');
     console.log(rol);
-   
-    
+
     const texto = this.frmRol.value.idRol
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-      console.log("Texto");
-      
-      console.log(texto);
-       console.log("Id rol");
-       
-      console.log(this.frmRol.value.idRol);
-      
-    this.srvRol.guardar(rol, this.frmRol.value.idRol)
-    .subscribe({
+    console.log('Texto');
+
+    console.log(texto);
+    console.log('Id rol');
+
+    console.log(this.frmRol.value.idRol);
+
+    this.srvRol.guardar(rol, this.frmRol.value.idRol).subscribe({
       complete: () => {
         this.filtrar(); // este actualiza
         Swal.fire({
@@ -151,28 +152,24 @@ export class RolComponent implements OnInit {
         this.filtrar(); // este actualiza
       },
     });
-    console.log("Cumpli");
-    
+    console.log('Cumpli');
   }
-  //@Output()
-  getRoles (){
-    let id : any, description : string;
-    const params : any =[];
-   this.roles.forEach(item => {
-     id = item.idRol,
-    description = item.rolDescription
-    //console.log(item.idRol)
-    //console.log(id);
-    //console.log(description);
-    params.push(id)
-    params.push(description)
+  //@Output() params : any = [];
+  getRoles() {
     
-    //console.log(item.rolDescription)
-    
-   });
-    console.log(params);
-    return params;
-    
+    let id: any, description: string;
+    //const params: any = [];
+    this.roles.forEach((item) => {
+      (this.id = item.idRol), (this.descripcion = item.rolDescription);
+      //console.log(item.idRol)
+      //console.log(id);
+      //console.log(description);
+      this.params.push(this.id, this.descripcion);
+
+      //console.log(item.rolDescription)
+    });
+    console.log(this.params);
+    return this.params;
   }
 
   onNuevo() {
