@@ -37,6 +37,12 @@ export class BillService {
    console.log("editando")
   }
 
+  filtro (): Observable<BillsModel[]>{
+    //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
+   return this.http.get<BillsModel[]>(`${this.SRV}/bills/data`).pipe(retry(1), catchError(this.handleError));
+   console.log("editando")
+  }
+
   guardar(datos : any, id? : any): Observable<any>{
     if (id) {//modificar
       console.log("editando")

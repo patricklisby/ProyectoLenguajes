@@ -308,6 +308,7 @@ export class ProductComponent implements OnInit {
         console.log(this.products);
       });
   }
+  /** 
   almacen() {
     this.srvWarehouse
       .filtrar(this.filtro, this.pagActual, this.itemsPPag)
@@ -316,6 +317,7 @@ export class ProductComponent implements OnInit {
         console.log(this.products);
       });
   }
+  */
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;
     if (!this.filtroVisible) {

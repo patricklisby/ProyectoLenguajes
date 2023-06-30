@@ -15,8 +15,8 @@ import {
   trigger,
 } from '@angular/animations';
 import { PrintService } from 'src/app/shared/services/print.service';
-import { WarehouseService } from 'src/app/shared/services/warehouse.service';
 import { WarehouseModel } from 'src/app/shared/models/warehouse.model';
+import { WarehouseService } from 'src/app/shared/services/warehouse.service';
 
 @Component({
   selector: 'app-warehouse',
@@ -274,14 +274,34 @@ export class WarehouseComponent implements OnInit {
   onCerrar() {
     this.router.navigate(['']);
   }
-
+  filtrar2() {
+    this.srvWarehouse.filtrar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+        console.log(data);
+        
+        this.warehouses = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.warehouses);
+      });
+  }
+/** 
   filtrar() {
-    this.srvWarehouse
-      .filtrar(this.filtro, this.pagActual, this.itemsPPag)
+    this.srvWarehouse.filtrar()
       .subscribe((data) => {
         this.warehouses = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
+        console.log(this.warehouses);
+      });
+  }
+  */
+
+  filtrar() {
+    this.srvWarehouse
+      .filtro()
+      .subscribe((data) => {
+        this.warehouses = data;
         console.log(this.warehouses);
       });
   }

@@ -32,18 +32,18 @@ export class ProductService {
 
   guardar(datos : any, id? : any): Observable<any>{
     if (id) {//modificar
-      return this.http.put(`${this.SRV}/product/${id}`,datos, this.httpOptions)
+      return this.http.put(`${this.SRV}/warehouse/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
       console.log("editando")
 
     } else {//crear
-      return this.http.post(`${this.SRV}/product`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+      return this.http.post(`${this.SRV}/warehouse`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
       console.log("crear nuevo")
     }
   }
 
   eliminar(id: any) : Observable<any>{
-    return this.http.delete(`${this.SRV}/product/${id}`).pipe(retry(1), catchError(this.handleError));
+    return this.http.delete(`${this.SRV}/warehouse/${id}`).pipe(retry(1), catchError(this.handleError));
   }
 
   //manejador de error

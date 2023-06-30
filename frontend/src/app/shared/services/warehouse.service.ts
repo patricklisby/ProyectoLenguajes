@@ -24,17 +24,24 @@ export class WarehouseService {
     catchError(this.handleError));
     }
 
-  filtrar (parametros : any,pag : number, lim : number): Observable<WarehouseModel[]>{
-    let params = new HttpParams;
-    for(const prop in parametros){
-      if(prop){
-        params = params.append(prop,parametros[prop]);
+    filtrar (parametros : any,pag : number, lim : number): Observable<WarehouseModel[]>{
+      let params = new HttpParams;
+      for(const prop in parametros){
+        if(prop){
+          params = params.append(prop,parametros[prop]);
+        }
       }
+      //this.http.get<ClassificationModel>(this.SRV+'/classification/'+pag+'/'+lim);
+      console.log("filtrando")
+     return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
+  
     }
-    //this.http.get<WarehouseModel>(this.SRV+'/warehouse/'+pag+'/'+lim);
-   return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
-   console.log("editando")
-  }
+
+    filtro (): Observable<WarehouseModel[]>{
+      //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
+     return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/data`).pipe(retry(1), catchError(this.handleError));
+     console.log("editando")
+    }
 
   guardar(datos : any, id? : any): Observable<any>{
     if (id) {//modificar
