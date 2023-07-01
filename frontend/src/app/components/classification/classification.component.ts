@@ -101,15 +101,14 @@ export class ClassificationComponent implements OnInit {
     this.filtrar();
   }
   onSubmit() {
-    const classification = {
+    const clasification = {
       idClassification: this.frmClassification.value.idClassification,
       classificationDescription: this.frmClassification.value.classificationDescription
     };
-    //console.log(classification);
-    const texto = this.frmClassification.value.idClassification 
+    const texto = this.frmClassification.value.idClassification
       ? 'Creado correctamente'
-      :'Actualizado correctamente' ;
-    this.srvClassification.crear(classification).subscribe({
+      : 'Actualizado correctamente';
+    this.srvClassification.guardar(clasification, this.frmClassification.value.idClassification).subscribe({
       complete: () => {
         this.filtrar();
         Swal.fire({
