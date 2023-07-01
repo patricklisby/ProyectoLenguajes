@@ -36,15 +36,11 @@ export class CustomerService {
    console.log("editando")
   }
 
-  crear(datos : any, id? : any): Observable<any>{
-    console.log(datos);
+  crear(datos : any): Observable<any>{
+    //console.log(datos);
     //crear
-    if (!id) {
-      return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-      console.log("crear nuevo")
-    }else{
-      return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-    }
+    //console.log("crear nuevo "+`${this.SRV}/customer`,datos, this.httpOptions);
+    return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
   guardar(datos : any, id? : any): Observable<any>{

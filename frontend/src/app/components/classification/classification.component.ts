@@ -105,6 +105,7 @@ export class ClassificationComponent implements OnInit {
       idClassification: this.frmClassification.value.idClassification,
       classificationDescription: this.frmClassification.value.classificationDescription
     };
+    //console.log(classification);
     const texto = this.frmClassification.value.idClassification 
       ? 'Creado correctamente'
       :'Actualizado correctamente' ;
