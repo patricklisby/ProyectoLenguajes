@@ -71,7 +71,7 @@
                     class="btn btn-warning btn-sm"
                     (click)="onEditar(item.idClassification)"
                     data-bs-toggle="modal"
-                    data-bs-target="#ventanaClassification"
+                    data-bs-target="#ventanaEditClassification"
                   >
                     <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
                   </button>
@@ -175,6 +175,107 @@
                   class="form-control"
                   id="idClassification"
                   formControlName="idClassification"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['idClassification'].invalid && F['idClassification'].touched"
+                >
+                  <div *ngIf="F['idClassification'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['idClassification'].errors!['minlength']">
+                    Debe ser al menos 1 digitos
+                  </div>
+                  <div *ngIf="F['idClassification'].errors!['maxlength']">
+                    Debe ser como maximo 15 digitos
+                  </div>
+                  <div *ngIf="F['idClassification'].errors!['pattern']">
+                    Este campo solo se admiten numeros
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="classificationDescription" class="col-sm-3 col-form-label">Descripción</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="classificationDescription"
+                  formControlName="classificationDescription"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['classificationDescription'].invalid && F['classificationDescription'].touched"
+                >
+                  <div *ngIf="F['classificationDescription'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['classificationDescription'].errors!['minlength']">
+                    Debe tener al menos 2 caracteres
+                  </div>
+                  <div *ngIf="F['classificationDescription'].errors!['maxlength']">
+                    Debe tener maximo 255 caracteres
+                  </div>
+                  <div *ngIf="F['classificationDescription'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!--<div>formulario Valid:{{frmClassification.valid}}</div>
+          <div>formulario No Valid:{{frmClassification.invalid}}</div>-->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="frmClassification"
+          >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="ventanaEditClassification"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="ventanaEditClassificationLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ventanaEditClassificationLabel">{{ titulo }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="frmClassification" [formGroup]="frmClassification" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <label for="idClassification" class="col-sm-3 col-form-label"
+                >ID</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idClassification"
+                  formControlName="idClassification"
+                  readonly
                 />
                 <div
                   class="alert alert-danger"
