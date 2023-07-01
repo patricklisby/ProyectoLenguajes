@@ -44,8 +44,7 @@ export class ClassificationService {
     //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
     if(typeof(id) !== 'string' ){
 +      console.log("editando",datos)//
-      return this.http.put(`${this.SRV}/classification/${id}`,datos
-      , this.httpOptions)
+      return this.http.put(`${this.SRV}/classification/${id}`,{classificationDescription: datos['classificationDescription']},this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }
     console.log("CREANDO NUEVO", datos);
