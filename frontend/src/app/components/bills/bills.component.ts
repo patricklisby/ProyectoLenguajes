@@ -55,8 +55,6 @@ export class BillsComponent implements OnInit {
   router = inject(Router); // Injectar
   frmBills: FormGroup;
   bills = [new BillsModel()];
-  detail = [new DetailModel()];
-  person = [new PersonModel()];
   titulo: string = '';
   pagActual = 1;
   itemsPPag = 5;
@@ -85,14 +83,7 @@ export class BillsComponent implements OnInit {
   get stateFiltro() {
     return this.filtroVisible ? 'show' : 'hide';
   }
- 
-  onExtractData(){
-   for (let i = 0; i < this.detail.length; i++) {
-    console.log(this.detail[i]);
-    
-   }
-    this.filtrar();
-  }
+
 
   onCambioPag(e: any) {
     this.pagActual = e;

@@ -50,7 +50,6 @@ export class ClassificationService {
     }
     console.log("CREANDO NUEVO", datos);
     return this.http.post(`${this.SRV}/classification`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-
   }
 
   eliminar(id: any) : Observable<any>{
