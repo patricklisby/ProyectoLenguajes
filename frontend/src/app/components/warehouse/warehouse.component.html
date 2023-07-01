@@ -7,11 +7,11 @@
           <input
             type="text"
             class="form-control me-2"
-            placeholder="idWarehouse"
-            #fIdWarehouse
+            placeholder="idWareHouse"
+            #fidWareHouse
             (keyup)="
             onFiltrarChange({
-              idWarehouse: fIdWarehouse.value,
+              idWareHouse: fidWareHouse.value,
               idProduct: fIdProduct.value,
             })" />
 
@@ -22,7 +22,7 @@
             #fIdProduct
             (keyup)="
                onFiltrarChange({
-                  idWarehouse: fIdWarehouse.value,
+                  idWareHouse: fidWareHouse.value,
                   idProduct: fIdProduct.value,
                   })" />
 
@@ -165,30 +165,30 @@
       <div class="modal-body">
         <form id="frmWarehouse" [formGroup]="frmWarehouse" (ngSubmit)="onSubmit()">
           <div class="row mb-3">
-            <label for="idWarehouse" class="col-sm-3 col-form-label"
+            <label for="idWareHouse" class="col-sm-3 col-form-label"
               >ID Venta</label
             >
             <div class="col-sm-9">
               <input
                 type="text"
                 class="form-control"
-                id="idWarehouse"
-                formControlName="idWarehouse"
+                id="idWareHouse"
+                formControlName="idWareHouse"
               />
               <div
                 class="alert alert-danger"
-                *ngIf="F['idWarehouse'].invalid && F['idWarehouse'].touched"
+                *ngIf="F['idWareHouse'].invalid && F['idWareHouse'].touched"
               >
-                <div *ngIf="F['idWarehouse'].errors!['required']">
+                <div *ngIf="F['idWareHouse'].errors!['required']">
                   Este campo es Obligatorio
                 </div>
-                <div *ngIf="F['idWarehouse'].errors!['minlength']">
+                <div *ngIf="F['idWareHouse'].errors!['minlength']">
                   Debe ser al menos 1 digitos
                 </div>
-                <div *ngIf="F['idWarehouse'].errors!['maxlength']">
+                <div *ngIf="F['idWareHouse'].errors!['maxlength']">
                   Debe ser como maximo 15 digitos
                 </div>
-                <div *ngIf="F['idWarehouse'].errors!['pattern']">
+                <div *ngIf="F['idWareHouse'].errors!['pattern']">
                   Este campo solo se admiten numeros
                 </div>
               </div>

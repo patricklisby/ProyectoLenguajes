@@ -62,7 +62,7 @@ export class WarehouseComponent implements OnInit {
 
   constructor() {
     this.frmWarehouse = this.fb.group({
-      idWarehouse: [
+      idWareHouse: [
         '',
         [
           Validators.required,

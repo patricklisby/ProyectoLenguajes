@@ -178,7 +178,7 @@ export class ProductComponent implements OnInit {
   }
 
   onNuevo() {
-    this.titulo = 'Nuevo Cliente';
+    this.titulo = 'Nuevo Producto';
     console.log('Creando Nuevo');
     this.frmProduct.reset();
   }
@@ -267,7 +267,7 @@ export class ProductComponent implements OnInit {
   }
 
   onEditar(id: any) {
-    this.titulo = 'Editando Cliente';
+    this.titulo = 'Editando Producto';
     this.srvProduct.buscar(id).subscribe(
       /*data => {
       console.log(data);

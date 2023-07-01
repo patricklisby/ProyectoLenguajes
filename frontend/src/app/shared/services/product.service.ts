@@ -31,15 +31,17 @@ export class ProductService {
   }
 
   guardar(datos : any, id? : any): Observable<any>{
-    if (id) {//modificar
-      return this.http.put(`${this.SRV}/warehouse/${id}`,datos, this.httpOptions)
+    //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
+    //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
+    //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
+    if(typeof(id) !== 'string' ){
+    //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
+      delete datos.idProduct;
+      return this.http.put(`${this.SRV}/product/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-      console.log("editando")
-
-    } else {//crear
-      return this.http.post(`${this.SRV}/warehouse`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-      console.log("crear nuevo")
     }
+    console.log("CREANDO NUEVO", datos);
+    return this.http.post(`${this.SRV}/product`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
   eliminar(id: any) : Observable<any>{

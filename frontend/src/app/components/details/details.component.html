@@ -266,6 +266,33 @@
                   </div>
                 </div>
               </div>
+              <div class="row mb-3">
+                <label for="cantItem" class="col-sm-3 col-form-label"
+                  >Cantidad</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cantItem"
+                    formControlName="cantItem"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['cantItem'].invalid && F['cantItem'].touched"
+                  >
+                    <div *ngIf="F['cantItem'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['cantItem'].errors!['minlength']">
+                      Debe ser al menos 1 digitos
+                    </div>
+                    <div *ngIf="F['cantItem'].errors!['pattern']">
+                      Este campo solo se admiten numeros
+                    </div>
+                  </div>
+                </div>
+              </div>
           </form>
           <!--<div>formulario Valid:{{frmDetail.valid}}</div>
           <div>formulario No Valid:{{frmDetail.invalid}}</div>-->
