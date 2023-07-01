@@ -125,7 +125,7 @@
               "
             >
               <th scope="row">{{ item.idPerson }}</th>
-              <td>{{ item.idRol }}</td>
+              <td>{{ item.rolDescription }}</td>
               <td>
                 {{ item.namePerson }} {{ item.firstLastNamePerson }}
                 {{ item.secondLastNamePerson }}
@@ -273,7 +273,7 @@
                   >Rol</label
                 >
                <select class="col-sm-4">
-                <option *ngforOf = "let aux of roles" >{{ aux.idRol }}</option>
+                <option ></option>
                 <option value = "1">Administrador</option>
                 <option value = "2">Vendedor(a)</option>
                 <option value = "3">Oficinista</option>

@@ -355,12 +355,20 @@ export class PersonComponent implements OnInit {
   }
 
   filtrar() {
+    /** 
     this.srvPerson
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
         this.persons = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
+        console.log(this.persons);
+      });*/
+
+      this.srvPerson
+      .filtro()
+      .subscribe((data) => {
+        this.persons = data;
         console.log(this.persons);
       });
   }

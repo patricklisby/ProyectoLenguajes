@@ -144,7 +144,7 @@ export class CustomerComponent implements OnInit {
     const texto = this.frmCustomer.value.idCustomer
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-    this.srvCustomer.guardar(customer, this.frmCustomer.value.idCustomer).subscribe({
+    this.srvCustomer.crear(customer, this.frmCustomer.value.idCustomer).subscribe({
       complete: () => {
         this.filtrar();
         Swal.fire({

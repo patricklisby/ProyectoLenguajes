@@ -293,6 +293,7 @@ export class DetailsComponent implements OnInit {
   }
 
   filtrar() {
+    /** 
     this.srvDetail
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
@@ -301,7 +302,25 @@ export class DetailsComponent implements OnInit {
         this.numRegs = Object(data)['regs'];
         //console.log(data);
         console.log(this.details);
+    });*/
+    this.srvDetail
+    .filtro()
+    .subscribe((data) => {
+      this.details = data;
+      console.log(this.details);
+    });
+  }
 
+  filtrarImp() {
+     
+    this.srvDetail
+      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+
+        this.details = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.details);
     });
   }
   onFiltrar() {

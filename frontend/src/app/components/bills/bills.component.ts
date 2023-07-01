@@ -268,12 +268,21 @@ export class BillsComponent implements OnInit {
   }
 
   filtrar() {
+    /** 
     this.srvBills
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
         this.bills = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
+        console.log(this.bills);
+      });
+      */
+
+      this.srvBills
+      .filtro()
+      .subscribe((data) => {
+        this.bills = data;
         console.log(this.bills);
       });
   }

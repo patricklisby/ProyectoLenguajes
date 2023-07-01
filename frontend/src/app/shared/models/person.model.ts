@@ -1,6 +1,7 @@
 export class PersonModel {
     idPerson?: number;
     idRol : string;
+    rolDescription? : string;
     namePerson : string;
     firstLastNamePerson : string;
     secondLastNamePerson : string;
@@ -13,6 +14,7 @@ export class PersonModel {
         this.idPerson = r?.idPerson;
       }
       this.idRol = r !== undefined ? r.idRol : '';
+      this.rolDescription = r !== undefined ? r?.rolDescription : '';
       this.namePerson = r !== undefined ? r.namePerson : '';
       this.firstLastNamePerson = r !== undefined ? r.firstLastNamePerson : '';
       this.secondLastNamePerson = r !== undefined ? r.secondLastNamePerson : '';

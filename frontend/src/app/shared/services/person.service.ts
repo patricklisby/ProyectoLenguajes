@@ -47,6 +47,11 @@ export class PersonService {
       console.log("crear nuevo")
     }
   }
+  filtro (): Observable<PersonModel[]>{
+    //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
+   return this.http.get<PersonModel[]>(`${this.SRV}/person/data`).pipe(retry(1), catchError(this.handleError));
+   console.log("editando")
+  }
 
   eliminar(id: any) : Observable<any>{
     return this.http.delete(`${this.SRV}/person/${id}`).pipe(retry(1), catchError(this.handleError));

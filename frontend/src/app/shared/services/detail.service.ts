@@ -35,6 +35,11 @@ export class DetailService {
    return this.http.get<DetailModel[]>(`${this.SRV}/detail/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
    console.log("editando")
   }
+  filtro (): Observable<DetailModel[]>{
+    //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
+   return this.http.get<DetailModel[]>(`${this.SRV}/detail/data`).pipe(retry(1), catchError(this.handleError));
+   console.log("editando")
+  }
 
   guardar(datos : any, id? : any): Observable<any>{
     if (id) {//modificar
