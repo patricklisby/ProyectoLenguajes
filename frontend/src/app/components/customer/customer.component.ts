@@ -133,7 +133,7 @@ export class CustomerComponent implements OnInit {
   }
   onSubmit() {
     const customer = {
-      idCustomer: this.frmCustomer.value.idCustomer,
+      //idCustomer: this.frmCustomer.value.idCustomer,
       nameCustomer: this.frmCustomer.value.nameCustomer,
       firstLastNameCustomer: this.frmCustomer.value.firstLastNameCustomer,
       secondLastNameCustomer: this.frmCustomer.value.secondLastNameCustomer,
@@ -144,7 +144,7 @@ export class CustomerComponent implements OnInit {
     const texto = this.frmCustomer.value.idCustomer
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-    this.srvCustomer.crear(customer, this.frmCustomer.value.idCustomer).subscribe({
+    this.srvCustomer.guardar(customer, this.frmCustomer.value.idCustomer).subscribe({
       complete: () => {
         this.filtrar();
         Swal.fire({

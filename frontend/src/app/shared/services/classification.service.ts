@@ -37,6 +37,10 @@ export class ClassificationService {
    return this.http.get<ClassificationModel[]>(`${this.SRV}/classification/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
 
   }
+  crear(datos : any): Observable<any>{
+      console.log("crear nuevo "+`${this.SRV}/classification`,datos, this.httpOptions);
+      return this.http.post(`${this.SRV}/classification`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+  }
 
   guardar(datos : any, id? : any): Observable<any>{
     if (this.buscar(id)) {//modificar

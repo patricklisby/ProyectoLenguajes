@@ -49,10 +49,9 @@ export class CustomerService {
 
   guardar(datos : any, id? : any): Observable<any>{
     console.log(id);
-    console.log(datos);
+    //console.log(datos);
     
-    
-    if (id) {//modificar
+    if (this.buscar(id)) {//modificar
       return this.http.put(`${this.SRV}/customer/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
       console.log("editando")
