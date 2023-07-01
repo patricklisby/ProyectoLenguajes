@@ -37,22 +37,20 @@ export class ClassificationService {
    return this.http.get<ClassificationModel[]>(`${this.SRV}/classification/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
 
   }
-  crear(datos : any): Observable<any>{
-      console.log("crear nuevo "+`${this.SRV}/classification`,datos, this.httpOptions);
-      return this.http.post(`${this.SRV}/classification`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-  }
 
   guardar(datos : any, id? : any): Observable<any>{
-    if (this.buscar(id)) {//modificar
-      console.log("editando",datos)//
-      return this.http.put(`${this.SRV}/classification/${id}`,datos, this.httpOptions)
+    //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
+    //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
+    //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
+    if(typeof(id) !== 'string' ){
++      console.log("editando",datos)//
+      return this.http.put(`${this.SRV}/classification/${id}`,datos
+      , this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-
-    } else {//crear
-      console.log("crear nuevo "+`${this.SRV}/classification`,datos, this.httpOptions);
-      return this.http.post(`${this.SRV}/classification`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-
     }
+    console.log("CREANDO NUEVO", datos);
+    return this.http.post(`${this.SRV}/classification`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+
   }
 
   eliminar(id: any) : Observable<any>{
