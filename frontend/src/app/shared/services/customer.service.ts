@@ -18,9 +18,9 @@ export class CustomerService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<CustomerModel> {
-    return this.http.get<CustomerModel>(`${this.SRV}/customer/${id}`).pipe(retry(1), 
+    return this.http.get<CustomerModel>(`${this.SRV}/customer/${id}`).pipe(retry(1),
     catchError(this.handleError));
     }
 
@@ -39,14 +39,14 @@ export class CustomerService {
   crear(datos : any): Observable<any>{
     //console.log(datos);
     //crear
-    //console.log("crear nuevo "+`${this.SRV}/customer`,datos, this.httpOptions);
+    console.log("CREANDOOO "+datos);
     return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
   guardar(datos : any, id? : any): Observable<any>{
     console.log(id);
     //console.log(datos);
-    
+
     if (this.buscar(id)) {//modificar
       return this.http.put(`${this.SRV}/customer/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
@@ -58,7 +58,7 @@ export class CustomerService {
     }
   }
 
-  
+
   eliminar(id: any) : Observable<any>{
     return this.http.delete(`${this.SRV}/customer/${id}`).pipe(retry(1), catchError(this.handleError));
   }

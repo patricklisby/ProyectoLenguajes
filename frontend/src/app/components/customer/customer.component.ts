@@ -17,6 +17,7 @@ import {
 import { PrintService } from 'src/app/shared/services/print.service';
 import { CustomerService } from 'src/app/shared/services/customer.service';
 import { CustomerModel } from 'src/app/shared/models/customer.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer',
@@ -140,10 +141,13 @@ export class CustomerComponent implements OnInit {
       customerEmail: this.frmCustomer.value.customerEmail,
       customerPhone: this.frmCustomer.value.customerPhone,
       customerAddress: this.frmCustomer.value.customerAddress,
+      admissionDate: moment().format('YYYY-MM-DD HH:mm:ss')
     };
-    const texto = this.frmCustomer.value.idCustomer 
+    const texto = this.frmCustomer.value.idCustomer
       ?  'Creado correctamente'
       :'Actualizado correctamente';
+      console.log(customer);
+
     this.srvCustomer.crear(customer).subscribe({
       complete: () => {
         this.filtrar();
