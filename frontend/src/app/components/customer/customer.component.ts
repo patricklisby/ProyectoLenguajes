@@ -146,7 +146,6 @@ export class CustomerComponent implements OnInit {
     const texto = this.frmCustomer.value.idCustomer
       ?  'Creado correctamente'
       :'Actualizado correctamente';
-      console.log(customer);
 
     this.srvCustomer.guardar(customer,this.frmCustomer.value.idCustomer).subscribe({
       complete: () => {

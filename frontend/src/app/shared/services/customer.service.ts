@@ -41,16 +41,10 @@ export class CustomerService {
     //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
     //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
     if(typeof(id) !== 'string' ){
-+      console.log("editando",datos)//
-      return this.http.put(`${this.SRV}/customer/${id}`, {
-        nameCustomer: datos['nameCustomer'],
-        firstLastNameCustomer: datos['firstLastNameCustomer'],
-        secondLastNameCustomer: datos['secondLastNameCustomer'],
-        customerEmail: datos['customerEmail'],
-        customerPhone: datos['customerPhone'],
-        customerAddress: datos['customerAddress'],
-        admissionDate: datos['admissionDate']
-      },this.httpOptions)
+      delete datos.idCustomer;
+      delete datos.admissionDate;
+      console.log("EDITANDO ",id, datos);
+      return this.http.put(`${this.SRV}/customer/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }
     console.log("CREANDO NUEVO", datos);

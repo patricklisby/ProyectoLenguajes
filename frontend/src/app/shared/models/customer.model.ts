@@ -7,7 +7,7 @@ export class CustomerModel {
     customerPhone : string;
     customerAddress : string;
     admissionDate? : Date;
-  
+
     constructor(r?: CustomerModel) {
       if (this.idCustomer !== undefined) {
         this.idCustomer = r?.idCustomer;
@@ -24,4 +24,3 @@ export class CustomerModel {
     }
     }
   }
-  

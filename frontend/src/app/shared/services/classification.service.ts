@@ -45,6 +45,7 @@ export class ClassificationService {
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
       delete datos.idClassification;
+      console.log("EDITANDO ", datos);
       return this.http.put(`${this.SRV}/classification/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }
