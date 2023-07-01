@@ -36,26 +36,26 @@ export class CustomerService {
    console.log("editando")
   }
 
-  crear(datos : any): Observable<any>{
-    //console.log(datos);
-    //crear
-    console.log("CREANDOOO "+datos);
-    return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-  }
-
   guardar(datos : any, id? : any): Observable<any>{
-    console.log(id);
-    //console.log(datos);
-
-    if (this.buscar(id)) {//modificar
-      return this.http.put(`${this.SRV}/customer/${id}`,datos, this.httpOptions)
+    //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
+    //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
+    //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
+    if(typeof(id) !== 'string' ){
++      console.log("editando",datos)//
+      return this.http.put(`${this.SRV}/customer/${id}`, {
+        nameCustomer: datos['nameCustomer'],
+        firstLastNameCustomer: datos['firstLastNameCustomer'],
+        secondLastNameCustomer: datos['secondLastNameCustomer'],
+        customerEmail: datos['customerEmail'],
+        customerPhone: datos['customerPhone'],
+        customerAddress: datos['customerAddress'],
+        admissionDate: datos['admissionDate']
+      },this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-      console.log("editando")
-
-    } else {//crear
-      return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-      console.log("crear nuevo")
     }
+    console.log("CREANDO NUEVO", datos);
+    return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+
   }
 
 

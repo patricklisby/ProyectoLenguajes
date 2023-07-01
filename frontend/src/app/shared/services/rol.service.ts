@@ -42,22 +42,17 @@ export class RolService {
   }
 
   guardar(datos : any, id? : any): Observable<any>{
-    console.log("Soy ID");
-    console.log(id);
-    
-    if (id) {//modificar
-      console.log("Modificar");
-      
-      console.log(id);
-      
-      return this.http.put(`${this.SRV}/rol/${id}`,datos, this.httpOptions)
+    //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
+    //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
+    //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
+    if(typeof(id) !== 'string' ){
++      console.log("editando",datos)//
+      return this.http.put(`${this.SRV}/rol/${id}`,{rolDescription: datos['rolDescription']},this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
-      console.log("editando")
-
-    } else {//crear
-      return this.http.post(`${this.SRV}/rol`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
-      console.log("crear nuevo")
     }
+    console.log("CREANDO NUEVO", datos);
+    return this.http.post(`${this.SRV}/rol`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+
   }
 
   eliminar(id: any) : Observable<any>{
