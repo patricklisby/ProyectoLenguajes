@@ -102,7 +102,6 @@ export class ClassificationComponent implements OnInit {
   }
   onSubmit() {
     const classification = {
-      idClassification: this.frmClassification.value.idClassification,
       classificationDescription: this.frmClassification.value.classificationDescription
     };
     const texto = this.frmClassification.value.idClassification

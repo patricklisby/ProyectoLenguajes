@@ -40,7 +40,7 @@ export class ClassificationService {
 
   guardar(datos : any, id? : any): Observable<any>{
     if (this.buscar(id)) {//modificar
-      console.log("editando",datos)
+      console.log("editando",datos)//
       return this.http.put(`${this.SRV}/classification/${id}`,datos, this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
 
