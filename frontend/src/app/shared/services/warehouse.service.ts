@@ -39,7 +39,7 @@ export class WarehouseService {
 
     filtro (): Observable<WarehouseModel[]>{
       //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
-     return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/data`).pipe(retry(1), catchError(this.handleError));
+     return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/alldata`).pipe(retry(1), catchError(this.handleError));
      console.log("editando")
     }
 
