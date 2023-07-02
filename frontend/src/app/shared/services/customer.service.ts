@@ -41,8 +41,9 @@ export class CustomerService {
     //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
     //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
     if(typeof(id) !== 'string' ){
-    //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
       delete datos.idCustomer;
+      delete datos.admissionDate;
+      console.log("EDITANDO ",id, datos);
       return this.http.put(`${this.SRV}/customer/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }
