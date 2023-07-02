@@ -101,7 +101,7 @@ export class ProductComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(15),
-          Validators.pattern('[A-Za-záéíóúñÑ]*'),
+          Validators.pattern('([A-Za-záéíóúñÑ]*)( ([A-Za-záéíóúñÑ]*)){0,5}')
         ],
       ], //requerido -tamMin(9)-formato(letras)
       priceProduct: ['', [Validators.required]],

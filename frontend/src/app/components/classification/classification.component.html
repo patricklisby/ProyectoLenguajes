@@ -276,24 +276,8 @@
                   id="idClassification"
                   formControlName="idClassification"
                   readonly
+                  style="background-color: rgb(207, 207, 207)"
                 />
-                <div
-                  class="alert alert-danger"
-                  *ngIf="F['idClassification'].invalid && F['idClassification'].touched"
-                >
-                  <div *ngIf="F['idClassification'].errors!['required']">
-                    Este campo es Obligatorio
-                  </div>
-                  <div *ngIf="F['idClassification'].errors!['minlength']">
-                    Debe ser al menos 1 digitos
-                  </div>
-                  <div *ngIf="F['idClassification'].errors!['maxlength']">
-                    Debe ser como maximo 15 digitos
-                  </div>
-                  <div *ngIf="F['idClassification'].errors!['pattern']">
-                    Este campo solo se admiten numeros
-                  </div>
-                </div>
               </div>
             </div>
             <div class="row mb-2">

@@ -74,7 +74,7 @@
                     class="btn btn-warning btn-sm"
                     (click)="onEditar(item.idSupplier)"
                     data-bs-toggle="modal"
-                    data-bs-target="#ventanaSupplier"
+                    data-bs-target="#ventanaEditarSupplier"
                   >
                     <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
                   </button>
@@ -193,6 +193,159 @@
                     Este campo solo se admiten numeros
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="supplierDescription" class="col-sm-3 col-form-label">Descripción</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="supplierDescription"
+                  formControlName="supplierDescription"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['supplierDescription'].invalid && F['supplierDescription'].touched"
+                >
+                  <div *ngIf="F['supplierDescription'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['supplierDescription'].errors!['minlength']">
+                    Debe tener al menos 3 caracteres
+                  </div>
+                  <div *ngIf="F['supplierDescription'].errors!['maxlength']">
+                    Debe tener maximo 30 caracteres
+                  </div>
+                  <div *ngIf="F['supplierDescription'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="supplierPhone" class="col-sm-3 col-form-label"
+                >Telefono</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="supplierPhone"
+                  formControlName="supplierPhone"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['supplierPhone'].invalid && F['supplierPhone'].touched"
+                >
+                  <div *ngIf="F['supplierPhone'].errors!['pattern']">
+                    Caracter inválido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+                <label for="supplierEmail" class="col-sm-3 col-form-label">Correo</label>
+                <div class="col-sm-9">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="supplierEmail"
+                    formControlName="supplierEmail"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['supplierEmail'].invalid && F['supplierEmail'].touched"
+                  >
+                    <div *ngIf="F['supplierEmail'].errors!['email']">Formato invalido</div>
+                    <div *ngIf="F['supplierEmail'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <div class="row mb-2">
+              <label for="supplierAddress" class="col-sm-3 col-form-label"
+                >Dirección</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="supplierAddress"
+                  formControlName="supplierAddress"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['supplierAddress'].invalid && F['supplierAddress'].touched"
+                >
+                  <div *ngIf="F['supplierAddress'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['supplierAddress'].errors!['minlength']">
+                    Debe tener al menos 5 caracteres
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="frmSupplier"
+            [disabled]="frmSupplier.invalid"
+          >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Formulario Cliente Modal-->
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="ventanaEditarSupplier"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="ventanaEditarSupplierLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ventanaEditarSupplierLabel">{{ titulo }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="frmSupplier" [formGroup]="frmSupplier" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <label for="idSupplier" class="col-sm-3 col-form-label"
+                >Id</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idSupplier"
+                  formControlName="idSupplier"
+                  readonly
+                  style="background-color: rgb(207, 207, 207)"
+                />
+                
               </div>
             </div>
             <div class="row mb-2">

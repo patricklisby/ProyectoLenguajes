@@ -342,7 +342,7 @@ export class CustomerComponent implements OnInit {
               Obj.nameCustomer+ ' '+ Obj.firstLastNameCustomer + ' '+Obj.secondLastNameCustomer,
               Obj.customerEmail,
               Obj.customerPhone,
-              Obj.customerAddress.
+              Obj.customerAddress,
               Obj.admissionDate
             ]
             return datos;

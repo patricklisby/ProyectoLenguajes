@@ -56,7 +56,7 @@
                     class="btn btn-success btn-sm"
                     (click)="onNuevo()"
                     data-bs-toggle="modal"
-                    data-bs-target="#ventanaCliente"
+                    data-bs-target="#ventanaDetail"
                   >
                     <fa-icon [icon]="['fas', 'plus']"></fa-icon>
                   </button>
@@ -84,7 +84,7 @@
                     class="btn btn-warning btn-sm"
                     (click)="onEditar(item.idDetail)"
                     data-bs-toggle="modal"
-                    data-bs-target="#ventanaCliente"
+                    data-bs-target="#ventanaEditarDetail"
                   >
                     <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
                   </button>
@@ -156,17 +156,17 @@
   <!-- Modal -->
   <div
     class="modal fade"
-    id="ventanaCliente"
+    id="ventanaDetail"
     data-bs-backdrop="static"
     data-bs-keyboard="false"
     tabindex="-1"
-    aria-labelledby="ventanaClienteLabel"
+    aria-labelledby="ventanaDetailLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="ventanaClienteLabel">{{ titulo }}</h1>
+          <h1 class="modal-title fs-5" id="ventanaDetailLabel">{{ titulo }}</h1>
           <button
             type="button"
             class="btn-close"
@@ -204,6 +204,155 @@
                     Este campo solo se admiten numeros
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+                <label for="idCustomer" class="col-sm-3 col-form-label"
+                  >Cliente</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idCustomer"
+                    formControlName="idCustomer"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['idCustomer'].invalid && F['idCustomer'].touched"
+                  >
+                    <div *ngIf="F['idCustomer'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['idCustomer'].errors!['minlength']">
+                      Debe ser al menos 1 digitos
+                    </div>
+                    <div *ngIf="F['idCustomer'].errors!['maxlength']">
+                      Debe ser como maximo 15 digitos
+                    </div>
+                    <div *ngIf="F['idCustomer'].errors!['pattern']">
+                      Este campo solo se admiten numeros
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="idProduct" class="col-sm-3 col-form-label"
+                  >Producto</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idProduct"
+                    formControlName="idProduct"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['idProduct'].invalid && F['idProduct'].touched"
+                  >
+                    <div *ngIf="F['idProduct'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['idProduct'].errors!['minlength']">
+                      Debe ser al menos 1 digitos
+                    </div>
+                    <div *ngIf="F['idProduct'].errors!['maxlength']">
+                      Debe ser como maximo 15 digitos
+                    </div>
+                    <div *ngIf="F['idProduct'].errors!['pattern']">
+                      Este campo solo se admiten numeros
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="cantItem" class="col-sm-3 col-form-label"
+                  >Cantidad</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cantItem"
+                    formControlName="cantItem"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['cantItem'].invalid && F['cantItem'].touched"
+                  >
+                    <div *ngIf="F['cantItem'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['cantItem'].errors!['minlength']">
+                      Debe ser al menos 1 digitos
+                    </div>
+                    <div *ngIf="F['cantItem'].errors!['pattern']">
+                      Este campo solo se admiten numeros
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </form>
+          <!--<div>formulario Valid:{{frmDetail.valid}}</div>
+          <div>formulario No Valid:{{frmDetail.invalid}}</div>-->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="frmDetail"
+            [disabled]="frmDetail.invalid"
+          >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario Cliente Modal-->
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="ventanaEditarDetail"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="ventanaEditarDetailLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ventanaEditarDetailLabel">{{ titulo }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="frmDetail" [formGroup]="frmDetail" (ngSubmit)="onSubmit()">
+            <div class="row mb-3">
+              <label for="idDetail" class="col-sm-3 col-form-label"
+                >ID Venta</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idDetail"
+                  formControlName="idDetail"
+                  readonly
+                  style="background-color: rgb(207, 207, 207)"
+                />
+                
               </div>
             </div>
             <div class="row mb-3">

@@ -124,7 +124,7 @@ export class DetailsComponent implements OnInit {
     this.filtrar();
   }
   onSubmit() {
-    const cliente = {
+    const detail = {
       idDetail: this.frmDetail.value.idDetail,
       idCustomer: this.frmDetail.value.idCustomer,
       idProduct: this.frmDetail.value.idProduct,
@@ -133,7 +133,7 @@ export class DetailsComponent implements OnInit {
     const texto = this.frmDetail.value.idDetail
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-    this.srvDetail.guardar(cliente, this.frmDetail.value.idDetail).subscribe({
+    this.srvDetail.guardar(detail, this.frmDetail.value.idDetail).subscribe({
       complete: () => {
         this.filtrar();
         Swal.fire({
@@ -149,7 +149,7 @@ export class DetailsComponent implements OnInit {
           case 404:
             Swal.fire({
               icon: 'error',
-              title: 'El cliente no existe',
+              title: 'El detalle no existe',
               showConfirmButton: false,
               cancelButtonColor: '#d33',
               showCancelButton: true,
@@ -160,7 +160,7 @@ export class DetailsComponent implements OnInit {
           case 409:
             Swal.fire({
               icon: 'error',
-              title: 'id cliente ya existe',
+              title: 'Detalle ya existe',
               showConfirmButton: false,
               cancelButtonColor: '#d33',
               showCancelButton: true,
@@ -174,7 +174,7 @@ export class DetailsComponent implements OnInit {
   }
 
   onNuevo() {
-    this.titulo = 'Nuevo Cliente';
+    this.titulo = 'Nuevo detalle';
     console.log('Creando Nuevo');
     this.frmDetail.reset();
   }
@@ -196,7 +196,7 @@ export class DetailsComponent implements OnInit {
           complete: () => {
             Swal.fire(
               'Eliminado',
-              'Cliente eliminado de forma correcta',
+              'Detalle eliminado de forma correcta',
               'success'
             );
             this.filtrar(); // este actualiza
@@ -206,18 +206,7 @@ export class DetailsComponent implements OnInit {
             switch (e) {
               case 404:
                 Swal.fire({
-                  title: 'Cliente no existe!',
-                  icon: 'info',
-                  showCancelButton: true,
-                  showConfirmButton: false,
-                  cancelButtonColor: '#d33',
-                  cancelButtonText: 'Cerrar',
-                });
-                break;
-              case 412:
-                Swal.fire({
-                  title: 'No se puede eliminar Cliente',
-                  text: 'El cliente tiene artefacto relacionado',
+                  title: 'Detalle no existe!',
                   icon: 'info',
                   showCancelButton: true,
                   showConfirmButton: false,
@@ -236,18 +225,18 @@ export class DetailsComponent implements OnInit {
     this.srvDetail.buscar(id).subscribe((data) => {
       console.log(data);
       Swal.fire({
-        title: '<strong> Informacion Cliente</strong>',
+        title: '<strong> Informacion del Detalle</strong>',
         html:
           '<br>' +
           '<table class="table table-sm table-striped">' +
           '<tbody class="text-start">' +
           '<tr><th>Id</th>' +
           `<td>${data.idDetail}</td></tr>` +
-          '<tr><th>idCustomer</th>' +
+          '<tr><th>Cliente</th>' +
           `<td>${data.idCustomer}</td></tr>` +
-          '<tr><th>Telefono</th>' +
+          '<tr><th>Producto</th>' +
           `<td>${data.idProduct}</td></tr>` +
-          '<tr><th>Celular</th>' +
+          '<tr><th>Cantidad</th>' +
           `<td>${data.cantItem}</td></tr>` +
           '</tbody>' +
           '</table>',
@@ -259,7 +248,7 @@ export class DetailsComponent implements OnInit {
   }
 
   onEditar(id: any) {
-    this.titulo = 'Editando Cliente';
+    this.titulo = 'Editando Detalle';
     this.srvDetail.buscar(id).subscribe(
       /*data => {
       console.log(data);
@@ -272,7 +261,16 @@ export class DetailsComponent implements OnInit {
         error: (e) => {
           if (e == 404) {
             Swal.fire({
-              title: 'Cliente no Existe',
+              title: 'Detalle no Existe',
+              icon: 'info',
+              showCancelButton: true,
+              showConfirmButton: false,
+              cancelButtonAriaLabel: '#d33',
+              cancelButtonText: 'Cerrar',
+            });
+          }else if (e == 409) {
+            Swal.fire({
+              title: 'Detalle no ha sido editado',
               icon: 'info',
               showCancelButton: true,
               showConfirmButton: false,
@@ -291,7 +289,17 @@ export class DetailsComponent implements OnInit {
   onCerrar() {
     this.router.navigate(['']);
   }
+  filtrarImpresion() {
+    this.srvDetail
+      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
 
+        this.details = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.details);
+    });
+  }
   filtrar() {
     /** 
     this.srvDetail
@@ -339,7 +347,10 @@ export class DetailsComponent implements OnInit {
     .subscribe(
       data => {
         const cuerpo = Object(data)['datos']
+        
         .map(
+          
+          
           (Obj : any) => {
             const datos = [
               Obj.idDetail,
@@ -350,7 +361,8 @@ export class DetailsComponent implements OnInit {
             return datos;
           }
         )
-        this.srvPrint.print(encabezado, cuerpo, "Listado de details",true);
+        console.log(cuerpo);
+        this.srvPrint.print(encabezado, cuerpo, "Listado detalle",true);
       }
     );
   }

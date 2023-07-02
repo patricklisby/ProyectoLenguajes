@@ -103,12 +103,6 @@
                 >
                   <fa-icon [icon]="['fas', 'plus']"></fa-icon>
                 </button>
-                <button
-                  class="btn btn-danger btn-sm"
-                  (click)="onGetRol()"
-                >
-                  <fa-icon [icon]="['fas', 'plus']"></fa-icon>
-                </button>
               </th>
             </tr>
           </thead>
@@ -138,7 +132,7 @@
                   class="btn btn-warning btn-sm"
                   (click)="onEditar(item.idPerson)"
                   data-bs-toggle="modal"
-                  data-bs-target="#ventanaPerson"
+                  data-bs-target="#ventanaEditarPerson"
                 >
                   <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
                 </button>
@@ -269,15 +263,265 @@
               (ngSubmit)="onSubmit()"
             >
               <div class="row mb-3">
-                <label for="idRol" class="col-sm-4 col-form-label"
+                <label for="idRol" class="col-sm-3 col-form-label"
                   >Rol</label
                 >
+                <div class="col-sm-9">
                 <input
                 type="text"
                 class="form-control"
                 id="idRol"
                 formControlName="idRol"
               />
+              </div>
+              </div>
+              <div class="row mb-2">
+                <label for="namePerson" class="col-sm-3 col-form-label"
+                  >Nombre</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="namePerson"
+                    formControlName="namePerson"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['namePerson'].invalid && F['namePerson'].touched"
+                  >
+                    <div *ngIf="F['namePerson'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['namePerson'].errors!['minlength']">
+                      Debe tener al menos 3 caracteres
+                    </div>
+                    <div *ngIf="F['namePerson'].errors!['maxlength']">
+                      Debe tener maximo 30 caracteres
+                    </div>
+                    <div *ngIf="F['namePerson'].errors!['pattern']">
+                      Caracter inválido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <label for="firstLastNamePerson" class="col-sm-3 col-form-label"
+                  >Primer Apellido</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstLastNamePerson"
+                    formControlName="firstLastNamePerson"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="
+                      F['firstLastNamePerson'].invalid &&
+                      F['firstLastNamePerson'].touched
+                    "
+                  >
+                    <div *ngIf="F['firstLastNamePerson'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['firstLastNamePerson'].errors!['minlength']">
+                      Debe tener al menos 2 caracteres
+                    </div>
+                    <div *ngIf="F['firstLastNamePerson'].errors!['maxlength']">
+                      Debe tener maximo 30 caracteres
+                    </div>
+                    <div *ngIf="F['firstLastNamePerson'].errors!['pattern']">
+                      Caracter invalido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <label
+                  for="secondLastNamePerson"
+                  class="col-sm-3 col-form-label"
+                  >Apellido 2</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="secondLastNamePerson"
+                    formControlName="secondLastNamePerson"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="
+                      F['secondLastNamePerson'].invalid &&
+                      F['secondLastNamePerson'].touched
+                    "
+                  >
+                    <div *ngIf="F['secondLastNamePerson'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['secondLastNamePerson'].errors!['minlength']">
+                      Debe tener al menos 2 caracteres
+                    </div>
+                    <div *ngIf="F['secondLastNamePerson'].errors!['maxlength']">
+                      Debe tener maximo 30 caracteres
+                    </div>
+                    <div *ngIf="F['secondLastNamePerson'].errors!['pattern']">
+                      Caracter invalido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <label for="personPhone" class="col-sm-3 col-form-label"
+                  >Teléfono</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="tel"
+                    class="form-control"
+                    id="personPhone"
+                    formControlName="personPhone"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['personPhone'].invalid && F['personPhone'].touched"
+                  >
+                    <div *ngIf="F['personPhone'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                    <div *ngIf="F['personPhone'].errors!['pattern']">
+                      Formato invalido
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mb-2">
+                <label for="personEmail" class="col-sm-3 col-form-label"
+                  >Correo</label
+                >
+                <div class="col-sm-9">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="personEmail"
+                    formControlName="personEmail"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    *ngIf="F['personEmail'].invalid && F['personEmail'].touched"
+                  >
+                    <div *ngIf="F['personEmail'].errors!['email']">
+                      Formato invalido
+                    </div>
+                    <div *ngIf="F['personEmail'].errors!['required']">
+                      Este campo es Obligatorio
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-floating">
+                <textarea
+                  class="form-control"
+                  placeholder="personAddress"
+                  id="personAddress"
+                  style="height: 100px"
+                  formControlName="personAddress"
+                ></textarea>
+                <label for="personAddress">Direccion</label>
+                <div
+                  class="alert alert-danger"
+                  *ngIf="
+                    F['personAddress'].invalid && F['personAddress'].touched
+                  "
+                ></div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              form="frmPerson"
+              [disabled]="frmPerson.invalid"
+            >
+              Guardar
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulario Cliente Modal-->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="ventanaEditarPerson"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="ventanaEditarPersonLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ventanaEditarPersonLabel">{{ titulo }}</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="frmPerson" [formGroup]="frmPerson" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <label for="idPerson" class="col-sm-3 col-form-label"
+              >Id Cliente</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="idPerson"
+                formControlName="idPerson"
+                readonly
+                  style="background-color: rgb(207, 207, 207)"
+              />
+             
+            </div>
+          </div>
+          <div class="modal-body">
+            <form
+              id="frmPerson"
+              [formGroup]="frmPerson"
+              (ngSubmit)="onSubmit()"
+            >
+              <div class="row mb-3">
+                <label for="idRol" class="col-sm-3 col-form-label"
+                  >Rol</label
+                >
+                <div class="col-sm-9">
+                <input
+                type="text"
+                class="form-control"
+                id="idRol"
+                formControlName="idRol"
+              />
+              </div>
               </div>
               <div class="row mb-2">
                 <label for="namePerson" class="col-sm-3 col-form-label"

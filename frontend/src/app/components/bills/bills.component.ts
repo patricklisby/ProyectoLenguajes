@@ -73,6 +73,24 @@ export class BillsComponent implements OnInit {
           Validators.pattern('[0-9]*'),
         ],
       ],
+      idDetail: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(15),
+          Validators.pattern('[0-9]*'),
+        ],
+      ],
+      idPerson: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(15),
+          Validators.pattern('[0-9]*'),
+        ],
+      ],
       dateGeneration: [''],
     });
   }
@@ -219,6 +237,8 @@ export class BillsComponent implements OnInit {
           `<td>${data.idDetail}</td></tr>` +
           '<tr><th>Id Persona</th>' +
           `<td>${data.idPerson}</td></tr>` +
+          '<tr><th>Fecha Generacion</th>' +
+          `<td>${data.dateGeneration}</td></tr>` +
           '</tbody>' +
           '</table>',
         showConfirmButton: false,
@@ -258,6 +278,19 @@ export class BillsComponent implements OnInit {
     this.router.navigate(['/bills']);
   }
 
+  busqueda() {
+     
+    this.srvBills
+      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+        this.bills = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.bills);
+      });
+     
+  }
+
   filtrar() {
     /** 
     this.srvBills
@@ -285,7 +318,7 @@ export class BillsComponent implements OnInit {
   }
   onFiltrarChange(f: any) {
     this.filtro = f;
-    this.filtrar();
+    this.busqueda();
   }
   onImprimir() {
     const encabezado = ['ID Factura', 'ID detalle','ID Persona','Fecha Creación'];

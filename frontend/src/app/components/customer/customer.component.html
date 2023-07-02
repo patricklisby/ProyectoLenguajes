@@ -110,7 +110,7 @@
                     class="btn btn-warning btn-sm"
                     (click)="onEditar(item.idCustomer)"
                     data-bs-toggle="modal"
-                    data-bs-target="#ventanaCustomer"
+                    data-bs-target="#ventanaEditarCustomer"
                   >
                     <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
                   </button>
@@ -230,6 +230,219 @@
                     Este campo solo se admiten numeros
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="nameCustomer" class="col-sm-4 col-form-label">Nombre</label>
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nameCustomer"
+                  formControlName="nameCustomer"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['nameCustomer'].invalid && F['nameCustomer'].touched"
+                >
+                  <div *ngIf="F['nameCustomer'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['nameCustomer'].errors!['minlength']">
+                    Debe tener al menos 3 caracteres
+                  </div>
+                  <div *ngIf="F['nameCustomer'].errors!['maxlength']">
+                    Debe tener maximo 30 caracteres
+                  </div>
+                  <div *ngIf="F['nameCustomer'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="firstLastNameCustomer" class="col-sm-4 col-form-label"
+                >Primer Apellido</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstLastNameCustomer"
+                  formControlName="firstLastNameCustomer"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['firstLastNameCustomer'].invalid && F['firstLastNameCustomer'].touched"
+                >
+                  <div *ngIf="F['firstLastNameCustomer'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['firstLastNameCustomer'].errors!['minlength']">
+                    Debe tener al menos 2 caracteres
+                  </div>
+                  <div *ngIf="F['firstLastNameCustomer'].errors!['maxlength']">
+                    Debe tener maximo 30 caracteres
+                  </div>
+                  <div *ngIf="F['firstLastNameCustomer'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="secondLastNameCustomer" class="col-sm-4 col-form-label"
+                >Segundo Apellido</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="secondLastNameCustomer"
+                  formControlName="secondLastNameCustomer"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['secondLastNameCustomer'].invalid && F['secondLastNameCustomer'].touched"
+                >
+                  <div *ngIf="F['secondLastNameCustomer'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['secondLastNameCustomer'].errors!['minlength']">
+                    Debe tener al menos 2 caracteres
+                  </div>
+                  <div *ngIf="F['secondLastNameCustomer'].errors!['maxlength']">
+                    Debe tener maximo 30 caracteres
+                  </div>
+                  <div *ngIf="F['secondLastNameCustomer'].errors!['pattern']">
+                    Caracter invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="customerPhone" class="col-sm-4 col-form-label"
+                >Telefono</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="customerPhone"
+                  formControlName="customerPhone"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['customerPhone'].invalid && F['customerPhone'].touched"
+                >
+                  <div *ngIf="F['customerPhone'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                  <div *ngIf="F['customerPhone'].errors!['pattern']">
+                    Formato invalido
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-2">
+              <label for="customerEmail" class="col-sm-4 col-form-label">Correo electrónico</label>
+              <div class="col-sm-9">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="customerEmail"
+                  formControlName="customerEmail"
+                />
+                <div
+                  class="alert alert-danger"
+                  *ngIf="F['customerEmail'].invalid && F['customerEmail'].touched"
+                >
+                  <div *ngIf="F['customerEmail'].errors!['email']">Formato invalido</div>
+                  <div *ngIf="F['customerEmail'].errors!['required']">
+                    Este campo es Obligatorio
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                placeholder="customerAddress"
+                id="customerAddress"
+                style="height: 100px"
+                formControlName="customerAddress"
+              ></textarea>
+              <label for="customerAddress">Dirección</label>
+              <div
+                class="alert alert-danger"
+                *ngIf="F['customerAddress'].invalid && F['customerAddress'].touched"
+              >
+                <div *ngIf="F['customerAddress'].errors!['minlength']">
+                  Debe tener al menos 5 caracteres
+                </div>
+              </div>
+            </div>
+            <input type="hidden" formControlName="admissionDate" />
+          </form>
+          <!--<div>formulario Valid:{{frmCustomer.valid}}</div>
+          <div>formulario No Valid:{{frmCustomer.invalid}}</div>-->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            form="frmCustomer"
+            [disabled]="frmCustomer.invalid"
+          >
+            Guardar
+          </button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Formulario Cliente Modal-->
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="ventanaEditarCustomer"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="ventanaEditarCustomerLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-3" id="ventanaEditarCustomerLabel">{{ titulo }}</h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form id="frmCustomer" [formGroup]="frmCustomer" (ngSubmit)="onSubmit()">
+            <div class="row mb-2">
+              <label for="idCustomer" class="col-sm-4 col-form-label"
+                >ID</label
+              >
+              <div class="col-sm-9">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idCustomer"
+                  formControlName="idCustomer"
+                  readonly
+                  style="background-color: rgb(207, 207, 207)"
+                />
+               
               </div>
             </div>
             <div class="row mb-2">

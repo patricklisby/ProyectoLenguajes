@@ -48,12 +48,6 @@
                 >
                   <fa-icon [icon]="['fas', 'plus']"></fa-icon>
                 </button>
-                <button
-                class="btn btn-danger btn-sm"
-                (click)="getRoles()"
-              >
-                <fa-icon [icon]="['fas', 'plus']"></fa-icon>
-              </button>
               </th>
             </tr>
           </thead>
@@ -76,7 +70,7 @@
                   class="btn btn-warning btn-sm"
                   (click)="onEditar(item.idRol)"
                   data-bs-toggle="modal"
-                  data-bs-target="#ventanaRol"
+                  data-bs-target="#ventanaEditarRol"
                 >
                   <fa-icon [icon]="['fas', 'pencil']"></fa-icon>
                 </button>
@@ -196,6 +190,96 @@
                   Este campo solo se admiten numeros
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <label for="rolDescription" class="col-sm-3 col-form-label">Descripcion del rol</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="rolDescription"
+                formControlName="rolDescription"
+              />
+              <div
+                class="alert alert-danger"
+                *ngIf="F['rolDescription'].invalid && F['rolDescription'].touched"
+              >
+                <div *ngIf="F['rolDescription'].errors!['required']">
+                  Este campo es Obligatorio
+                </div>
+                <div *ngIf="F['rolDescription'].errors!['minlength']">
+                  Debe tener al menos 3 caracteres
+                </div>
+                <div *ngIf="F['rolDescription'].errors!['maxlength']">
+                  Debe tener maximo 30 caracteres
+                </div>
+                <div *ngIf="F['rolDescription'].errors!['pattern']">
+                  Caracter invalido
+                </div>
+              </div>
+            </div>
+          </div>
+        
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          form="frmRol"
+          [disabled]="frmRol.invalid"
+        >
+          Guardar
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Formulario Cliente Modal-->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="ventanaEditarRol"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="ventanaEditarRolLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ventanaEditarRolLabel">{{ titulo }}</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form id="frmRol" [formGroup]="frmRol" (ngSubmit)="onSubmit()">
+          <div class="row mb-3">
+            <label for="idRol" class="col-sm-3 col-form-label"
+              >Id Rol</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                id="idRol"
+                formControlName="idRol"
+                readonly
+                  style="background-color: rgb(207, 207, 207)"
+              />
+              
             </div>
           </div>
           <div class="row mb-2">

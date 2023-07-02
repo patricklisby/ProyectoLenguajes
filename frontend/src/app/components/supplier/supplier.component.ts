@@ -78,7 +78,7 @@ export class SupplierComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(30),
-          Validators.pattern('([A-Za-záéíóúñÑ]*)( ([A-Za-záéíóúñÑ]*)){0,3}'),
+          Validators.pattern('([A-Za-záéíóúñÑ]*)( ([A-Za-záéíóúñÑ]*)){0,5}'),
         ],
       ], //requerido - -tamMin(9)-formato(letras un espacio)
 
