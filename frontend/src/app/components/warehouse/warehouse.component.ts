@@ -228,8 +228,10 @@ export class WarehouseComponent implements OnInit {
           '<tbody class="text-start">' +
           '<tr><th>ID</th>' +
           `<td>${data.idWareHouse}</td></tr>` +
-          '<tr><th>Producto</th>' +
+          '<tr><th>ID Producto</th>' +
           `<td>${data.idProduct}</td></tr>` +
+          '<tr><th>Producto</th>' +
+          `<td>${data.productDescription}</td></tr>` +
           '<tr><th>Cantiddad</th>' +
           `<td>${data.cantItem}</td></tr>` +
           '</tbody>' +
@@ -315,8 +317,9 @@ export class WarehouseComponent implements OnInit {
     this.filtro = f;
     this.filtrar();
   }
+
   onImprimir(){
-    const encabezado = ["ID","Producto","Cantidad"];
+    const encabezado = ["ID","Producto","ID Producto","Cantidad"];
     this.srvWarehouse.filtrar(this.filtro,1, this.numRegs)
     .subscribe(
       data => {
@@ -326,15 +329,20 @@ export class WarehouseComponent implements OnInit {
             const datos = [
               Obj.idWarehouse,
               Obj.idProduct,
+              Obj.productDescription,
               Obj.cantItem,
             ]
+            console.log(datos);
             return datos;
+           
+            
           }
         )
         this.srvPrint.print(encabezado, cuerpo, "Listado de warehouses",true);
       }
     );
   }
+  
   resetearFiltro() {
     this.filtro = { idWarehouse: '', idProduct: '', cantItem: ''};
     this.filtrar();
