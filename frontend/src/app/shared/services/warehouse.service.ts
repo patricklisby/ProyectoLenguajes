@@ -19,7 +19,7 @@ export class WarehouseService {
 
   constructor(private http: HttpClient) { }
 
-  buscar( id : any) : Observable<WarehouseModel> {
+    buscar( id : any) : Observable<WarehouseModel> {
     return this.http.get<WarehouseModel>(`${this.SRV}/warehouse/${id}`).pipe(retry(1),
     catchError(this.handleError));
     }
@@ -34,13 +34,11 @@ export class WarehouseService {
       //this.http.get<ClassificationModel>(this.SRV+'/classification/'+pag+'/'+lim);
       console.log("filtrando")
      return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
-  
     }
 
     filtro (): Observable<WarehouseModel[]>{
       //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
-     return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/alldata`).pipe(retry(1), catchError(this.handleError));
-     console.log("editando")
+     return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/data`).pipe(retry(1), catchError(this.handleError));
     }
 
     guardar(datos : any, id? : any): Observable<any>{
@@ -50,24 +48,22 @@ export class WarehouseService {
       if(typeof(id) !== 'string' ){
       //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
         delete datos.idWareHouse;
-        return this.http.put(`${this.SRV}/warehouse/${id}`,datos,this.httpOptions)
-        .pipe(retry(1), catchError(this.handleError));
+        return this.http.put(`${this.SRV}/warehouse/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
       }
       console.log("CREANDO NUEVO", datos);
       return this.http.post(`${this.SRV}/warehouse`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
 
-  eliminar(id: any) : Observable<any>{
-    return this.http.delete(`${this.SRV}/warehouse/${id}`).pipe(retry(1), catchError(this.handleError));
-  }
+    eliminar(id: any) : Observable<any>{
+      return this.http.delete(`${this.SRV}/warehouse/${id}`).pipe(retry(1), catchError(this.handleError));
+    }
 
-  //manejador de error
-  private handleError(error: any) {
-    return throwError(
-      ()=> {
-        return error.status;
-      }
-    );
-  }
-
+    //manejador de error
+    private handleError(error: any) {
+      return throwError(
+        ()=> {
+          return error.status;
+        }
+      );
+    }
 }

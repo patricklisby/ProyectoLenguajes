@@ -113,7 +113,8 @@ export class WarehouseComponent implements OnInit {
     const cliente = {
       idWarehouse: this.frmWarehouse.value.idWarehouse,
       idProduct: this.frmWarehouse.value.idProduct,
-      cantItem: this.frmWarehouse.value.cantItem,
+      productDescription: this.frmWarehouse.value.productDescription,
+      cantItem: this.frmWarehouse.value.cantItem
     };
     const texto = this.frmWarehouse.value.idWarehouse
       ? 'Actualizado correctamente'
@@ -221,7 +222,7 @@ export class WarehouseComponent implements OnInit {
     this.srvWarehouse.buscar(id).subscribe((data) => {
       console.log(data);
       Swal.fire({
-        title: '<strong> Informacion Cliente</strong>',
+        title: '<strong> Informacion Inventario</strong>',
         html:
           '<br>' +
           '<table class="table table-sm table-striped">' +
@@ -232,7 +233,7 @@ export class WarehouseComponent implements OnInit {
           `<td>${data.idProduct}</td></tr>` +
           '<tr><th>Producto</th>' +
           `<td>${data.productDescription}</td></tr>` +
-          '<tr><th>Cantiddad</th>' +
+          '<tr><th>Cantidad</th>' +
           `<td>${data.cantItem}</td></tr>` +
           '</tbody>' +
           '</table>',
@@ -280,14 +281,14 @@ export class WarehouseComponent implements OnInit {
     this.srvWarehouse.filtrar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
         console.log(data);
-        
+
         this.warehouses = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
         console.log(this.warehouses);
       });
   }
-/** 
+/**
   filtrar() {
     this.srvWarehouse.filtrar()
       .subscribe((data) => {
@@ -320,8 +321,8 @@ export class WarehouseComponent implements OnInit {
 
   onImprimir(){
     const encabezado = ["ID","Producto","ID Producto","Cantidad"];
-   
-    
+
+
     this.srvWarehouse.filtro()
     .subscribe(
       data => {
@@ -335,7 +336,7 @@ export class WarehouseComponent implements OnInit {
               Obj.cantItem,
             ]
             return datos;
-            
+
           }
         )
         this.srvPrint.print(encabezado, cuerpo, "Listado de Bodega",true);

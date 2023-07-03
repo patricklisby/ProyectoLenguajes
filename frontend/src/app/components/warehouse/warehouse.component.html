@@ -66,7 +66,7 @@
               <th scope="row">{{ item.idWareHouse }}</th>
               <td> {{ item.idProduct }} </td>
               <td> {{ item.productDescription }} </td>
-              <td>{{ item.cantItem }}</td>
+              <td> {{ item.cantItem }} </td>
               <td class="text-center">
                 <button
                   class="btn btn-warning btn-sm"
@@ -126,13 +126,22 @@
 
       <div class="botones">
         <button class="btn btn-warning btn-sm me-2" (click)="onFiltrar()">
-          <fa-icon [icon]="['fas', 'magnifying-glass']"></fa-icon>Filtrar
+          <fa-icon [icon]="['fas', 'magnifying-glass']"></fa-icon>
+
+          Filtrar
+
         </button>
         <button class="btn btn-info btn-sm me-2" (click)="onImprimir()">
-          <fa-icon [icon]="['fas', 'print']"> </fa-icon>Imprimir
+          <fa-icon [icon]="['fas', 'print']"> </fa-icon>
+
+          Imprimir
+
         </button>
         <button class="btn btn-danger btn-sm me-2" (click)="onCerrar()">
-          <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon> Cerrar
+          <fa-icon [icon]="['fas', 'circle-xmark']"></fa-icon>
+
+          Cerrar
+
         </button>
       </div>
     </div>
@@ -165,9 +174,11 @@
       <div class="modal-body">
         <form id="frmWarehouse" [formGroup]="frmWarehouse" (ngSubmit)="onSubmit()">
           <div class="row mb-3">
-            <label for="idWareHouse" class="col-sm-3 col-form-label"
-              >ID Venta</label
-            >
+            <label for="idWareHouse" class="col-sm-3 col-form-label">
+
+              ID Venta
+
+            </label>
             <div class="col-sm-9">
               <input
                 type="text"
@@ -195,20 +206,20 @@
             </div>
           </div>
           <div class="row mb-3">
-              <label for="idProduct" class="col-sm-3 col-form-label"
-                >Cliente</label
-              >
+              <label for="idProduct" class="col-sm-3 col-form-label">
+
+                Cliente
+
+              </label>
               <div class="col-sm-9">
                 <input
                   type="text"
                   class="form-control"
                   id="idProduct"
-                  formControlName="idProduct"
-                />
+                  formControlName="idProduct"/>
                 <div
                   class="alert alert-danger"
-                  *ngIf="F['idProduct'].invalid && F['idProduct'].touched"
-                >
+                  *ngIf="F['idProduct'].invalid && F['idProduct'].touched">
                   <div *ngIf="F['idProduct'].errors!['required']">
                     Este campo es Obligatorio
                   </div>
@@ -225,20 +236,20 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="idProduct" class="col-sm-3 col-form-label"
-                >Producto</label
-              >
+              <label for="idProduct" class="col-sm-3 col-form-label">
+
+                Producto
+
+              </label>
               <div class="col-sm-9">
                 <input
                   type="text"
                   class="form-control"
                   id="idProduct"
-                  formControlName="idProduct"
-                />
+                  formControlName="idProduct"/>
                 <div
                   class="alert alert-danger"
-                  *ngIf="F['idProduct'].invalid && F['idProduct'].touched"
-                >
+                  *ngIf="F['idProduct'].invalid && F['idProduct'].touched">
                   <div *ngIf="F['idProduct'].errors!['required']">
                     Este campo es Obligatorio
                   </div>
@@ -255,9 +266,11 @@
               </div>
             </div>
             <div class="row mb-3">
-              <label for="cantItem" class="col-sm-3 col-form-label"
-                >Cantidad</label
-              >
+              <label for="cantItem" class="col-sm-3 col-form-label">
+
+                Cantidad
+
+              </label>
               <div class="col-sm-9">
                 <input
                   type="text"
@@ -290,12 +303,15 @@
           type="submit"
           class="btn btn-primary"
           form="frmWarehouse"
-          [disabled]="frmWarehouse.invalid"
-        >
+          [disabled]="frmWarehouse.invalid">
+
           Guardar
+
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+
           Cerrar
+
         </button>
       </div>
     </div>
@@ -340,7 +356,7 @@
                 readonly
                   style="background-color: rgb(207, 207, 207)"
               />
-             
+
             </div>
           </div>
           <div class="row mb-3">
@@ -375,8 +391,7 @@
             </div>
             <div class="row mb-3">
               <label for="idProduct" class="col-sm-3 col-form-label"
-                >Producto</label
-              >
+                >Producto</label>
               <div class="col-sm-9">
                 <input
                   type="text"
@@ -439,8 +454,7 @@
           type="submit"
           class="btn btn-primary"
           form="frmWarehouse"
-          [disabled]="frmWarehouse.invalid"
-        >
+          [disabled]="frmWarehouse.invalid">
           Guardar
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
