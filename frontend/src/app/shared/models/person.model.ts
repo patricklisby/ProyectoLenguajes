@@ -5,10 +5,10 @@ export class PersonModel {
     namePerson : string;
     firstLastNamePerson : string;
     secondLastNamePerson : string;
-    personEmail : string;
     personPhone : string;
+    personEmail : string;
     personAddress : string;
-  
+
     constructor(r?: PersonModel) {
       if (this.idPerson !== undefined) {
         this.idPerson = r?.idPerson;
@@ -18,9 +18,8 @@ export class PersonModel {
       this.namePerson = r !== undefined ? r.namePerson : '';
       this.firstLastNamePerson = r !== undefined ? r.firstLastNamePerson : '';
       this.secondLastNamePerson = r !== undefined ? r.secondLastNamePerson : '';
-      this.personEmail = r !== undefined ? r.personEmail : '';
       this.personPhone = r !== undefined ? r.personPhone : '';
+      this.personEmail = r !== undefined ? r.personEmail : '';
       this.personAddress= r !== undefined ? r.personAddress : '';
     }
   }
-  

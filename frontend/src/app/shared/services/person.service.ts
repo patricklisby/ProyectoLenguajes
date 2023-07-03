@@ -18,9 +18,9 @@ export class PersonService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<PersonModel> {
-    return this.http.get<PersonModel>(`${this.SRV}/person/${id}`).pipe(retry(1), 
+    return this.http.get<PersonModel>(`${this.SRV}/person/${id}`).pipe(retry(1),
     catchError(this.handleError));
     }
 
@@ -33,7 +33,6 @@ export class PersonService {
     }
     //this.http.get<PersonModel>(this.SRV+'/person/'+pag+'/'+lim);
    return this.http.get<PersonModel[]>(`${this.SRV}/person/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
-   console.log("editando")
   }
 
   guardar(datos : any, id? : any): Observable<any>{
@@ -43,6 +42,8 @@ export class PersonService {
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
       delete datos.idPerson;
+      console.log("editando",JSON.stringify(datos));
+
       return this.http.put(`${this.SRV}/person/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }

@@ -134,7 +134,7 @@ export class PersonComponent implements OnInit {
   @Input() params : any = [];
   onGetRol(){
     console.log(this.params);
-    
+
   }
 
   onCambioPag(e: any) {
@@ -153,10 +153,9 @@ export class PersonComponent implements OnInit {
       namePerson: this.frmPerson.value.namePerson,
       firstLastNamePerson: this.frmPerson.value.firstLastNamePerson,
       secondLastNamePerson: this.frmPerson.value.secondLastNamePerson,
-      personPhone: this.frmPerson.value.personPhone,
-      celular: this.frmPerson.value.celular,
-      personAddress: this.frmPerson.value.personAddress,
       personEmail: this.frmPerson.value.personEmail,
+      personPhone: this.frmPerson.value.personPhone,
+      personAddress: this.frmPerson.value.personAddress
     };
     const texto = this.frmPerson.value.idPerson
       ? 'Actualizado correctamente'
@@ -289,13 +288,13 @@ export class PersonComponent implements OnInit {
     });
   }
  // console.log(onSelectRoles());
-  
+
 
   onSelectRoles(){
     this.srvRol.extraerRol().subscribe((rolD) => {
     console.log(rolD);
-  
-    
+
+
     Swal.fire({
       title: '<strong> Informacion person</strong>',
       html:
@@ -316,8 +315,8 @@ export class PersonComponent implements OnInit {
     });
     });
     console.log();
-    
-    
+
+
   }
 
   onEditar(id: any) {
@@ -355,7 +354,7 @@ export class PersonComponent implements OnInit {
   }
 
   filtrar() {
-    /** 
+    /**
     this.srvPerson
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
@@ -396,7 +395,7 @@ export class PersonComponent implements OnInit {
               Obj.personEmail,
               Obj.personPhone,
               Obj.personAddress,
-              
+
             ]
             return datos;
           }

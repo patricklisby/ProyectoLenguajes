@@ -18,9 +18,9 @@ export class SupplierService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<SupplierModel> {
-    return this.http.get<SupplierModel>(`${this.SRV}/supplier/${id}`).pipe(retry(1), 
+    return this.http.get<SupplierModel>(`${this.SRV}/supplier/${id}`).pipe(retry(1),
     catchError(this.handleError));
     }
 
@@ -43,6 +43,8 @@ export class SupplierService {
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
       delete datos.idSupplier;
+      console.log(datos);
+
       return this.http.put(`${this.SRV}/supplier/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }

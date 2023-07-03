@@ -31,9 +31,7 @@ export class CustomerService {
         params = params.append(prop,parametros[prop]);
       }
     }
-    //this.http.get<CustomerModel>(this.SRV+'/customer/'+pag+'/'+lim);
    return this.http.get<CustomerModel[]>(`${this.SRV}/customer/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
-   console.log("editando")
   }
 
   guardar(datos : any, id? : any): Observable<any>{
@@ -43,11 +41,11 @@ export class CustomerService {
     if(typeof(id) !== 'string' ){
       delete datos.idCustomer;
       delete datos.admissionDate;
-      console.log("EDITANDO ",id, datos);
+      console.log("EDITANDO ");
       return this.http.put(`${this.SRV}/customer/${id}`,datos,this.httpOptions)
       .pipe(retry(1), catchError(this.handleError));
     }
-    console.log("CREANDO NUEVO", datos);
+    console.log("CREANDO NUEVO", this.SRV +"/customer",datos);
     return this.http.post(`${this.SRV}/customer`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
