@@ -18,10 +18,10 @@ export class BillService {
    }
 
   constructor(private http: HttpClient) { }
-  
+
   buscar( id : any) : Observable<BillsModel> {
     return this.http.get<BillsModel>(`${this.SRV}/bills/${id}`)
-    .pipe(retry(1), 
+    .pipe(retry(1),
     catchError(this.handleError));
     }
 
@@ -34,13 +34,11 @@ export class BillService {
     }
     //this.http.get<BillsModel>(this.SRV+'/bills/'+pag+'/'+lim);
    return this.http.get<BillsModel[]>(`${this.SRV}/bills/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
-   console.log("editando")
   }
 
   filtro (): Observable<BillsModel[]>{
     //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
    return this.http.get<BillsModel[]>(`${this.SRV}/bills/data`).pipe(retry(1), catchError(this.handleError));
-   console.log("editando")
   }
 
   guardar(datos : any, id? : any): Observable<any>{
@@ -50,10 +48,11 @@ export class BillService {
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
       delete datos.idBills;
-      return this.http.put(`${this.SRV}/bills/${id}`,datos,this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      console.log("EDITAR",id,JSON.stringify(datos));
+
+      return this.http.put(`${this.SRV}/bills/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
-    console.log("CREANDO NUEVO", datos);
+    console.log("CREANDO NUEVO", JSON.stringify(datos));
     return this.http.post(`${this.SRV}/bills`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 

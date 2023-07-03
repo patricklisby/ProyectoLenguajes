@@ -19,6 +19,7 @@ import { BillsModel } from 'src/app/shared/models/bills.model';
 import { BillService } from 'src/app/shared/services/bills.service';
 import { DetailModel } from 'src/app/shared/models/detail.model';
 import { PersonModel } from 'src/app/shared/models/person.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-Bills',
@@ -114,17 +115,18 @@ export class BillsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("Si entro");
-    const Bills = {
-      idBills: this.frmBills.value.idBills,
+    const bills = {
+      idBill: this.frmBills.value.idBill,
       idDetail: this.frmBills.value.idDetail,
       idPerson: this.frmBills.value.idPerson,
+      dateGeneration: moment().format('YYYY-MM-DD HH:mm:ss')
+
     };
     const texto = this.frmBills.value.idBills
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-      
-    this.srvBills.guardar(Bills, this.frmBills.value.idBills)
+
+    this.srvBills.guardar(bills, this.frmBills.value.idBill)
     .subscribe({
       complete: () => {
         this.filtrar(); // este actualiza
@@ -279,7 +281,7 @@ export class BillsComponent implements OnInit {
   }
 
   busqueda() {
-     
+
     this.srvBills
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
@@ -288,11 +290,11 @@ export class BillsComponent implements OnInit {
         //console.log(data);
         console.log(this.bills);
       });
-     
+
   }
 
   filtrar() {
-    /** 
+    /**
     this.srvBills
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
