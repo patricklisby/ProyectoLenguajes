@@ -122,7 +122,7 @@ export class BillsComponent implements OnInit {
       dateGeneration: moment().format('YYYY-MM-DD HH:mm:ss')
 
     };
-    const texto = this.frmBills.value.idBills
+    const texto = this.frmBills.value.idBill
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
 
@@ -238,7 +238,7 @@ export class BillsComponent implements OnInit {
           '<tr><th>Id Detalle</th>' +
           `<td>${data.idDetail}</td></tr>` +
           '<tr><th>Id Persona</th>' +
-          `<td>${data.idPerson}</td></tr>` +
+          `<td>${data.namePerson}</td></tr>` +
           '<tr><th>Fecha Generacion</th>' +
           `<td>${data.dateGeneration}</td></tr>` +
           '</tbody>' +

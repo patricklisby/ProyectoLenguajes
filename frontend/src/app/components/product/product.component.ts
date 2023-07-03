@@ -137,6 +137,8 @@ export class ProductComponent implements OnInit {
     const texto = this.frmProduct.value.idProduct
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
+      console.log(texto);
+      
     this.srvProduct.guardar(cliente, this.frmProduct.value.idProduct).subscribe({
       complete: () => {
         this.filtrar();

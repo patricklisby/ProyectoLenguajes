@@ -47,7 +47,8 @@ export class BillService {
     //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
-      delete datos.idBills;
+      delete datos.idBill;
+      delete datos.dateGeneration;
       console.log("EDITAR",id,JSON.stringify(datos));
 
       return this.http.put(`${this.SRV}/bills/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
