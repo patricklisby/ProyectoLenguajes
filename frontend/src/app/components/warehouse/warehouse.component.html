@@ -205,36 +205,6 @@
               </div>
             </div>
           </div>
-          <div class="row mb-3">
-              <label for="idProduct" class="col-sm-3 col-form-label">
-
-                Cliente
-
-              </label>
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idProduct"
-                  formControlName="idProduct"/>
-                <div
-                  class="alert alert-danger"
-                  *ngIf="F['idProduct'].invalid && F['idProduct'].touched">
-                  <div *ngIf="F['idProduct'].errors!['required']">
-                    Este campo es Obligatorio
-                  </div>
-                  <div *ngIf="F['idProduct'].errors!['minlength']">
-                    Debe ser al menos 1 digitos
-                  </div>
-                  <div *ngIf="F['idProduct'].errors!['maxlength']">
-                    Debe ser como maximo 15 digitos
-                  </div>
-                  <div *ngIf="F['idProduct'].errors!['pattern']">
-                    Este campo solo se admiten numeros
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="row mb-3">
               <label for="idProduct" class="col-sm-3 col-form-label">
 
@@ -345,7 +315,7 @@
         <form id="frmWarehouse" [formGroup]="frmWarehouse" (ngSubmit)="onSubmit()">
           <div class="row mb-3">
             <label for="idWareHouse" class="col-sm-3 col-form-label"
-              >ID Venta</label
+              >ID Bodega</label
             >
             <div class="col-sm-9">
               <input
@@ -356,39 +326,8 @@
                 readonly
                   style="background-color: rgb(207, 207, 207)"
               />
-
             </div>
           </div>
-          <div class="row mb-3">
-              <label for="idProduct" class="col-sm-3 col-form-label"
-                >Cliente</label
-              >
-              <div class="col-sm-9">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="idProduct"
-                  formControlName="idProduct"
-                />
-                <div
-                  class="alert alert-danger"
-                  *ngIf="F['idProduct'].invalid && F['idProduct'].touched"
-                >
-                  <div *ngIf="F['idProduct'].errors!['required']">
-                    Este campo es Obligatorio
-                  </div>
-                  <div *ngIf="F['idProduct'].errors!['minlength']">
-                    Debe ser al menos 1 digitos
-                  </div>
-                  <div *ngIf="F['idProduct'].errors!['maxlength']">
-                    Debe ser como maximo 15 digitos
-                  </div>
-                  <div *ngIf="F['idProduct'].errors!['pattern']">
-                    Este campo solo se admiten numeros
-                  </div>
-                </div>
-              </div>
-            </div>
             <div class="row mb-3">
               <label for="idProduct" class="col-sm-3 col-form-label"
                 >Producto</label>

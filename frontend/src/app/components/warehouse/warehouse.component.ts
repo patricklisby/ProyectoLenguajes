@@ -111,15 +111,15 @@ export class WarehouseComponent implements OnInit {
   }
   onSubmit() {
     const cliente = {
-      idWarehouse: this.frmWarehouse.value.idWarehouse,
+      idWareHouse: this.frmWarehouse.value.idWarehouse,
       idProduct: this.frmWarehouse.value.idProduct,
       productDescription: this.frmWarehouse.value.productDescription,
       cantItem: this.frmWarehouse.value.cantItem
     };
-    const texto = this.frmWarehouse.value.idWarehouse
+    const texto = this.frmWarehouse.value.idWareHouse
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-    this.srvWarehouse.guardar(cliente, this.frmWarehouse.value.idWarehouse).subscribe({
+    this.srvWarehouse.guardar(cliente, this.frmWarehouse.value.idWareHouse).subscribe({
       complete: () => {
         this.filtrar();
         Swal.fire({
@@ -135,7 +135,7 @@ export class WarehouseComponent implements OnInit {
           case 404:
             Swal.fire({
               icon: 'error',
-              title: 'El cliente no existe',
+              title: 'El códigod de bodega no existe',
               showConfirmButton: false,
               cancelButtonColor: '#d33',
               showCancelButton: true,
@@ -146,7 +146,7 @@ export class WarehouseComponent implements OnInit {
           case 409:
             Swal.fire({
               icon: 'error',
-              title: 'id cliente ya existe',
+              title: 'La bodega ya existe ya existe',
               showConfirmButton: false,
               cancelButtonColor: '#d33',
               showCancelButton: true,
@@ -160,7 +160,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   onNuevo() {
-    this.titulo = 'Nuevo Cliente';
+    this.titulo = 'Nueva Bodega';
     console.log('Creando Nuevo');
     this.frmWarehouse.reset();
   }
@@ -182,7 +182,7 @@ export class WarehouseComponent implements OnInit {
           complete: () => {
             Swal.fire(
               'Eliminado',
-              'Cliente eliminado de forma correcta',
+              'Bodega eliminado de forma correcta',
               'success'
             );
             this.filtrar(); // este actualiza
@@ -192,7 +192,7 @@ export class WarehouseComponent implements OnInit {
             switch (e) {
               case 404:
                 Swal.fire({
-                  title: 'Cliente no existe!',
+                  title: 'Bodega no existe!',
                   icon: 'info',
                   showCancelButton: true,
                   showConfirmButton: false,
@@ -202,8 +202,7 @@ export class WarehouseComponent implements OnInit {
                 break;
               case 412:
                 Swal.fire({
-                  title: 'No se puede eliminar Cliente',
-                  text: 'El cliente tiene artefacto relacionado',
+                  title: 'No se puede eliminar la bodega',
                   icon: 'info',
                   showCancelButton: true,
                   showConfirmButton: false,
@@ -245,7 +244,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   onEditar(id: any) {
-    this.titulo = 'Editando Cliente';
+    this.titulo = 'Editando Bodega';
     this.srvWarehouse.buscar(id).subscribe(
       /*data => {
       console.log(data);
@@ -258,7 +257,7 @@ export class WarehouseComponent implements OnInit {
         error: (e) => {
           if (e == 404) {
             Swal.fire({
-              title: 'Cliente no Existe',
+              title: 'Bodega no Existe',
               icon: 'info',
               showCancelButton: true,
               showConfirmButton: false,
@@ -269,8 +268,6 @@ export class WarehouseComponent implements OnInit {
           this.filtrar();
         },
       }
-      //guardas
-      ///ng g guard shared/guards/auth --skip-tests=true
     );
     console.log('Editando ', id);
   }
@@ -288,17 +285,7 @@ export class WarehouseComponent implements OnInit {
         console.log(this.warehouses);
       });
   }
-/**
-  filtrar() {
-    this.srvWarehouse.filtrar()
-      .subscribe((data) => {
-        this.warehouses = Object(data)['datos'];
-        this.numRegs = Object(data)['regs'];
-        //console.log(data);
-        console.log(this.warehouses);
-      });
-  }
-  */
+
 
   filtrar() {
     this.srvWarehouse
@@ -320,7 +307,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   onImprimir(){
-    const encabezado = ["ID","Producto","ID Producto","Cantidad"];
+    const encabezado = ["ID","ID Producto","Nombre producto","Cantidad"];
 
 
     this.srvWarehouse.filtro()

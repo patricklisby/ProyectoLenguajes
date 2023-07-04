@@ -42,17 +42,22 @@ export class WarehouseService {
     }
 
     guardar(datos : any, id? : any): Observable<any>{
+      console.log(datos);
+      
       //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
       //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
       //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
       if(typeof(id) !== 'string' ){
       //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
         delete datos.idWareHouse;
+        console.log("EDITAR",id,JSON.stringify(datos));
+  
         return this.http.put(`${this.SRV}/warehouse/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
       }
-      console.log("CREANDO NUEVO", datos);
+      console.log("CREANDO NUEVO", JSON.stringify(datos));
       return this.http.post(`${this.SRV}/warehouse`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
+  
 
     eliminar(id: any) : Observable<any>{
       return this.http.delete(`${this.SRV}/warehouse/${id}`).pipe(retry(1), catchError(this.handleError));
