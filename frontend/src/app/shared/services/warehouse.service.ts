@@ -42,7 +42,6 @@ export class WarehouseService {
     }
 
     guardar(datos : any, id? : any): Observable<any>{
-      console.log(datos);
       
       //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
       //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO

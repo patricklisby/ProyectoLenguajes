@@ -47,12 +47,13 @@ export class DetailService {
     //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
-      delete datos.idDetails;
-      return this.http.put(`${this.SRV}/details/${id}`,datos,this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      delete datos.idDetail;
+      console.log("EDITAR",id,JSON.stringify(datos));
+
+      return this.http.put(`${this.SRV}/detail/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
-    console.log("CREANDO NUEVO", datos);
-    return this.http.post(`${this.SRV}/details`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
+    console.log("CREANDO NUEVO", JSON.stringify(datos));
+    return this.http.post(`${this.SRV}/detail`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
   eliminar(id: any) : Observable<any>{
