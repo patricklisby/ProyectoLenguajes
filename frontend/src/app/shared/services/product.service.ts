@@ -41,6 +41,9 @@ export class ProductService {
 
       return this.http.put(`${this.SRV}/product/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
+
+   
+    
     console.log("CREANDO NUEVO", JSON.stringify(datos));
     return this.http.post(`${this.SRV}/product`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }

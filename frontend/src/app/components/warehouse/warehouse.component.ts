@@ -110,16 +110,17 @@ export class WarehouseComponent implements OnInit {
     this.filtrar();
   }
   onSubmit() {
-    const cliente = {
-      idWareHouse: this.frmWarehouse.value.idWarehouse,
+    const warehouseData = {
+      idWareHouse: this.frmWarehouse.value.idWareHouse,
       idProduct: this.frmWarehouse.value.idProduct,
       productDescription: this.frmWarehouse.value.productDescription,
       cantItem: this.frmWarehouse.value.cantItem
     };
+    
     const texto = this.frmWarehouse.value.idWareHouse
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-    this.srvWarehouse.guardar(cliente, this.frmWarehouse.value.idWareHouse).subscribe({
+    this.srvWarehouse.guardar(warehouseData, this.frmWarehouse.value.idWareHouse).subscribe({
       complete: () => {
         this.filtrar();
         Swal.fire({
