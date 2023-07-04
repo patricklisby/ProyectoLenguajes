@@ -132,7 +132,7 @@ export class ProductComponent implements OnInit {
       idClassification: this.frmProduct.value.idClassification,
       productDescription: this.frmProduct.value.productDescription,
       priceProduct: this.frmProduct.value.priceProduct,
-      expirationProduct: this.frmProduct.value.priceProexpirationProductduct,
+      expirationProduct: this.frmProduct.value.expirationProduct,
     };
     const texto = this.frmProduct.value.idProduct
       ? 'Actualizado correctamente'
@@ -242,22 +242,22 @@ export class ProductComponent implements OnInit {
     this.srvProduct.buscar(id).subscribe((data) => {
       console.log(data);
       Swal.fire({
-        title: '<strong> Informacion Cliente</strong>',
+        title: '<strong> Informacion Producto</strong>',
         html:
           '<br>' +
           '<table class="table table-sm table-striped">' +
           '<tbody class="text-start">' +
-          '<tr><th>Id</th>' +
+          '<tr><th>ID</th>' +
           `<td>${data.idProduct}</td></tr>` +
-          '<tr><th>Nombre</th>' +
+          '<tr><th>Proveedor</th>' +
           `<td>${data.supplierDescription}</td></tr>` +
-          '<tr><th>Telefono</th>' +
+          '<tr><th>Clasificacion</th>' +
           `<td>${data.classificationDescription}</td></tr>` +
-          '<tr><th>Celular</th>' +
+          '<tr><th>Producto</th>' +
           `<td>${data.productDescription}</td></tr>` +
-          '<tr><th>priceProduct</th>' +
+          '<tr><th>Precio</th>' +
           `<td>${data.priceProduct}</td></tr>` +
-          '<tr><th>Fecha Ingreso</th>' +
+          '<tr><th>Fecha expiración</th>' +
           `<td>${data.expirationProduct}</td></tr>` +
           '</tbody>' +
           '</table>',

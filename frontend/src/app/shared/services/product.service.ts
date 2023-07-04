@@ -37,15 +37,16 @@ export class ProductService {
     if(typeof(id) !== 'string' ){
     //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
       delete datos.idProduct;
-      return this.http.put(`${this.SRV}/product/${id}`,datos,this.httpOptions)
-      .pipe(retry(1), catchError(this.handleError));
+      console.log("EDITAR",id,JSON.stringify(datos));
+
+      return this.http.put(`${this.SRV}/product/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
-    console.log("CREANDO NUEVO", datos);
+    console.log("CREANDO NUEVO", JSON.stringify(datos));
     return this.http.post(`${this.SRV}/product`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
   eliminar(id: any) : Observable<any>{
-    return this.http.delete(`${this.SRV}/warehouse/${id}`).pipe(retry(1), catchError(this.handleError));
+    return this.http.delete(`${this.SRV}/product/${id}`).pipe(retry(1), catchError(this.handleError));
   }
 
   //manejador de error

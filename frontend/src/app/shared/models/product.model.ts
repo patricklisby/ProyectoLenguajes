@@ -1,6 +1,8 @@
 export class ProductModel {
     idProduct?: number;
+    idSupplier? : number;
     supplierDescription : string;
+    idClassification? :number;
     classificationDescription : string;
     productDescription : string;
     priceProduct : string;
@@ -9,6 +11,12 @@ export class ProductModel {
     constructor(r?: ProductModel) {
       if (this.idProduct !== undefined) {
         this.idProduct = r?.idProduct;
+      }
+      if (this.idSupplier !== undefined) {
+        this.idSupplier = r?.idSupplier;
+      }
+      if (this.idClassification !== undefined) {
+        this.idClassification = r?.idClassification;
       }
       this.supplierDescription = r !== undefined ? r.supplierDescription : '';
       this.classificationDescription = r !== undefined ? r.classificationDescription : '';

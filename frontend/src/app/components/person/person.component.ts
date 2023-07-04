@@ -262,20 +262,20 @@ export class PersonComponent implements OnInit {
     this.srvPerson.buscar(id).subscribe((data) => {
       console.log(data);
       Swal.fire({
-        title: '<strong> Informacion person</strong>',
+        title: '<strong> Información Colaborador(a)</strong>',
         html:
           '<br>' +
           '<table class="table table-sm table-striped">' +
           '<tbody class="text-start">' +
-          '<tr><th>Id</th>' +
+          '<tr><th>ID</th>' +
           `<td>${data.idPerson}</td></tr>` +
-          '<tr><th>namePerson</th>' +
+          '<tr><th>Nombre</th>' +
           `<td>${data.namePerson}${data.firstLastNamePerson}${data.secondLastNamePerson}</td></tr>` +
           '<tr><th>Rol</th>' +
-          `<td>${data.idRol}</td></tr>` +
-          '<tr><th>personPhone</th>' +
+          `<td>${data.rolDescription}</td></tr>` +
+          '<tr><th>Telefono</th>' +
           `<td>${data.personPhone}</td></tr>` +
-          '<tr><th>personEmail</th>' +
+          '<tr><th>Correo electrónico</th>' +
           `<td>${data.personEmail}</td></tr>` +
           '<tr><th>Dirección</th>' +
           `<td>${data.personAddress}</td></tr>` +
