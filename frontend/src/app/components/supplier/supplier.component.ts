@@ -110,8 +110,8 @@ export class SupplierComponent implements OnInit {
       idSupplier: this.frmSupplier.value.idSupplier,
       supplierDescription: this.frmSupplier.value.supplierDescription,
       supplierPhone: this.frmSupplier.value.supplierPhone,
-      supplierAddress: this.frmSupplier.value.supplierAddress,
       supplierEmail: this.frmSupplier.value.supplierEmail,
+      supplierAddress: this.frmSupplier.value.supplierAddress
     };
     const texto = this.frmSupplier.value.idSupplier
       ? 'Actualizado correctamente'
