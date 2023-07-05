@@ -29,7 +29,9 @@ export class AuthService {
 
   //iniciar sesion
   public login(user : {idUsuario : '' ,passw : ''}) : Observable<any>{
-    return this.http.patch<Token>(`${this.servidor}/sesion/iniciar/${user.idUsuario}`,{passw:user.passw})
+    console.log(user);
+    
+    return this.http.patch<Token>(`${this.servidor}/sesion/login/${user.idUsuario}`,{passw:user.passw})
     .pipe(
       retry(1),
       tap(
@@ -50,7 +52,7 @@ export class AuthService {
 
   //nuevo
   public logout(){
-    this.http.patch<Token>(`${this.servidor}/sesion/cerrar/${this.valorUserActual.idUsuario}`,{})
+    this.http.patch<Token>(`${this.servidor}/sesion/logout/${this.valorUserActual.idUsuario}`,{})
     .subscribe();
     this.doLogout();
   }
