@@ -19,7 +19,7 @@ import { SupplierComponent } from './components/supplier/supplier.component';
 //nuev
 
 const routes: Routes = [
-  //{path: '', pathMatch: 'full',redirectTo: '/login'},
+  {path: '', pathMatch: 'full',redirectTo: '/login'},
   {path: 'login', component: LoginComponent, canActivate: [loginGuard]},
   {path: 'home', component: HomeComponent},
   {path: 'error403', component: Error403Component},
