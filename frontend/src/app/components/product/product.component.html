@@ -1,7 +1,7 @@
 <div class="container-fluid">
-    <div class="card">
-      <div class="card-header">Catalogo de products</div>
-      <div class="container-fluid" [@estadoFiltro]="stateFiltro">
+  <div class="card bg-info">
+    <div class="card-header ">Catálogo de productos</div>
+    <div class="container-fluid" [@estadoFiltro]="stateFiltro">
         <form>
           <div class="d-flex">
             <input
@@ -18,7 +18,7 @@
         </form>
       </div>
       <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive text-bg-primary">
           <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
@@ -284,7 +284,7 @@
           <form id="frmProduct" [formGroup]="frmProduct" (ngSubmit)="onSubmit()">
             <div class="row mb-3">
               <label for="idProduct" class="col-sm-3 col-form-label"
-                >Id Producto</label
+                >ID Producto</label
               >
               <div class="col-sm-9">
                 <input
@@ -299,28 +299,34 @@
             </div>
             <div class="row mb-3">
               <label for="idSupplier" class="col-sm-3 col-form-label"
-                >Proveedor</label
+                >Proveedores</label
               >
               <div class="col-sm-9">
-                <input
+                <!-- <input
                   type="text"
                   class="form-control"
                   id="idSupplier"
                   formControlName="idSupplier"
-                />
+                /> -->
+                <select class="form-control" id="clienteSeleccionado" >
+                  <option *ngFor="let item of products" [value]="item.idProduct">{{ item.productDescription }}</option>
+                </select>
               </div>
             </div>
             <div class="row mb-3">
               <label for="idClassification" class="col-sm-3 col-form-label"
-                >Clasificación</label
+                >Clasificaciónes</label
               >
               <div class="col-sm-9">
-                <input
+                <!-- <input
                   type="text"
                   class="form-control"
                   id="idClassification"
                   formControlName="idClassification"
-                />
+                /> -->
+                <select class="form-control" id="clienteSeleccionado" >
+                  <option *ngFor="let item of products" [value]="item.idProduct">{{ item.productDescription }}</option>
+                </select>
               </div>
             </div>
             <div class="row mb-3">
