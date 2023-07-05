@@ -15,6 +15,7 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { DetailsComponent } from './components/details/details.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
+import { rolAux } from './shared/models/rolAux.model';
 
 //nuev
 
@@ -23,9 +24,9 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent, canActivate: [loginGuard]},
   {path: 'home', component: HomeComponent},
   {path: 'error403', component: Error403Component},
-  {path: 'rol', component: RolComponent},
+  {path: 'rol', component: RolComponent,canActivate:[authGuard],data:{roles:[rolAux.Admin]}},
   {path: 'person', component: PersonComponent},
-  {path: 'product', component: ProductComponent},
+  {path: 'product', component: ProductComponent,canActivate:[authGuard],data:{roles:[rolAux.Admin, rolAux.Bodeguero]}},
   {path: 'classification', component: ClassificationComponent},
   {path: 'bills', component: BillsComponent},
   {path: 'customer', component: CustomerComponent},

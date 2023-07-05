@@ -233,9 +233,9 @@ export class DetailsComponent implements OnInit {
           '<tr><th>Id</th>' +
           `<td>${data.idDetail}</td></tr>` +
           '<tr><th>Cliente</th>' +
-          `<td>${data.idCustomer}</td></tr>` +
+          `<td>${data.nameCustomer}</td></tr>` +
           '<tr><th>Producto</th>' +
-          `<td>${data.idProduct}</td></tr>` +
+          `<td>${data.productDescription}</td></tr>` +
           '<tr><th>Cantidad</th>' +
           `<td>${data.cantItem}</td></tr>` +
           '</tbody>' +
@@ -347,10 +347,7 @@ export class DetailsComponent implements OnInit {
     .subscribe(
       data => {
         const cuerpo = Object(data)['datos']
-        
         .map(
-          
-          
           (Obj : any) => {
             const datos = [
               Obj.idDetail,

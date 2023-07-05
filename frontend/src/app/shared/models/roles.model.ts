@@ -6,7 +6,6 @@ export class RolModel {
     if (this.idRol !== undefined) {
       this.idRol = r?.idRol;
     }
-
     this.rolDescription = r !== undefined ? r.rolDescription : '';
   }
 }
