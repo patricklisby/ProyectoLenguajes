@@ -8,7 +8,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Container\ContainerInterface;
 use PDO;
 
-class Person extends DBAccess {
+class Usuario extends DBAccess {
     //atributos
     const RESOURCE = "User";
 
