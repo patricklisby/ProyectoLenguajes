@@ -203,21 +203,21 @@ class DBAccess
     } //End cambiarPropietario
 
     //Parametros opcionales es varName = -1 (ya que al no existir no guarda nada)
-    public function editPerson(string $idPerson, int $role = -1, string $passwN = '')
+    public function editPerson(string $idPerson, string $passwN = '')
     {
-        $proc = $role == -1 ? 'select passwPerson(:id,:passw);' : 'select rolPerson(:id,:role);';
-        $sql = "call findPerson(0,$idPerson);";
+        $proc = 'select passwUser(:idUser,:passw);';
+        $sql = "call findUser($idPerson);";
         $con = $this->container->get('bd');
         $query = $con->prepare($sql);
         $query->execute();
         $usuario = $query->fetch(PDO::FETCH_ASSOC);
-
+        //var_dump($usuario);die();
         if ($usuario) {
-            $params = ['id' => $usuario['id']];
-            $params = $role == -1 ? array_merge($params, ['passw' => $passwN]) :
-                array_merge($params, ['role' => $role]);
+            $params = ['idUser' => $usuario['idUser']];
+            $params = array_merge($params, ['passw' => $passwN]);
             $query = $con->prepare($proc);
             $retorno = $query->execute($params);
+            
         } else {
             $retorno = false;
         }
@@ -227,10 +227,10 @@ class DBAccess
         return $retorno;
     } //End editPerson
 
-    public function findUsr(int $id = 0, string $idPerson = '')
+    public function findUsr(string $idPerson = '')
     {
         $con = $this->container->get('bd');
-        $query = $con->prepare("CALL findPerson($id, $idPerson);");
+        $query = $con->prepare("CALL findUser($idPerson);");
         $query->execute();
         $res = $query->fetch();
         $query = null;
@@ -238,22 +238,24 @@ class DBAccess
         return $res;
     } //End findUsr
 
-    public function findName($id, string $tipoPerson)
+    public function findName($id)
     {
-
-        $proc = 'find' . $tipoPerson . "(0, '$id')";
+        //'find' . $tipoPerson . "('$id')"
+        $proc = 'findUser'."($id)";
+        //var_dump($proc);die();
         $sql = "call $proc";
         $con = $this->container->get('bd');
         $query = $con->prepare($sql);
         $query->execute();
         if ($query->rowCount() > 0) {
             $res = $query->fetch(PDO::FETCH_ASSOC);
+            //var_dump($res);die();
         } else {
             $res = [];
         }
         $query = null;
         $con = null;
-        $res = $res['nombre'];
+        $res = $res['namePerson'];
         if (str_contains($res, " ")) {
             $res = substr($res, 0, strpos($res, " "));
         }
@@ -262,8 +264,8 @@ class DBAccess
 
     public function accederToken(string $proc, string $idPerson, string $tokenRef = "")
     {
-        $sql = $proc == "modificar" ? "select modificarToken(:idPerson, :tk);" :
-            "call verificarToken(:idPerson, :tk);";
+        $sql = $proc == "modificar" ? "select updateToken(:idPerson, :tk);" :
+            "call checkToken(:idPerson, :tk);";
         $con = $this->container->get('bd');
         $query = $con->prepare($sql);
         $query->execute(["idPerson" => $idPerson, "tk" => $tokenRef]);

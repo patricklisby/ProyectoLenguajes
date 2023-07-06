@@ -10,21 +10,15 @@ use PDO;
 
 class Person extends DBAccess {
     //atributos
-    const RESOURCE = "Person";
+    const RESOURCE = "User";
 
     private function authenticate($idPerson, $passw){
         //como se quiere caer en una variable en concreto se coloca nameVar : $varNew
         $data = $this -> findUsr(idPerson: $idPerson);
-        return (($data) && (password_verify($passw, $data -> passw))) ? ['rol' => $data -> rol] : null;
+        return (($data) && (password_verify($passw, $data -> passw))) ? ['idRol' => $data -> rol] : null;
     }
-    public function cambiarRol(Request $request, Response $response, $args){
-        $body = json_decode($request -> getbody());
-        $data = $this ->editPerson(idPerson: $args['id'], rol: $body->rol);
-        $status = $data == true ? 200:404;
-        return $response -> withStatus($status);
-    }//End cambiarRol
     
-    public function cambiarPassw(Request $request, Response $response, $args){
+    public function changePassw(Request $request, Response $response, $args){
         $body = json_decode($request -> getbody(), 1);
         //authenticate
         $person = $this->authenticate($args['id'], $body['passw']);

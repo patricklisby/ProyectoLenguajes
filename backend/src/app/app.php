@@ -15,7 +15,7 @@ $app = AppFactory::create();
 $app->add(new Tuupola\Middleware\JwtAuthentication([
     "secure" => false,
     "path" => ["/cliente"],
-    "ignore" => ['/sesion'],
+    "ignore" => [],
     "secret" => 'Alguna clave',
     "algorithm" => ["HS256","HS384"]
 ]));

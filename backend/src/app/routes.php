@@ -6,7 +6,6 @@ use Slim\Routing\RouteCollectorProxy;
 
 $app->group('/person', function(RouteCollectorProxy $person){
     $person->patch('/rol/{id}', Person::class . ':changeRole');
-
     $person->group('/passw', function(RouteCollectorProxy $passw){
         //No usar verbos en los endpoints
         $passw->patch('/change/{id}', Person::class . ':changePassw');
@@ -18,6 +17,14 @@ $app->group('/sesion', function(RouteCollectorProxy $sesion){
     $sesion->patch('/login/{id}', Sesion::class . ':login');
     $sesion->patch('/logout/{id}', Sesion::class . ':logout');
     $sesion->patch('/reload/{id}', Sesion::class . ':reload');
+});//Grupo sesion
+
+$app->group('/user', function(RouteCollectorProxy $user){
+    $user->group('/passw',function(RouteCollectorProxy $passw)
+    {
+    $passw->patch('/change/{id}',User::class.':changePassw');//--
+    $passw->patch('/reset/{id}',User::class.':resetPassw');//--
+    });
 });//Grupo sesion
 
 //listo
