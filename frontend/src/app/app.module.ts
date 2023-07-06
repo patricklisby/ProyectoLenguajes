@@ -27,6 +27,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CambioPassComponent } from './components/cambio-pass/cambio-pass.component';
 
 
 
@@ -46,7 +47,8 @@ import { FooterComponent } from './components/footer/footer.component';
     DetailsComponent,
     WarehouseComponent,
     SupplierComponent,
-    FooterComponent
+    FooterComponent,
+    CambioPassComponent
   ],
   imports: [
     BrowserModule,
