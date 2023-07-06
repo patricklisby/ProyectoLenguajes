@@ -80,8 +80,7 @@ export class PersonComponent implements OnInit {
         ],
       ], //requerido - numeros -tamMax(15) -tamMin(9)
       idRol: [
-        '',
-        [Validators.required],
+        ''
       ], //requerido - numeros -tamMax(15) -tamMin(9)
 
       namePerson: [
@@ -157,6 +156,9 @@ export class PersonComponent implements OnInit {
 
   generarComboBox() {
     const rolSpace = document.getElementById('rolSpace');
+    if (rolSpace) {
+      rolSpace.innerHTML = '';
+    }
   
     if (rolSpace) {
       const comboBox = document.createElement('select');
@@ -230,7 +232,7 @@ export class PersonComponent implements OnInit {
   }
 
   onNuevo() { 
-    this.generarComboBox();
+   // this.generarComboBox();
     
     this.titulo = 'Nueva persona';
     console.log('Creando Nuevo');

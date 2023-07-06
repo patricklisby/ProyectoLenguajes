@@ -91,7 +91,7 @@
               <th scope="col">ID</th>
               <th scope="col">Rol</th>
               <th scope="col">Nombre</th>
-              <th scope="col">Correo electrónico	</th>
+              <th scope="col">Correo electrónico</th>
               <th scope="col">Telefono</th>
               <th scope="col">Dirección</th>
               <th scope="col" colspan="3" class="text-center">
@@ -263,21 +263,21 @@
               (ngSubmit)="onSubmit()"
             >
               <div class="row mb-3">
-                <label for="idRol" class="col-sm-3 col-form-label"
-                  >Rol</label
-                >
-                <div id = "rolSpace" class="col-sm-9">
-                  <!--
+                <label for="idRol" class="col-sm-3 col-form-label">Rol</label
+                ><ng-container *ngIf="roles">
+                  <div id="rolSpace" class="col-sm-9">
+                    <!--
                 <input
                 type="text"
                 class="form-control"
                 id="idRol"
                 formControlName="idRol"
               />-->
-              <select name="idRol" id="idRol">
-                <option *ngFor="let rol of cbRol">{{ rol }}</option>
+              <select>
+                <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.idRol }}</option>
               </select>
-              </div>
+                  </div>
+                </ng-container>
               </div>
               <div class="row mb-2">
                 <label for="namePerson" class="col-sm-3 col-form-label"
@@ -482,7 +482,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="ventanaEditarPersonLabel">{{ titulo }}</h1>
+        <h1 class="modal-title fs-5" id="ventanaEditarPersonLabel">
+          {{ titulo }}
+        </h1>
         <button
           type="button"
           class="btn-close"
@@ -503,9 +505,8 @@
                 id="idPerson"
                 formControlName="idPerson"
                 readonly
-                  style="background-color: rgb(207, 207, 207)"
+                style="background-color: rgb(207, 207, 207)"
               />
-
             </div>
           </div>
           <div class="modal-body">
@@ -515,17 +516,15 @@
               (ngSubmit)="onSubmit()"
             >
               <div class="row mb-3">
-                <label for="idRol" class="col-sm-3 col-form-label"
-                  >Rol</label
-                >
+                <label for="idRol" class="col-sm-3 col-form-label">Rol</label>
                 <div class="col-sm-9">
-                <input
-                type="text"
-                class="form-control"
-                id="idRol"
-                formControlName="idRol"
-              />
-              </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="idRol"
+                    formControlName="idRol"
+                  />
+                </div>
               </div>
               <div class="row mb-2">
                 <label for="namePerson" class="col-sm-3 col-form-label"
