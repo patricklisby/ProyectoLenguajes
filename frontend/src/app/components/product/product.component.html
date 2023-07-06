@@ -1,13 +1,13 @@
 <div class="container-fluid">
   <div class="card bg-info">
-    <div class="card-header ">Catálogo de productos</div>
+    <div class="card-header ">Catálogo de Productos</div>
     <div class="container-fluid" [@estadoFiltro]="stateFiltro">
         <form>
           <div class="d-flex">
             <input
               type="text"
               class="form-control me-2"
-              placeholder="idProduct"
+              placeholder="ID Producto"
               #fIdProduct
               (keyup)="
                 onFiltrarChange({

@@ -208,7 +208,29 @@ export class PersonComponent implements OnInit {
     this.filtrar();
   }
 
-  
+  generarComboBox() {
+    const rolSpace = document.getElementById('rolSpace');
+    if (rolSpace) {
+      rolSpace.innerHTML = '';
+    }
+
+    if (rolSpace) {
+      const comboBox = document.createElement('select');
+      comboBox.setAttribute('name', 'rol');
+
+      for (const rol of this.roles) {
+        if (rol.idRol !== undefined) {
+          const option = document.createElement('option');
+          option.setAttribute('value', rol.idRol.toString());
+          option.textContent = rol.rolDescription;
+          comboBox.appendChild(option);
+        }
+      }
+
+      rolSpace.appendChild(comboBox);
+    }
+  }
+
   onSubmit() {
     const person = {
       idPerson: this.frmPerson.value.idPerson,
@@ -263,7 +285,9 @@ export class PersonComponent implements OnInit {
     });
   }
 
-  onNuevo() { 
+  onNuevo() {
+   // this.generarComboBox();
+
     this.titulo = 'Nueva persona';
     console.log('Creando Nuevo');
     this.frmPerson.reset();
@@ -416,23 +440,25 @@ export class PersonComponent implements OnInit {
     this.router.navigate(['/person']);
   }
 
+
+
   filtrar() {
-    /**
-    this.srvPerson
+    if (this.filtroVisible) {
+      this.srvPerson
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
         this.persons = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
         console.log(this.persons);
-      });*/
-
+      });
+    }else{
       this.srvPerson
       .filtro()
       .subscribe((data) => {
         this.persons = data;
         console.log(this.persons);
       });
+    }
   }
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;
@@ -445,7 +471,9 @@ export class PersonComponent implements OnInit {
     this.filtrar();
   }
   onImprimir(){
-    const encabezado = ["Id", "Rol","Nombre","Correo","Telefono","Dirección"];
+    console.log(this.filtro);
+
+    const encabezado = ["ID", "Rol","Nombre","Correo","Telefono","Dirección"];
     this.srvPerson.filtar(this.filtro,1, this.numRegs)
     .subscribe(
       data => {

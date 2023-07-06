@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="card bg-info">
-      <div class="card-header">customers</div>
+      <div class="card-header">Clientes</div>
       <div class="container-fluid" [@estadoFiltro]="stateFiltro">
         <form>
           <div class="d-flex">
             <input
               type="text"
               class="form-control me-2"
-              placeholder="idCustomer"
+              placeholder="ID Cliente"
               #fIdCustomer
               (keyup)="
                 onFiltrarChange({
@@ -21,7 +21,7 @@
             <input
               type="text"
               class="form-control me-2"
-              placeholder="nameCustomer"
+              placeholder="Nombre Cliente"
               #fNameCustomer
               (keyup)="
                 onFiltrarChange({
@@ -35,7 +35,7 @@
             <input
               type="text"
               class="form-control me-2"
-              placeholder="firstLastNameCustomer"
+              placeholder="Primer Apellido"
               #fFirstLastNameCustomer
               (keyup)="
                 onFiltrarChange({
@@ -49,7 +49,7 @@
             <input
               type="text"
               class="form-control me-2"
-              placeholder="secondLastNameCustomer"
+              placeholder="Segundo Apellido"
               #fSecondLastNameCustomer
               (keyup)="
                 onFiltrarChange({
