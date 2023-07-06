@@ -1,1 +1,42 @@
-<p>cambio-pass works!</p>
+<div class="container-sm mt-3" style="width: 25rem">
+    <div class="card">
+    <div class="card-header">
+        <h3 class="text-center font-weight-bold">Cambiar contraseña</h3>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="frmChangePassw" id="frmLogin" (submit)="onSubmit()">
+            <div class="form-floating mb-3">
+                <input formControlName="passw" type="text" id="passw" class="form-control" placeholder="Contraseña actual">
+                <label for="passw">Contraseña Actual</label>
+                <div class="alert alert-danger" *ngIf="F['passw'].invalid && F['passw'].touched">
+                  <div *ngIf="F['passw'].errors!['required']"> Este campo es Obligatorio </div>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+              <input formControlName="passwN" type="password" id="passwN" class="form-control" placeholder="Contraseña Nuevo">
+              <label for="passwN">Contraseña Nueva</label>
+              <div class="alert alert-danger" *ngIf="F['passwN'].invalid && F['passwN'].touched">
+                <div *ngIf="F['passwN'].errors!['required']"> Este campo es Obligatorio </div>
+                <div *ngIf="F['passwN'].errors!['minLength']"> No cumple con el minimo de 8 caracteres</div>
+                <div *ngIf="F['passwN'].errors!['passwordStrength']"> Contraseña débil</div>
+              </div>
+          </div>
+            <div class="form-floating mb-3">
+                <input formControlName="passwR" type="password" id="passwR" class="form-control" placeholder="Repetir contraseña">
+                <label for="passwR">Repetir contraseña</label>
+                <div class="alert alert-danger" *ngIf="F['passwR'].invalid && F['passwR'].touched">
+                  <div *ngIf="F['passwR'].errors!['required']"> Este campo es Obligatorio </div>
+                  <div *ngIf="F['passwR'].errors!['notEquals']"> Las contraseñas no coinciden</div>
+                </div>
+            </div>
+            <div class="alert alert-danger text-center"
+            *ngIf="errorLogin">Contraseña o Usuario Incorrectos</div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-success w-25 me-2" form="frmLogin" type="submit" [disabled]="frmChangePassw.invalid">Cambiar</button>
+            <button class="btn btn-danger w-25 me-2" form="frmLogin" type="button" (click) ="onCerrar();">Cerrar</button>
+        </div>
+    </div>
+  </div>

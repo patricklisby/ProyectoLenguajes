@@ -102,6 +102,14 @@
                   <fa-icon [icon]="['fas', 'circle-info']"></fa-icon>
                 </button>
               </td>
+              <td class="text-center">
+                <button
+                  class="btn btn-info btn-sm"
+                  (click)="onResetear(item.idPerson, item.namePerson + ' '+item.firstLastNamePerson)"
+                >
+                  <fa-icon [icon]="['fas', 'key']"></fa-icon>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
