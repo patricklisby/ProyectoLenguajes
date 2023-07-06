@@ -266,13 +266,17 @@
                 <label for="idRol" class="col-sm-3 col-form-label"
                   >Rol</label
                 >
-                <div class="col-sm-9">
+                <div id = "rolSpace" class="col-sm-9">
+                  <!--
                 <input
                 type="text"
                 class="form-control"
                 id="idRol"
                 formControlName="idRol"
-              />
+              />-->
+              <select name="idRol" id="idRol">
+                <option *ngFor="let rol of cbRol">{{ rol }}</option>
+              </select>
               </div>
               </div>
               <div class="row mb-2">

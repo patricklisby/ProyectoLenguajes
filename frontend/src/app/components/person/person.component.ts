@@ -19,8 +19,8 @@ import { PersonService } from 'src/app/shared/services/person.service';
 import { PersonModel } from 'src/app/shared/models/person.model';
 import { RolModel } from 'src/app/shared/models/roles.model';
 import { RolService } from 'src/app/shared/services/rol.service';
-
 import { RolComponent } from '../rol/rol.component';
+import { rolAux } from 'src/app/shared/models/rolAux.model';
 
 @Component({
   selector: 'app-person',
@@ -61,6 +61,7 @@ export class PersonComponent implements OnInit {
   persons = [new PersonModel()];
   rolData = [new RolModel()];
   titulo: string = '';
+  cbRol:any = rolAux;
   pagActual = 1;
   itemsPPag = 5;
   numRegs = 0;
@@ -128,6 +129,13 @@ export class PersonComponent implements OnInit {
     return this.frmPerson.controls;
   }
 
+  roles: RolModel[] = [
+    { idRol: 1, rolDescription: 'Administrador' },
+    { idRol: 2, rolDescription: 'Bodega' },
+    { idRol: 3, rolDescription: 'Vendedor' },
+    { idRol: 4, rolDescription: 'Oficina' }
+  ]
+
   get stateFiltro() {
     return this.filtroVisible ? 'show' : 'hide';
   }
@@ -146,6 +154,27 @@ export class PersonComponent implements OnInit {
     this.pagActual = 1;
     this.filtrar();
   }
+
+  generarComboBox() {
+    const rolSpace = document.getElementById('rolSpace');
+  
+    if (rolSpace) {
+      const comboBox = document.createElement('select');
+      comboBox.setAttribute('name', 'rol');
+  
+      for (const rol of this.roles) {
+        if (rol.idRol !== undefined) {
+          const option = document.createElement('option');
+          option.setAttribute('value', rol.idRol.toString());
+          option.textContent = rol.rolDescription;
+          comboBox.appendChild(option);
+        }
+      }
+  
+      rolSpace.appendChild(comboBox);
+    }
+  }
+  
   onSubmit() {
     const person = {
       idPerson: this.frmPerson.value.idPerson,
@@ -200,7 +229,9 @@ export class PersonComponent implements OnInit {
     });
   }
 
-  onNuevo() {
+  onNuevo() { 
+    this.generarComboBox();
+    
     this.titulo = 'Nueva persona';
     console.log('Creando Nuevo');
     this.frmPerson.reset();
