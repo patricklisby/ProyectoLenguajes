@@ -35,6 +35,11 @@ export class PersonService {
    return this.http.get<PersonModel[]>(`${this.SRV}/person/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
   }
 
+  filtro (): Observable<PersonModel[]>{
+    //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
+   return this.http.get<PersonModel[]>(`${this.SRV}/person/data`).pipe(retry(1), catchError(this.handleError));
+  }
+
   guardar(datos : any, id? : any): Observable<any>{
     //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
     //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
@@ -51,10 +56,7 @@ export class PersonService {
     return this.http.post(`${this.SRV}/person`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
   }
 
-  filtro (): Observable<PersonModel[]>{
-    //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
-   return this.http.get<PersonModel[]>(`${this.SRV}/person/data`).pipe(retry(1), catchError(this.handleError));
-  }
+
 
   eliminar(id: any) : Observable<any>{
     return this.http.delete(`${this.SRV}/person/${id}`).pipe(retry(1), catchError(this.handleError));
