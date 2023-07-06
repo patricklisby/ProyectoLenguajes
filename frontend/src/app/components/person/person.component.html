@@ -7,30 +7,12 @@
           <input
             type="text"
             class="form-control me-2"
-            placeholder="ID persona"
-            #fIdPerson
-            (keyup)="
-              onFiltrarChange({
-                idPerson: fIdPerson.value,
-                idRol: fIdRol.value,
-                namePerson: fNamePerson.value,
-                firstLastNamePerson: fFirstLastNamePerson.value,
-                secondLastNamePerson: fSecondLastNamePerson.value
-              })
-            "
-          />
-          <input
-            type="text"
-            class="form-control me-2"
             placeholder="ID rol"
             #fIdRol
             (keyup)="
               onFiltrarChange({
-                idPerson: fIdPerson.value,
                 idRol: fIdRol.value,
-                namePerson: fNamePerson.value,
-                firstLastNamePerson: fFirstLastNamePerson.value,
-                secondLastNamePerson: fSecondLastNamePerson.value
+                namePerson: fNamePerson.value
               })
             "
           />
@@ -41,41 +23,8 @@
             #fNamePerson
             (keyup)="
               onFiltrarChange({
-                idPerson: fIdPerson.value,
                 idRol: fIdRol.value,
-                namePerson: fNamePerson.value,
-                firstLastNamePerson: fFirstLastNamePerson.value,
-                secondLastNamePerson: fSecondLastNamePerson.value
-              })
-            "
-          />
-          <input
-            type="text"
-            class="form-control me-2"
-            placeholder="Primer Apellido"
-            #fFirstLastNamePerson
-            (keyup)="
-              onFiltrarChange({
-                idPerson: fIdPerson.value,
-                idRol: fIdRol.value,
-                namePerson: fNamePerson.value,
-                firstLastNamePerson: fFirstLastNamePerson.value,
-                secondLastNamePerson: fSecondLastNamePerson.value
-              })
-            "
-          />
-          <input
-            type="text"
-            class="form-control me-2"
-            placeholder="Segundo Apellido"
-            #fSecondLastNamePerson
-            (keyup)="
-              onFiltrarChange({
-                idPerson: fIdPerson.value,
-                idRol: fIdRol.value,
-                namePerson: fNamePerson.value,
-                firstLastNamePerson: fFirstLastNamePerson.value,
-                secondLastNamePerson: fSecondLastNamePerson.value
+                namePerson: fNamePerson.value
               })
             "
           />
@@ -236,7 +185,7 @@
         <form id="frmPerson" [formGroup]="frmPerson" (ngSubmit)="onSubmit()">
           <div class="row mb-3">
             <label for="idPerson" class="col-sm-3 col-form-label"
-              >Id Cliente</label
+              >ID Colaborador</label
             >
             <div class="col-sm-9">
               <input
@@ -350,7 +299,7 @@
                 <label
                   for="secondLastNamePerson"
                   class="col-sm-3 col-form-label"
-                  >Apellido 2</label
+                  >Segundo Apellido</label
                 >
                 <div class="col-sm-9">
                   <input
