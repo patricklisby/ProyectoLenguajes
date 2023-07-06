@@ -14,8 +14,6 @@ export class NavBarComponent {
     this.srvAuth.usrActual
     .subscribe(
       res => {this.usuario = res.nombre,console.log(res);}
-
-
     )
   }
 

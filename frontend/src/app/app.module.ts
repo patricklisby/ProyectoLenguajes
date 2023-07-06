@@ -28,6 +28,8 @@ import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CambioPassComponent } from './components/cambio-pass/cambio-pass.component';
+import { LoaderComponent } from './components/loader/loader.component';
+
 
 
 
@@ -48,7 +50,8 @@ import { CambioPassComponent } from './components/cambio-pass/cambio-pass.compon
     WarehouseComponent,
     SupplierComponent,
     FooterComponent,
-    CambioPassComponent
+    CambioPassComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

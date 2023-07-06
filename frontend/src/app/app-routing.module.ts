@@ -16,6 +16,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
 import { rolAux } from './shared/models/rolAux.model';
+import { CambioPassComponent } from './components/cambio-pass/cambio-pass.component';
 
 //nuev
 
@@ -33,7 +34,7 @@ const routes: Routes = [
   {path: 'details', component: DetailsComponent,canActivate:[authGuard],data:{roles:[rolAux.Admin, rolAux.Vendendor]}},
   {path: 'warehouse', component: WarehouseComponent,canActivate:[authGuard],data:{roles:[rolAux.Admin, rolAux.Bodeguero]}},
   {path: 'supplier', component: SupplierComponent,canActivate:[authGuard],data:{roles:[rolAux.Admin]}},
-  //{path: 'cliente', component: ClienteComponent,canActivate:[authGuard],data:{roles:[Roles.Admin, Roles.Oficinista,Roles.Cliente]}},
+  {path: 'changePassword', component: CambioPassComponent,canActivate:[authGuard],data:{roles:[rolAux.Admin, rolAux.Bodeguero, rolAux.Vendendor]}}, 
   {path: '**', redirectTo: '/home'}
 
 ];

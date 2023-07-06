@@ -1,3 +1,6 @@
 .carousel-container {
     height: 100vh;
   }
+  .carousel-item{
+    text-align: center;
+  }

@@ -1,0 +1,8 @@
+.loader{
+    width: 350px;
+    position: absolute;
+    left : 45vw;
+    top : 40vh;
+    z-index : 99999;
+    transform: translateX(-50px);
+}
