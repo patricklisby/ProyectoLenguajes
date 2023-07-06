@@ -175,7 +175,7 @@ export class DetailsComponent implements OnInit {
 
   onNuevo() {
     this.titulo = 'Nuevo detalle';
-    console.log('Creando Nuevo');
+    //console.log('Creando Nuevo');
     this.frmDetail.reset();
   }
 
@@ -223,7 +223,7 @@ export class DetailsComponent implements OnInit {
 
   onInfo(id: any) {
     this.srvDetail.buscar(id).subscribe((data) => {
-      console.log(data);
+     // console.log(data);
       Swal.fire({
         title: '<strong> Informacion del Detalle</strong>',
         html:
@@ -284,7 +284,7 @@ export class DetailsComponent implements OnInit {
       //guardas
       ///ng g guard shared/guards/auth --skip-tests=true
     );
-    console.log('Editando ', id);
+    //console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['']);
@@ -297,7 +297,6 @@ export class DetailsComponent implements OnInit {
         this.details = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
-        console.log(this.details);
     });
   }
   filtrar() {
@@ -315,7 +314,7 @@ export class DetailsComponent implements OnInit {
     .filtro()
     .subscribe((data) => {
       this.details = data;
-      console.log(this.details);
+      //console.log(this.details);
     });
   }
 
@@ -328,7 +327,7 @@ export class DetailsComponent implements OnInit {
         this.details = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
         //console.log(data);
-        console.log(this.details);
+       // console.log(this.details);
     });
   }
   onFiltrar() {
@@ -343,22 +342,29 @@ export class DetailsComponent implements OnInit {
   }
   onImprimir(){
     const encabezado = ["ID","Cliente","Producto","Cantidad"];
-    this.srvDetail.filtar(this.filtro,1, this.numRegs)
+ 
+    this.srvDetail.filtro()
     .subscribe(
       data => {
-        const cuerpo = Object(data)['datos']
+        console.log(data);
+        
+        const cuerpo = Object(data)
         .map(
-          (Obj : any) => {
-            const datos = [
-              Obj.idDetail,
-              Obj.idCustomer,
-              Obj.idProduct,
-              Obj.cantItem,
-            ]
-            return datos;
-          }
+          function (Obj: any) {
+          const datos = [
+            Obj.idDetail,
+            Obj.nameCustomer,
+            Obj.productDescription,
+            Obj.cantItem,
+          ];
+          console.log(datos);
+          return datos;
+          
+          
+        },
+        
         )
-        console.log(cuerpo);
+       // console.log(data);
         this.srvPrint.print(encabezado, cuerpo, "Listado detalle",true);
       }
     );
