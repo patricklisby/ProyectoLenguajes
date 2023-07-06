@@ -471,7 +471,9 @@ export class PersonComponent implements OnInit {
     this.filtrar();
   }
   onImprimir(){
-    const encabezado = ["Id", "Rol","Nombre","Correo","Telefono","Dirección"];
+    console.log(this.filtro);
+
+    const encabezado = ["ID", "Rol","Nombre","Correo","Telefono","Dirección"];
     this.srvPerson.filtar(this.filtro,1, this.numRegs)
     .subscribe(
       data => {
