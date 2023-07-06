@@ -264,20 +264,16 @@
             >
               <div class="row mb-3">
                 <label for="idRol" class="col-sm-3 col-form-label">Rol</label
-                ><ng-container *ngIf="roles">
+                >
                   <div id="rolSpace" class="col-sm-9">
-                    <!--
+                  
                 <input
                 type="text"
                 class="form-control"
                 id="idRol"
                 formControlName="idRol"
-              />-->
-              <select id = "idRol">
-                <option *ngFor="let rol of roles" [value]="rol.idRol">{{ rol.rolDescription }}</option>
-              </select>
-                  </div>
-                </ng-container>
+               >
+              </div>
               </div>
               <div class="row mb-2">
                 <label for="namePerson" class="col-sm-3 col-form-label"
