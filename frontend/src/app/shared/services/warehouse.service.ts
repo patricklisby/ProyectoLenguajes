@@ -32,7 +32,7 @@ export class WarehouseService {
         }
       }
       //this.http.get<ClassificationModel>(this.SRV+'/classification/'+pag+'/'+lim);
-      console.log("filtrando")
+      console.log("filtrando WARE",{params:params})
      return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
     }
 
@@ -42,7 +42,7 @@ export class WarehouseService {
     }
 
     guardar(datos : any, id? : any): Observable<any>{
-      
+
       //AL RECIBIR UN STRING INDICA QUE EL USUARIO INGRESÓ UN ID PARA CREAR
       //AL RECIBIR UN INT INDICA QUE EL USUARIO MODIFICARÁ UN ID ESPECÍFICO
       //POR ESTO VERIFICO CON TYPEOF EL TIPO DE DATO DEL ID
@@ -50,13 +50,13 @@ export class WarehouseService {
       //BORRAMOS EL ID PARA ENVIAR AL SERVIDOR SOLO LOS DATOS DEL ID QUE MODIFICAREMOS
         delete datos.idWareHouse;
         console.log("EDITAR",id,JSON.stringify(datos));
-  
+
         return this.http.put(`${this.SRV}/warehouse/${id}`,datos,this.httpOptions).pipe(retry(1), catchError(this.handleError));
       }
       console.log("CREANDO NUEVO", JSON.stringify(datos));
       return this.http.post(`${this.SRV}/warehouse`,datos, this.httpOptions).pipe(retry(1), catchError(this.handleError));
     }
-  
+
 
     eliminar(id: any) : Observable<any>{
       return this.http.delete(`${this.SRV}/warehouse/${id}`).pipe(retry(1), catchError(this.handleError));

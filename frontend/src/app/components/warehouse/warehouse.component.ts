@@ -116,7 +116,7 @@ export class WarehouseComponent implements OnInit {
       productDescription: this.frmWarehouse.value.productDescription,
       cantItem: this.frmWarehouse.value.cantItem
     };
-    
+
     const texto = this.frmWarehouse.value.idWareHouse
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
@@ -275,26 +275,22 @@ export class WarehouseComponent implements OnInit {
   onCerrar() {
     this.router.navigate(['']);
   }
-  filtrar2() {
-    this.srvWarehouse.filtrar(this.filtro, this.pagActual, this.itemsPPag)
-      .subscribe((data) => {
-        console.log(data);
-
-        this.warehouses = Object(data)['datos'];
-        this.numRegs = Object(data)['regs'];
-        //console.log(data);
-        console.log(this.warehouses);
-      });
-  }
-
 
   filtrar() {
-    this.srvWarehouse
-      .filtro()
-      .subscribe((data) => {
-        this.warehouses = data;
-        console.log(this.warehouses);
-      });
+      if (this.filtroVisible) {
+        this.srvWarehouse
+        .filtrar(this.filtro, this.pagActual, this.itemsPPag)
+        .subscribe((data) => {
+          this.warehouses = Object(data)['datos'];
+          this.numRegs = Object(data)['regs'];
+        });
+      }else{
+        this.srvWarehouse
+        .filtro()
+        .subscribe((data) => {
+          this.warehouses = data;
+        });
+      }
   }
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;

@@ -138,7 +138,7 @@ export class ProductComponent implements OnInit {
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
       console.log(texto);
-      
+
     this.srvProduct.guardar(cliente, this.frmProduct.value.idProduct).subscribe({
       complete: () => {
         this.filtrar();
@@ -303,23 +303,22 @@ export class ProductComponent implements OnInit {
   }
 
   filtrar() {
-    this.srvProduct
+    if (this.filtroVisible) {
+      this.srvWarehouse
+      .filtrar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+        this.warehouse = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        console.log(this.products);
+      });
+    }else{
+      this.srvProduct
       .filtar()
       .subscribe((data) => {
         this.products = data;
-        console.log(this.products);
       });
+    }
   }
-  /** 
-  almacen() {
-    this.srvWarehouse
-      .filtrar(this.filtro, this.pagActual, this.itemsPPag)
-      .subscribe((data) => {
-        this.warehouse = data;
-        console.log(this.products);
-      });
-  }
-  */
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;
     if (!this.filtroVisible) {

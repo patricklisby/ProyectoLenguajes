@@ -32,7 +32,9 @@ export class PersonService {
       }
     }
     //this.http.get<PersonModel>(this.SRV+'/person/'+pag+'/'+lim);
-   return this.http.get<PersonModel[]>(`${this.SRV}/person/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
+    console.log({params:params});
+
+   return this.http.get<PersonModel[]>(`${this.SRV}/person/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError))8;
   }
 
   filtro (): Observable<PersonModel[]>{

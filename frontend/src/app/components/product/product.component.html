@@ -7,11 +7,39 @@
             <input
               type="text"
               class="form-control me-2"
-              placeholder="ID Producto"
-              #fIdProduct
+              placeholder="Proveedor"
+              #fsupplierDescription
               (keyup)="
                 onFiltrarChange({
-                  idProduct: fIdProduct.value,
+                  supplierDescription: fsupplierDescription.value,
+                  productDescription: fproductDescription.value,
+                  classificationDescription: fclassificationDescription.value
+
+
+                })"/>
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="Proveedor"
+              #fclassificationDescription
+              (keyup)="
+                onFiltrarChange({
+                  supplierDescription: fsupplierDescription.value,
+                  productDescription: fproductDescription.value,
+                  classificationDescription: fclassificationDescription.value
+
+                })"/>
+            <input
+              type="text"
+              class="form-control me-2"
+              placeholder="Producto"
+              #fproductDescription
+              (keyup)="
+                onFiltrarChange({
+                  supplierDescription: fsupplierDescription.value,
+                  productDescription: fproductDescription.value,
+                  classificationDescription: fclassificationDescription.value
+
                 })"/>
             <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
           </div>
