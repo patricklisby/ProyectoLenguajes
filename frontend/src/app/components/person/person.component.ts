@@ -21,6 +21,7 @@ import { RolModel } from 'src/app/shared/models/roles.model';
 import { RolService } from 'src/app/shared/services/rol.service';
 import { RolComponent } from '../rol/rol.component';
 import { rolAux } from 'src/app/shared/models/rolAux.model';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-person',
@@ -54,6 +55,7 @@ export class PersonComponent implements OnInit {
   filtro: any;
   srvPerson = inject(PersonService); // Injectar Dependencia
   srvRol = inject(RolService);
+  srvUser = inject(UserService);
   fb = inject(FormBuilder); // Injectar
   srvPrint = inject(PrintService);
   router = inject(Router); // Injectar
@@ -128,6 +130,58 @@ export class PersonComponent implements OnInit {
     return this.frmPerson.controls;
   }
 
+  onResetear(idPerson: any, nombre: string) {
+    Swal.fire({
+      title: 'Estas seguro de resetear contraseña del cliente ?',
+      text: nombre,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Resetear',
+      cancelButtonText: 'cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.srvUser.resetPassw(idPerson)
+        .subscribe({
+          complete: () => {
+            Swal.fire(
+              'Contraseña',
+              'Se ha reseteado la contraseña',
+              'success'
+            );
+            this.filtrar(); // este actualiza
+          }, //ejecutar el strim
+          error: (e) => {
+            //console.log(e);
+            switch (e) {
+              case 404:
+                Swal.fire({
+                  title: 'Cliente no existe!',
+                  icon: 'info',
+                  showCancelButton: true,
+                  showConfirmButton: false,
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'Cerrar',
+                });
+                break;
+               default:
+                Swal.fire({
+                  title: 'No se puede resetear la contraseña',
+                  icon: 'info',
+                  showCancelButton: true,
+                  showConfirmButton: false,
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'Cerrar',
+                });
+                break;
+            }
+          }, //capturas los estados de error
+        });
+      }
+    });
+  }
+
   roles: RolModel[] = [
     { idRol: 1, rolDescription: 'Administrador' },
     { idRol: 2, rolDescription: 'Bodega' },
@@ -154,28 +208,6 @@ export class PersonComponent implements OnInit {
     this.filtrar();
   }
 
-  generarComboBox() {
-    const rolSpace = document.getElementById('rolSpace');
-    if (rolSpace) {
-      rolSpace.innerHTML = '';
-    }
-  
-    if (rolSpace) {
-      const comboBox = document.createElement('select');
-      comboBox.setAttribute('name', 'rol');
-  
-      for (const rol of this.roles) {
-        if (rol.idRol !== undefined) {
-          const option = document.createElement('option');
-          option.setAttribute('value', rol.idRol.toString());
-          option.textContent = rol.rolDescription;
-          comboBox.appendChild(option);
-        }
-      }
-  
-      rolSpace.appendChild(comboBox);
-    }
-  }
   
   onSubmit() {
     const person = {
@@ -232,8 +264,6 @@ export class PersonComponent implements OnInit {
   }
 
   onNuevo() { 
-   // this.generarComboBox();
-    
     this.titulo = 'Nueva persona';
     console.log('Creando Nuevo');
     this.frmPerson.reset();
