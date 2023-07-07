@@ -281,7 +281,7 @@ export class BillsComponent implements OnInit {
   }
 
   busqueda() {
-
+    
     this.srvBills
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {

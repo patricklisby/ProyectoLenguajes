@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError, retry, catchError } from 'rxjs';
+import { Observable, throwError, retry, catchError, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { ProductModel } from '../models/product.model';
+import { WarehouseModel } from '../models/warehouse.model';
+
 //import { retry } from 'rxjs/operators';
 
 @Injectable({
@@ -26,9 +28,25 @@ export class ProductService {
 
   filtar (): Observable<ProductModel[]>{
     //this.http.get<ProductModel>(this.SRV+'/product/'+pag+'/'+lim);
-    console.log("editando")
-
    return this.http.get<ProductModel[]>(`${this.SRV}/warehouse/alldata`).pipe(retry(1), catchError(this.handleError));
+  }
+  
+  filtrar(parametros: any, pag: number, lim: number): Observable<ProductModel[]> {
+    let params = new HttpParams();
+  
+    for (const prop in parametros) {
+      if (parametros.hasOwnProperty(prop)) {
+        params = params.append(prop, parametros[prop]);
+      }
+    }
+  
+    return this.http.get<ProductModel[]>(`${this.SRV}/product/${pag}/${lim}`, { params }).pipe(
+      tap(() => {
+        console.log('Request made with parameters:', parametros);
+      }),
+      retry(1),
+      catchError(this.handleError)
+    );
   }
 
   guardar(datos : any, id? : any): Observable<any>{

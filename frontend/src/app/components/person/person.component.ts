@@ -357,7 +357,7 @@ export class PersonComponent implements OnInit {
           '<tr><th>ID</th>' +
           `<td>${data.idPerson}</td></tr>` +
           '<tr><th>Nombre</th>' +
-          `<td>${data.namePerson}${data.firstLastNamePerson}${data.secondLastNamePerson}</td></tr>` +
+          `<td>${data.namePerson} ${data.firstLastNamePerson} ${data.secondLastNamePerson}</td></tr>` +
           '<tr><th>Rol</th>' +
           `<td>${data.rolDescription}</td></tr>` +
           '<tr><th>Telefono</th>' +

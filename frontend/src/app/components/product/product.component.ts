@@ -303,21 +303,34 @@ export class ProductComponent implements OnInit {
   }
 
   filtrar() {
-    if (this.filtroVisible) {
-      this.srvWarehouse
-      .filtrar(this.filtro, this.pagActual, this.itemsPPag)
-      .subscribe((data) => {
-        this.warehouse = Object(data)['datos'];
-        this.numRegs = Object(data)['regs'];
-        console.log(this.products);
-      });
-    }else{
-      this.srvProduct
+    
+    console.log(this.filtro);
+    
+    this.srvProduct
+    .filtrar(this.filtro, this.pagActual, this.itemsPPag)
+    .subscribe((data) => {
+      console.log(data);
+      
+      this.products = Object(data)['datos'];
+      this.numRegs = Object(data)['regs'];
+      //console.log(data);
+      console.log("Penes");
+      
+      console.log(this.products);
+    });
+   
+     
+    //}
+   // else{
+    /** 
+     this.srvProduct
       .filtar()
       .subscribe((data) => {
         this.products = data;
       });
-    }
+      */
+      
+    //}
   }
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;

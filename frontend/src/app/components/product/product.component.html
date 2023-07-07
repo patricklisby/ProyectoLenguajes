@@ -5,42 +5,40 @@
         <form>
           <div class="d-flex">
             <input
+            type="text"
+            class="form-control me-2"
+            placeholder="Descripción producto"
+            #fIdClassification
+            (keyup)="
+              onFiltrarChange({
+                productDescription: fIdClassification.value,
+                supplierDescription: fIdProduct.value,
+                classificationDescription: fIdSupplier.value,
+              })"/>
+                <input
               type="text"
               class="form-control me-2"
               placeholder="Proveedor"
-              #fsupplierDescription
+              #fIdProduct
               (keyup)="
                 onFiltrarChange({
-                  supplierDescription: fsupplierDescription.value,
-                  productDescription: fproductDescription.value,
-                  classificationDescription: fclassificationDescription.value
-
-
+                  productDescription: fIdClassification.value,
+                  supplierDescription: fIdProduct.value,
+                  classificationDescription: fIdSupplier.value,
                 })"/>
-            <input
-              type="text"
-              class="form-control me-2"
-              placeholder="Proveedor"
-              #fclassificationDescription
-              (keyup)="
-                onFiltrarChange({
-                  supplierDescription: fsupplierDescription.value,
-                  productDescription: fproductDescription.value,
-                  classificationDescription: fclassificationDescription.value
-
-                })"/>
-            <input
-              type="text"
-              class="form-control me-2"
-              placeholder="Producto"
-              #fproductDescription
-              (keyup)="
-                onFiltrarChange({
-                  supplierDescription: fsupplierDescription.value,
-                  productDescription: fproductDescription.value,
-                  classificationDescription: fclassificationDescription.value
-
-                })"/>
+                <input
+                type="text"
+                class="form-control me-2"
+                placeholder="Clasificación"
+                #fIdSupplier
+                (keyup)="
+                  onFiltrarChange({
+                    productDescription: fIdClassification.value,
+                    supplierDescription: fIdProduct.value,
+                    classificationDescription: fIdSupplier.value,
+  
+                  })"/>
+            
             <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
           </div>
         </form>
