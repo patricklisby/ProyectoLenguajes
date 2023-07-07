@@ -168,7 +168,6 @@ export class BillsComponent implements OnInit {
 
   onNuevo() {
     this.titulo = 'Nueva Factura';
-    console.log('Creando Nuevo');
     this.frmBills.reset();
   }
 
@@ -195,7 +194,6 @@ export class BillsComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -226,7 +224,6 @@ export class BillsComponent implements OnInit {
 
   onInfo(id: any) {
     this.srvBills.buscar(id).subscribe((data) => {
-      console.log(data);
       Swal.fire({
         title: '<strong> Información de la Factura</strong>',
         html:
@@ -274,7 +271,6 @@ export class BillsComponent implements OnInit {
       //guardas
       ///ng g guard shared/guards/auth --skip-tests=true
     );
-    console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['/bills']);
@@ -287,29 +283,15 @@ export class BillsComponent implements OnInit {
       .subscribe((data) => {
         this.bills = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
-        console.log(this.bills);
       });
 
   }
 
   filtrar() {
-    /**
-    this.srvBills
-      .filtar(this.filtro, this.pagActual, this.itemsPPag)
-      .subscribe((data) => {
-        this.bills = Object(data)['datos'];
-        this.numRegs = Object(data)['regs'];
-        //console.log(data);
-        console.log(this.bills);
-      });
-      */
-
       this.srvBills
       .filtro()
       .subscribe((data) => {
         this.bills = data;
-        console.log(this.bills);
       });
   }
   onFiltrar() {
