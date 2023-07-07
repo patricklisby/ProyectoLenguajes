@@ -3,3 +3,6 @@ footer {
     bottom: 0;
     width: 100%;
   }
+.img{
+  resize: 10px;
+}
