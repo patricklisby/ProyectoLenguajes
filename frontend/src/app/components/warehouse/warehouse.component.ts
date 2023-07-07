@@ -309,6 +309,8 @@ export class WarehouseComponent implements OnInit {
     this.srvWarehouse.filtrar(this.filtro,1, this.numRegs)
     .subscribe(
       data => {
+        console.log("Que rico un pene");
+        
         console.log(data);
         
         const cuerpo = Object(data)['datos']
@@ -329,7 +331,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   resetearFiltro() {
-    this.filtro = { idWarehouse: '', idProduct: ''};
+    this.filtro = { idWareHouse: '', productDescription: ''};
     this.filtrar();
   }
 
