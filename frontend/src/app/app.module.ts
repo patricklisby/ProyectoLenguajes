@@ -14,7 +14,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
-import { Error403Component } from './components/error403/error403.component'; 
+import { Error403Component } from './components/error403/error403.component';
 import { JwtInterceptor } from './shared/helpers/jwt.interceptor';
 import { RefreshTokenInterceptor } from './shared/helpers/refresh-token.interceptor';
 import { RolComponent } from './components/rol/rol.component';
@@ -29,6 +29,7 @@ import { SupplierComponent } from './components/supplier/supplier.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CambioPassComponent } from './components/cambio-pass/cambio-pass.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { LoaderInterceptor } from './shared/helpers/loader.interceptor';
 
 
 
@@ -62,15 +63,16 @@ import { LoaderComponent } from './components/loader/loader.component';
     SweetAlert2Module,
     NgxPaginationModule,
     BrowserAnimationsModule,
-    
+
   ],
   providers: [
     //nuevo para el helper
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:RefreshTokenInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass:LoaderInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]
-  
+
 })
 export class AppModule {
   constructor(libreria:FaIconLibrary){
