@@ -312,9 +312,6 @@ export class ProductComponent implements OnInit {
           console.log(data);
           this.products = Object(data)['datos'];
           this.numRegs = Object(data)['regs'];
-          //console.log(data);
-          console.log('Penes');
-          console.log(this.products);
         });
     } else {
       this.srvProduct.filtar().subscribe((data) => {
@@ -350,7 +347,6 @@ export class ProductComponent implements OnInit {
         item.priceProduct,
         item.expirationProduct,
       ]);
-
       this.srvPrint.print(encabezado, cuerpo, 'Listado de productos', true);
       return cuerpo;
     });

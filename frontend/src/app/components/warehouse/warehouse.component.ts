@@ -315,8 +315,6 @@ export class WarehouseComponent implements OnInit {
               item.productDescription,
               item.cantItem,
             ])
-            console.log(cuerpo);
-
         this.srvPrint.print(encabezado, cuerpo, "Listado de Bodega",true);
         return cuerpo;
         });
