@@ -144,8 +144,8 @@ export class CustomerComponent implements OnInit {
       admissionDate: moment().format('YYYY-MM-DD HH:mm:ss')
     };
     const texto = this.frmCustomer.value.idCustomer
-      ?  'Creado correctamente'
-      :'Actualizado correctamente';
+      ? 'Actualizado correctamente'
+      : 'Creado correctamente';
 
     this.srvCustomer.guardar(customer,this.frmCustomer.value.idCustomer).subscribe({
       complete: () => {
