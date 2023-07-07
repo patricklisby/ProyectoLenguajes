@@ -5,9 +5,20 @@
         <form>
           <div class="d-flex">
             <input
+            type="text"
+            class="form-control me-2"
+            placeholder="Nombre Proveedor"
+            #fIdProduct
+            (keyup)="
+              onFiltrarChange({
+                productDescription: fIdClassification.value,
+                supplierDescription: fIdProduct.value,
+                classificationDescription: fIdSupplier.value,
+              })"/>
+              <input
                 type="text"
                 class="form-control me-2"
-                placeholder="Clasificación"
+                placeholder="Nombre Clasificación"
                 #fIdSupplier
                 (keyup)="
                   onFiltrarChange({
@@ -16,7 +27,7 @@
                     classificationDescription: fIdSupplier.value,
 
                   })"/>
-            <input
+              <input
             type="text"
             class="form-control me-2"
             placeholder="Descripción producto"
@@ -27,19 +38,6 @@
                 supplierDescription: fIdProduct.value,
                 classificationDescription: fIdSupplier.value,
               })"/>
-                <input
-              type="text"
-              class="form-control me-2"
-              placeholder="Proveedor"
-              #fIdProduct
-              (keyup)="
-                onFiltrarChange({
-                  productDescription: fIdClassification.value,
-                  supplierDescription: fIdProduct.value,
-                  classificationDescription: fIdSupplier.value,
-                })"/>
-
-
             <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
           </div>
         </form>
