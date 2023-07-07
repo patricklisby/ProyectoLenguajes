@@ -277,10 +277,6 @@ export class CustomerComponent implements OnInit {
   onEditar(id: any) {
     this.titulo = 'Editando Cliente';
     this.srvCustomer.buscar(id).subscribe(
-      /*data => {
-      console.log(data);
-      this.frmCustomer.setValue(data)
-      }*/
       {
         next: (data) => {
           this.frmCustomer.setValue(data);

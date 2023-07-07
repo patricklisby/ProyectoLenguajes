@@ -432,8 +432,6 @@ export class PersonComponent implements OnInit {
     this.router.navigate(['/person']);
   }
 
-
-
   filtrar() {
     if (this.filtroVisible) {
       this.srvPerson

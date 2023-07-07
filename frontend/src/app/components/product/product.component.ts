@@ -137,7 +137,6 @@ export class ProductComponent implements OnInit {
     const texto = this.frmProduct.value.idProduct
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
-      console.log(texto);
 
     this.srvProduct.guardar(cliente, this.frmProduct.value.idProduct).subscribe({
       complete: () => {
@@ -181,7 +180,6 @@ export class ProductComponent implements OnInit {
 
   onNuevo() {
     this.titulo = 'Nuevo Producto';
-    console.log('Creando Nuevo');
     this.frmProduct.reset();
   }
 
@@ -208,7 +206,6 @@ export class ProductComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -240,7 +237,6 @@ export class ProductComponent implements OnInit {
 
   onInfo(id: any) {
     this.srvProduct.buscar(id).subscribe((data) => {
-      console.log(data);
       Swal.fire({
         title: '<strong> Informacion Producto</strong>',
         html:
@@ -271,10 +267,6 @@ export class ProductComponent implements OnInit {
   onEditar(id: any) {
     this.titulo = 'Editando Producto';
     this.srvProduct.buscar(id).subscribe(
-      /*data => {
-      console.log(data);
-      this.frmProduct.setValue(data)
-      }*/
       {
         next: (data) => {
           this.frmProduct.setValue(data);
@@ -296,7 +288,6 @@ export class ProductComponent implements OnInit {
       //guardas
       ///ng g guard shared/guards/auth --skip-tests=true
     );
-    console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['']);
@@ -307,12 +298,8 @@ export class ProductComponent implements OnInit {
     this.srvProduct
     .filtrar(this.filtro, this.pagActual, this.itemsPPag)
     .subscribe((data) => {
-      console.log(data);
       this.products = Object(data)['datos'];
       this.numRegs = Object(data)['regs'];
-      //console.log(data);
-      console.log("Penes");
-      console.log(this.products);
     });
    } else{
      this.srvProduct
@@ -333,8 +320,8 @@ export class ProductComponent implements OnInit {
     this.filtrar();
   }
   onImprimir(){
-    const encabezado = ["ID","Proveedor","Clasificación","Descripción","Precio", "Expiración Producto"];
-    this.srvProduct.filtar()
+    const encabezado = ["ID","Proveedor","Clasificación", "Descripción","Precio","Fecha Expiración"];
+    this.srvProduct.filtrar(this.filtro,1, this.numRegs)
     .subscribe(
       data => {
         const cuerpo = Object(data)['datos']
@@ -349,14 +336,15 @@ export class ProductComponent implements OnInit {
               Obj.expirationProduct
             ]
             return datos;
+            
           }
         )
-        this.srvPrint.print(encabezado, cuerpo, "Listado de products",true);
+        //this.srvPrint.print(encabezado, cuerpo, "Listado de Productos",true);
       }
     );
   }
   resetearFiltro() {
-    this.filtro = { idProduct: '', idSupplier: '', idClassification: '', productDescription: '' };
+    this.filtro = {productDescription: '', supplierDescription: '', classificationDescription: ''};
     this.filtrar();
   }
 

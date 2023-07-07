@@ -12,20 +12,19 @@
             (keyup)="
             onFiltrarChange({
               idWareHouse: fidWareHouse.value,
-              idProduct: fIdProduct.value,
+              productDescription: fIdProduct.value,
             })" />
 
           <input
             type="text"
             class="form-control me-2"
-            placeholder="ID Producto"
+            placeholder="Producto"
             #fIdProduct
             (keyup)="
                onFiltrarChange({
-                  idWareHouse: fidWareHouse.value,
-                  idProduct: fIdProduct.value,
+                idWareHouse: fidWareHouse.value,
+                productDescription: fIdProduct.value,
                   })" />
-
           <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
         </div>
       </form>
@@ -36,7 +35,6 @@
           <thead>
             <tr>
               <th scope="col">ID</th>
-              <th scope="col">ID Producto</th>
               <th scope="col">Producto</th>
               <th scope="col">Cantidad</th>
               <th scope="col" colspan="3" class="text-center">
@@ -64,7 +62,6 @@
               "
             >
               <th scope="row">{{ item.idWareHouse }}</th>
-              <td> {{ item.idProduct }} </td>
               <td> {{ item.productDescription }} </td>
               <td> {{ item.cantItem }} </td>
               <td class="text-center">

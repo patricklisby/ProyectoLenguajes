@@ -371,6 +371,7 @@ export class DetailsComponent implements OnInit {
       }
     );
   }
+  
   resetearFiltro() {
     this.filtro = { idDetail: '', idCustomer: '', idProduct: '', cantItem: '' };
     this.filtrar();
