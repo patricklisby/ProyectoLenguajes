@@ -14,7 +14,7 @@ export class HomeComponent {
   }
   
   generateChart() {
-    const salesData = [100, 200, 150, 300, 250, 400]; // Ejemplo de datos de ventas
+    const salesData = [500, 800, 700, 900, 1000,1200]; // Ejemplo de datos de ventas
   
     const canvas = <HTMLCanvasElement>document.getElementById('salesChart');
     const ctx = canvas.getContext('2d');
