@@ -106,8 +106,8 @@ export class ClassificationComponent implements OnInit {
       classificationDescription: this.frmClassification.value.classificationDescription
     };
     const texto = this.frmClassification.value.idClassification
-      ? 'Creado correctamente'
-      : 'Actualizado correctamente';
+      ? 'Actualizado correctamente'
+      : 'Creado correctamente';
     this.srvClassification.guardar(clasification, this.frmClassification.value.idClassification).subscribe({
       complete: () => {
         this.filtrar();
