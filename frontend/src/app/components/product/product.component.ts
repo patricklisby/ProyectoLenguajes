@@ -63,6 +63,7 @@ export class ProductComponent implements OnInit {
   numRegs = 1;
   paginas = [2, 5, 10, 20, 50];
   filtroVisible: boolean = false;
+  valor=0;
 
   constructor() {
     this.frmProduct = this.fb.group({
@@ -239,7 +240,10 @@ export class ProductComponent implements OnInit {
       }
     });
   }
-
+  onSeleccionarOpcion(event: Event) {
+    console.log('Opción seleccionada:',event);
+    // Realiza otras acciones con la opción seleccionada
+  }
   onInfo(id: any) {
     this.srvProduct.buscar(id).subscribe((data) => {
       console.log(data);
