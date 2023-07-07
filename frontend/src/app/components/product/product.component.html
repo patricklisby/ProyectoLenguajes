@@ -48,8 +48,10 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Proveedor</th>
-                <th scope="col">Clasificación</th>
+                <th scope="col">ID Proveedor</th>
+                <th scope="col">Nombre Proveedor</th>
+                <th scope="col">ID Clasificación</th>
+                <th scope="col">Nombre Clasificación</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Fecha Expiración</th>
@@ -78,7 +80,9 @@
                 "
               >
                 <th scope="row">{{ item.idProduct }}</th>
+                <td>{{ item.idSupplier }}</td>
                 <td>{{ item.supplierDescription }}</td>
+                <td>{{ item.idClassification }}</td>
                 <td>{{ item.classificationDescription }}</td>
                 <td>{{ item.productDescription }}</td>
                 <td>{{ item.priceProduct }}</td>
@@ -327,15 +331,12 @@
                 >Proveedores</label
               >
               <div class="col-sm-9">
-                <!-- <input
+                <input
                   type="text"
                   class="form-control"
                   id="idSupplier"
-                  formControlName="idSupplier"
-                /> -->
-                <select class="form-control" id="clienteSeleccionado" >
-                  <option *ngFor="let item of products" [value]="item.idProduct">{{ item.productDescription }}</option>
-                </select>
+                  formControlName="ID Proveedor"
+                />
               </div>
             </div>
             <div class="row mb-3">
@@ -343,15 +344,12 @@
                 >Clasificación</label
               >
               <div class="col-sm-9">
-                <!-- <input
+                <input
                   type="text"
                   class="form-control"
                   id="idClassification"
-                  formControlName="idClassification"
-                /> -->
-                <select class="form-control" id="clienteSeleccionado" >
-                  <option *ngFor="let item of products" [value]="item.idProduct">{{ item.productDescription }}</option>
-                </select>
+                  formControlName="ID Clasificación"
+                />
               </div>
             </div>
             <div class="row mb-3">
