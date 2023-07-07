@@ -60,7 +60,7 @@ export class ProductComponent implements OnInit {
   titulo: string = '';
   pagActual = 1;
   itemsPPag = 5;
-  numRegs = 0;
+  numRegs = 1;
   paginas = [2, 5, 10, 20, 50];
   filtroVisible: boolean = false;
 
@@ -303,34 +303,24 @@ export class ProductComponent implements OnInit {
   }
 
   filtrar() {
-    
-    console.log(this.filtro);
-    
+  if(this.filtroVisible){
     this.srvProduct
     .filtrar(this.filtro, this.pagActual, this.itemsPPag)
     .subscribe((data) => {
       console.log(data);
-      
       this.products = Object(data)['datos'];
       this.numRegs = Object(data)['regs'];
       //console.log(data);
       console.log("Penes");
-      
       console.log(this.products);
     });
-   
-     
-    //}
-   // else{
-    /** 
+   } else{
      this.srvProduct
       .filtar()
       .subscribe((data) => {
         this.products = data;
       });
-      */
-      
-    //}
+      }
   }
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;

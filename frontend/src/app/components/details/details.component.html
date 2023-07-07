@@ -12,32 +12,47 @@
               (keyup)="
               onFiltrarChange({
                 idDetail: fIdDetail.value,
-                idCustomer: fIdCustomer.value,
-                idProduct: fIdProduct.value,
+                nameCustomer: fIdCustomer.value,
+                productDescription: fIdProduct.value,
+                cantItem : fCantItem.value
               })" />
 
             <input
               type="text"
               class="form-control me-2"
-              placeholder="ID Cliente"
+              placeholder="Cliente"
               #fIdCustomer
               (keyup)="
                  onFiltrarChange({
-                    idDetail: fIdDetail.value,
-                    idCustomer: fIdCustomer.value,
-                    idProduct: fIdProduct.value,
+                  idDetail: fIdDetail.value,
+                  nameCustomer: fIdCustomer.value,
+                  productDescription: fIdProduct.value,
+                  cantItem : fCantItem.value
                     })" />
                 <input
                 type="text"
                 class="form-control me-2"
-                placeholder="ID Producto"
+                placeholder="Producto"
                 #fIdProduct
                 (keyup)="
                 onFiltrarChange({
-                   idDetail: fIdDetail.value,
-                   idCustomer: fIdCustomer.value,
-                   idProduct: fIdProduct.value,
+                  idDetail: fIdDetail.value,
+                     nameCustomer: fIdCustomer.value,
+                     productDescription: fIdProduct.value,
+                     cantItem : fCantItem.value
                    })" />
+                   <input
+                   type="text"
+                   class="form-control me-2"
+                   placeholder="Cantidad"
+                   #fCantItem
+                   (keyup)="
+                   onFiltrarChange({
+                     idDetail: fIdDetail.value,
+                     nameCustomer: fIdCustomer.value,
+                     productDescription: fIdProduct.value,
+                     cantItem : fCantItem.value
+                      })" />
             <button class="btn btn-danger" (click)="(onFiltrar)">&times;</button>
           </div>
         </form>
