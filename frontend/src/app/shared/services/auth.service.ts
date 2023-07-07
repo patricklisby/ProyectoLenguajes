@@ -30,13 +30,13 @@ export class AuthService {
   //iniciar sesion
   public login(user : {idUsuario : '' ,passw : ''}) : Observable<any>{
     console.log(user);
-    
+
     return this.http.patch<Token>(`${this.servidor}/sesion/login/${user.idUsuario}`,{passw:user.passw})
     .pipe(
       retry(1),
       tap(
         tokens => {
-          //console.log(tokens);
+          console.log(tokens);
           //nuevo
           this.doLogin(tokens);
           this.router.navigate(['/home']);//se hace para navegar en la pagina

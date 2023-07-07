@@ -32,7 +32,7 @@ export class WarehouseService {
         }
       }
       //this.http.get<ClassificationModel>(this.SRV+'/classification/'+pag+'/'+lim);
-      //console.log("filtrando WARE",{params:params})
+      console.log("filtrando WARE",{params:params})
      return this.http.get<WarehouseModel[]>(`${this.SRV}/warehouse/${pag}/${lim}`,{params:params}).pipe(retry(1), catchError(this.handleError));
     }
 

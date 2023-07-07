@@ -216,7 +216,7 @@ export class CustomerComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -310,7 +310,7 @@ export class CustomerComponent implements OnInit {
       .subscribe((data) => {
         this.customers = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        console.log(data);
         console.log(this.customers);
       });
   }

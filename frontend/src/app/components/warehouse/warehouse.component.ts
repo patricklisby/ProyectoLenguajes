@@ -189,7 +189,7 @@ export class WarehouseComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({

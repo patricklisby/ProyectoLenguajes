@@ -185,7 +185,7 @@ export class SupplierComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -282,7 +282,7 @@ export class SupplierComponent implements OnInit {
       .subscribe((data) => {
         this.suppliers = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        console.log(data);
         console.log(this.suppliers);
       });
   }

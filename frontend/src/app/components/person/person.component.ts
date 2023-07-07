@@ -153,7 +153,7 @@ export class PersonComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -311,7 +311,7 @@ export class PersonComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -342,7 +342,7 @@ export class PersonComponent implements OnInit {
 
   onInfo(id: any) {
     this.srvPerson.buscar(id).subscribe((data) => {
-      //console.log(data);
+      console.log(data);
       Swal.fire({
         title: '<strong> Información Colaborador(a)</strong>',
         html:
@@ -374,7 +374,7 @@ export class PersonComponent implements OnInit {
 
   onSelectRoles(){
     this.srvRol.extraerRol().subscribe((rolD) => {
-    //console.log(rolD);
+    console.log(rolD);
 
 
     Swal.fire({
@@ -426,7 +426,7 @@ export class PersonComponent implements OnInit {
       //guardas
       ///ng g guard shared/guards/auth --skip-tests=true
     );
-    //console.log('Editando ', id);
+    console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['/person']);
@@ -439,7 +439,7 @@ export class PersonComponent implements OnInit {
       .subscribe((data) => {
         this.persons = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(this.persons);
+        console.log(this.persons);
       });
     }else{
       this.srvPerson

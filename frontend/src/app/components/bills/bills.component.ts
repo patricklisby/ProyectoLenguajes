@@ -277,17 +277,30 @@ export class BillsComponent implements OnInit {
   }
 
   busqueda() {
-    
+
     this.srvBills
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
         this.bills = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.bills);
       });
 
   }
 
   filtrar() {
+    /**
+    this.srvBills
+      .filtar(this.filtro, this.pagActual, this.itemsPPag)
+      .subscribe((data) => {
+        this.bills = Object(data)['datos'];
+        this.numRegs = Object(data)['regs'];
+        //console.log(data);
+        console.log(this.bills);
+      });
+      */
+
       this.srvBills
       .filtro()
       .subscribe((data) => {

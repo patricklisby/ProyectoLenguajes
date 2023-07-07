@@ -175,7 +175,7 @@ export class DetailsComponent implements OnInit {
 
   onNuevo() {
     this.titulo = 'Nuevo detalle';
-    //console.log('Creando Nuevo');
+    console.log('Creando Nuevo');
     this.frmDetail.reset();
   }
 
@@ -202,7 +202,7 @@ export class DetailsComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -284,7 +284,7 @@ export class DetailsComponent implements OnInit {
       //guardas
       ///ng g guard shared/guards/auth --skip-tests=true
     );
-    //console.log('Editando ', id);
+    console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['']);
@@ -296,39 +296,39 @@ export class DetailsComponent implements OnInit {
 
         this.details = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        console.log(data);
     });
   }
   filtrar() {
-   
+
     this.srvDetail
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
 
         this.details = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        console.log(data);
         console.log(this.details);
     });
-     /** 
+     /**
     this.srvDetail
     .filtro()
     .subscribe((data) => {
       this.details = data;
-      //console.log(this.details);
+      console.log(this.details);
     });
     */
   }
 
   filtrarImp() {
-     
+
     this.srvDetail
       .filtar(this.filtro, this.pagActual, this.itemsPPag)
       .subscribe((data) => {
 
         this.details = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        console.log(data);
        // console.log(this.details);
     });
   }
@@ -344,12 +344,12 @@ export class DetailsComponent implements OnInit {
   }
   onImprimir(){
     const encabezado = ["ID","Cliente","Producto","Cantidad"];
- 
+
     this.srvDetail.filtro()
     .subscribe(
       data => {
         console.log(data);
-        
+
         const cuerpo = Object(data)
         .map(
           function (Obj: any) {
@@ -361,17 +361,17 @@ export class DetailsComponent implements OnInit {
           ];
           console.log(datos);
           return datos;
-          
-          
+
+
         },
-        
+
         )
        // console.log(data);
         this.srvPrint.print(encabezado, cuerpo, "Listado detalle",true);
       }
     );
   }
-  
+
   resetearFiltro() {
     this.filtro = { idDetail: '', idCustomer: '', idProduct: '', cantItem: '' };
     this.filtrar();

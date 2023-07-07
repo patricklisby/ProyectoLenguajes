@@ -156,17 +156,17 @@ export class RolComponent implements OnInit {
   }
   //@Output() params : any = [];
   getRoles() {
-    
+
     let id: any, description: string;
     //const params: any = [];
     this.roles.forEach((item) => {
       (this.id = item.idRol), (this.descripcion = item.rolDescription);
-      //console.log(item.idRol)
-      //console.log(id);
-      //console.log(description);
+      console.log(item.idRol)
+      console.log(id);
+      console.log(description);
       this.params.push(this.id, this.descripcion);
 
-      //console.log(item.rolDescription)
+      console.log(item.rolDescription)
     });
     console.log(this.params);
     return this.params;
@@ -202,7 +202,7 @@ export class RolComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
-            //console.log(e);
+            console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -289,7 +289,7 @@ export class RolComponent implements OnInit {
       .subscribe((data) => {
         this.roles = Object(data)['datos'];
         this.numRegs = Object(data)['regs'];
-        //console.log(data);
+        console.log(data);
         console.log(this.roles);
       });
   }
