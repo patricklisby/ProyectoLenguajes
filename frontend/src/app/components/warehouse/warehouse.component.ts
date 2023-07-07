@@ -306,11 +306,9 @@ export class WarehouseComponent implements OnInit {
   onImprimir(){
     const encabezado = ["ID","Nombre producto","Cantidad"];
     console.log(this.filtro);
-    this.srvWarehouse.filtrar(this.filtro,1, this.numRegs)
+    this.srvWarehouse.filtro()
     .subscribe(
       data => {
-        console.log("Que rico un pene");
-        
         console.log(data);
         
         const cuerpo = Object(data)['datos']
@@ -326,8 +324,9 @@ export class WarehouseComponent implements OnInit {
           }
         )
         this.srvPrint.print(encabezado, cuerpo, "Listado de Bodega",true);
-      }
-    );
+        return cuerpo;
+        });
+
   }
 
   resetearFiltro() {
