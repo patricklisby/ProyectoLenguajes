@@ -306,26 +306,21 @@ export class WarehouseComponent implements OnInit {
   onImprimir(){
     const encabezado = ["ID","Nombre producto","Cantidad"];
     console.log(this.filtro);
-    this.srvWarehouse.filtrar(this.filtro,1, this.numRegs)
+    this.srvWarehouse.filtro()
     .subscribe(
-      data => {
-        console.log(data);
-        
-        const cuerpo = Object(data)['datos']
-        .map(
-          (Obj : any) => {
-            const datos = [
-              Obj.idWareHouse,
-              Obj.productDescription,
-              Obj.cantItem,
-            ]
-            return datos;
+      (data) => {
+        const cuerpo = data
+        .map((item) => [
+              item.idWareHouse,
+              item.productDescription,
+              item.cantItem,
+            ])
+            console.log(cuerpo);
 
-          }
-        )
         this.srvPrint.print(encabezado, cuerpo, "Listado de Bodega",true);
-      }
-    );
+        return cuerpo;
+        });
+
   }
 
   resetearFiltro() {
