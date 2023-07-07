@@ -1,6 +1,21 @@
-.carousel-container {
-    height: 100vh;
-  }
-  .carousel-item{
-    text-align: center;
-  }
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  /* Estilos para el contenido a la izquierda */
+}
+
+.right {
+  /* Estilos para el contenido a la derecha */
+}
+.h5{
+  color:black
+}
+.text-img{
+  text-align: center;
+}
+.container-title{
+  text-align: center;
+}

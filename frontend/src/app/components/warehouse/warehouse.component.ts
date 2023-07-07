@@ -322,7 +322,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   resetearFiltro() {
-    this.filtro = { idWarehouse: '', idProduct: ''};
+    this.filtro = { idWareHouse: '', productDescription: ''};
     this.filtrar();
   }
 
