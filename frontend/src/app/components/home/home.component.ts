@@ -45,7 +45,7 @@ export class HomeComponent {
 
   
   generateProfitChart() {
-    const profitData = [500, 800, 700, 900, 1000, 1200]; // Ejemplo de datos de utilidades
+    const profitData = [500, 800, 700, 900, 1000, 1200, 1000, 1000, 1500]; // Ejemplo de datos de utilidades
   
     const canvas = <HTMLCanvasElement>document.getElementById('profitChart');
     const ctx = canvas.getContext('2d');
@@ -54,7 +54,7 @@ export class HomeComponent {
       new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+          labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio','Agosto','Setiembre'],
           datasets: [{
             label: 'Utilidades',
             data: profitData,
