@@ -101,7 +101,7 @@ export class ProductComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(15),
-          Validators.pattern('([A-Za-záéíóúñÑ]*)( ([A-Za-záéíóúñÑ]*)){0,5}')
+          Validators.pattern('([A-Za-záéíóúñÑ]*)( ([A-Za-záéíóúñÑ]*)){0,5}'),
         ],
       ], //requerido -tamMin(9)-formato(letras)
       priceProduct: ['', [Validators.required]],
@@ -137,49 +137,53 @@ export class ProductComponent implements OnInit {
     const texto = this.frmProduct.value.idProduct
       ? 'Actualizado correctamente'
       : 'Creado correctamente';
+    console.log(texto);
 
-    this.srvProduct.guardar(cliente, this.frmProduct.value.idProduct).subscribe({
-      complete: () => {
-        this.filtrar();
-        Swal.fire({
-          icon: 'success',
-          title: texto,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      },
+    this.srvProduct
+      .guardar(cliente, this.frmProduct.value.idProduct)
+      .subscribe({
+        complete: () => {
+          this.filtrar();
+          Swal.fire({
+            icon: 'success',
+            title: texto,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        },
 
-      error: (e) => {
-        switch (e) {
-          case 404:
-            Swal.fire({
-              icon: 'error',
-              title: 'El cliente no existe',
-              showConfirmButton: false,
-              cancelButtonColor: '#d33',
-              showCancelButton: true,
-              cancelButtonText: 'Cerrar',
-            });
-            break;
+        error: (e) => {
+          switch (e) {
+            case 404:
+              Swal.fire({
+                icon: 'error',
+                title: 'El cliente no existe',
+                showConfirmButton: false,
+                cancelButtonColor: '#d33',
+                showCancelButton: true,
+                cancelButtonText: 'Cerrar',
+              });
+              break;
 
-          case 409:
-            Swal.fire({
-              icon: 'error',
-              title: 'id cliente ya existe',
-              showConfirmButton: false,
-              cancelButtonColor: '#d33',
-              showCancelButton: true,
-              cancelButtonText: 'Cerrar',
-            });
-            break;
-        }
-        this.filtrar();
-      },
-    });
+            case 409:
+              Swal.fire({
+                icon: 'error',
+                title: 'id cliente ya existe',
+                showConfirmButton: false,
+                cancelButtonColor: '#d33',
+                showCancelButton: true,
+                cancelButtonText: 'Cerrar',
+              });
+              break;
+          }
+          this.filtrar();
+        },
+      });
   }
 
   onNuevo() {
     this.titulo = 'Nuevo Producto';
+    console.log('Creando Nuevo');
     this.frmProduct.reset();
   }
 
@@ -206,6 +210,7 @@ export class ProductComponent implements OnInit {
             this.filtrar(); // este actualiza
           }, //ejecutar el strim
           error: (e) => {
+            //console.log(e);
             switch (e) {
               case 404:
                 Swal.fire({
@@ -237,6 +242,7 @@ export class ProductComponent implements OnInit {
 
   onInfo(id: any) {
     this.srvProduct.buscar(id).subscribe((data) => {
+      console.log(data);
       Swal.fire({
         title: '<strong> Informacion Producto</strong>',
         html:
@@ -267,6 +273,10 @@ export class ProductComponent implements OnInit {
   onEditar(id: any) {
     this.titulo = 'Editando Producto';
     this.srvProduct.buscar(id).subscribe(
+      /*data => {
+      console.log(data);
+      this.frmProduct.setValue(data)
+      }*/
       {
         next: (data) => {
           this.frmProduct.setValue(data);
@@ -288,26 +298,29 @@ export class ProductComponent implements OnInit {
       //guardas
       ///ng g guard shared/guards/auth --skip-tests=true
     );
+    console.log('Editando ', id);
   }
   onCerrar() {
     this.router.navigate(['']);
   }
 
   filtrar() {
-  if(this.filtroVisible){
-    this.srvProduct
-    .filtrar(this.filtro, this.pagActual, this.itemsPPag)
-    .subscribe((data) => {
-      this.products = Object(data)['datos'];
-      this.numRegs = Object(data)['regs'];
-    });
-   } else{
-     this.srvProduct
-      .filtar()
-      .subscribe((data) => {
+    if (this.filtroVisible) {
+      this.srvProduct
+        .filtrar(this.filtro, this.pagActual, this.itemsPPag)
+        .subscribe((data) => {
+          console.log(data);
+          this.products = Object(data)['datos'];
+          this.numRegs = Object(data)['regs'];
+          //console.log(data);
+          console.log('Penes');
+          console.log(this.products);
+        });
+    } else {
+      this.srvProduct.filtar().subscribe((data) => {
         this.products = data;
       });
-      }
+    }
   }
   onFiltrar() {
     this.filtroVisible = !this.filtroVisible;
@@ -319,32 +332,36 @@ export class ProductComponent implements OnInit {
     this.filtro = f;
     this.filtrar();
   }
-  onImprimir(){
-    const encabezado = ["ID","Proveedor","Clasificación", "Descripción","Precio","Fecha Expiración"];
-    this.srvProduct.filtrar(this.filtro,1, this.numRegs)
-    .subscribe(
-      data => {
-        const cuerpo = Object(data)['datos']
-        .map(
-          (Obj : any) => {
-            const datos = [
-              Obj.idProduct,
-              Obj.supplierDescription,
-              Obj.classificationDescription,
-              Obj.productDescription,
-              Obj.priceProduct,
-              Obj.expirationProduct
-            ]
-            return datos;
-            
-          }
-        )
-        //this.srvPrint.print(encabezado, cuerpo, "Listado de Productos",true);
-      }
-    );
+  onImprimir() {
+    const encabezado = [
+      'ID',
+      'Proveedor',
+      'Clasificación',
+      'Descripción',
+      'Precio',
+      'Expiración Producto',
+    ];
+    this.srvProduct.filtar().subscribe((data) => {
+      const cuerpo = data.map((item) => [
+        item.idProduct,
+        item.supplierDescription,
+        item.classificationDescription,
+        item.productDescription,
+        item.priceProduct,
+        item.expirationProduct,
+      ]);
+
+      this.srvPrint.print(encabezado, cuerpo, 'Listado de productos', true);
+      return cuerpo;
+    });
   }
   resetearFiltro() {
-    this.filtro = {productDescription: '', supplierDescription: '', classificationDescription: ''};
+    this.filtro = {
+      idProduct: '',
+      idSupplier: '',
+      idClassification: '',
+      productDescription: '',
+    };
     this.filtrar();
   }
 
