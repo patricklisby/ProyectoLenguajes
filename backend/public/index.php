@@ -5,7 +5,6 @@ header('Access-Control-Allow-Origin: *');
 
 // Permitir los métodos HTTP GET, POST, PUT y DELETE
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, PATCH');
-
 // Permitir los encabezados de contenido y autorización
 header('Access-Control-Allow-Headers: X-API-KEY, Origin, X-Request-Width, Content-Type, Accept, Access-Control-Request-Method, Authorization');
 

@@ -11,19 +11,35 @@ $app->group('/person', function(RouteCollectorProxy $person){
         $passw->patch('/change/{id}', Person::class . ':changePassw');
         $passw->patch('/reset/{id}', Person::class . ':resetPassw');
     });//GroupPassw
-});//Group persons
+});
 
-$app->group('/sesion', function(RouteCollectorProxy $sesion){
+// Define el middleware de CORS
+$corsMiddleware = function ($request, $handler) {
+    $response = $handler->handle($request)
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, PATCH')
+        ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // Si la solicitud es de tipo OPTIONS, no procesamos más
+    if ($request->getMethod() === 'OPTIONS') {
+        return $response;
+    }
+
+    return $response;
+};
+
+//Group Persons
+$app->group('/sesion', function (RouteCollectorProxy $sesion) use ($corsMiddleware) {
     $sesion->patch('/login/{id}', Sesion::class . ':login');
     $sesion->patch('/logout/{id}', Sesion::class . ':logout');
     $sesion->patch('/reload/{id}', Sesion::class . ':reload');
-});//Grupo sesion
+})->add($corsMiddleware); // Aplica el middleware de CORS al grupo de rutas '/sesion'
 
 $app->group('/user', function(RouteCollectorProxy $user){
     $user->group('/passw',function(RouteCollectorProxy $passw)
     {
-    $passw->patch('/change/{id}',User::class.':changePassw');//--
-    $passw->patch('/reset/{id}',User::class.':resetPassw');//--
+    $passw->patch('/change/{id}' , User::class.':changePassw');//--
+    $passw->patch('/reset/{id}', User::class.':resetPassw');//--
     });
 });//Grupo sesion
 
