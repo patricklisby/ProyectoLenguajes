@@ -12,7 +12,7 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   srvAuth = inject(AuthService);
   errorLogin : boolean = false;
-  
+
   constructor(){
     this.frmLogin = this.fb.group({
       idUsuario : ['',Validators.required],
@@ -22,11 +22,13 @@ export class LoginComponent {
 
 
 onSubmit(){
-  console.log(this.frmLogin.value);
   this.srvAuth.login(this.frmLogin.value)
   .subscribe(
     res => {
       this.errorLogin = (!res || res === 401);
+      setTimeout(() => {
+        this.errorLogin = false;
+      }, 3000);
     }
   )
 }
